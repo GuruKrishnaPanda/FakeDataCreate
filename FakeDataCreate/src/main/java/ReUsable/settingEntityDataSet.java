@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import pojoClases.Contract;
 import pojoClases.Counterparty;
-import pojoClases.datacreation;
 
 public class settingEntityDataSet {
 	datacreation create ;
