@@ -4,12 +4,14 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.zip.ZipEntry;
@@ -17,8 +19,13 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FileUtils;
 
+import ReUsable.ReadWrite;
+import pojoClases.Contract;
+import pojoClases.Counterparty;
+
 public class Utils {
 	private static final int BUFFER_SIZE = 4096;
+	 
 	public static String generateFolderwithName() {
 		String folderName = null;
 		try {
@@ -96,4 +103,6 @@ public class Utils {
 		  FileUtils.moveDirectoryToDirectory(srcDir, destDir, true);
 		
 		}
+	
+
 }

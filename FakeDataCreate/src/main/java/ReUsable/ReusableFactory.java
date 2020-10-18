@@ -12,7 +12,7 @@ import pojoClases.Counterparty;
 public class ReusableFactory {
 	
 	settingEntityDataSet eds =  new settingEntityDataSet();
-	ReadWrite readwrite = new ReadWrite();
+	GenerateEntityFiles generateEntityFiles = new GenerateEntityFiles();
 	public void createData(int numberData) {
 		
 		ArrayList<Contract> contractData = eds.createContractData(numberData);
@@ -21,8 +21,8 @@ public class ReusableFactory {
 		try {
 			
 			String folderName = Utils.generateFolderwithName();
-			readwrite.generateContractfile(contractData,folderName);
-			readwrite.generateCounterpartyfile(counterPartyData,folderName);
+			generateEntityFiles.generateContractfile(contractData,folderName);
+			generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName);
 			Utils.compressFolder(folderName);
 		} catch (IOException e) {
 			

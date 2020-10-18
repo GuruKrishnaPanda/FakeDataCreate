@@ -21,81 +21,11 @@ public class ReadWrite {
 	 FileWriter outputfile;
 	 List hearderData;
 	 
-	public void generateContractfile(ArrayList<Contract> contractData,String folderName) throws IOException {
 	
-			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.contract+Constants.fileType;
-			 outputfile = createFileObject(fileName);
-			 writeCotractData(contractData,outputfile);	
-	}
-	
-	
-	public void generateCounterpartyfile(ArrayList<Counterparty> contractData,String folderName) throws IOException {
-		
-			 
-			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;
-			 outputfile = createFileObject(fileName);
-			 writeCounterPartyData(contractData,outputfile);	
 
-	}
-	public void generateCounterpartyRatingfile(ArrayList<Contract> contractData) throws IOException {
-		
-			String fileName = Constants.NewfileLocation+"Counterparty Rating"+Constants.fileType;
-			 file = new File(fileName); 
-			 outputfile = new FileWriter(file);
-			 hearderData =  createHeader("Counterparty Rating");
-		
-	
-	}
-	public void generateCounterpartyRiskfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
-		
-			String fileName = Constants.NewfileLocation+"Counterparty Risk"+Constants.fileType;
-			 file = new File(fileName);
-			 outputfile = new FileWriter(file);
-			 hearderData =  createHeader("Counterparty Risk");
-		
-	
-	}
-	public void generateInstrumentfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
-		
-			String fileName = Constants.NewfileLocation+"Instrument"+Constants.fileType;
-			 file = new File(fileName); 
-			 outputfile = new FileWriter(file);
-			 hearderData =  createHeader("Instrument");
-		
-	
-	}
-	public void generateProtectionfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
-		
-			String fileName = Constants.NewfileLocation+"Protection"+Constants.fileType;
-			 file = new File(fileName); 
-			 outputfile = new FileWriter(file);
-			 hearderData =  createHeader("Protection");
-		
-	
-	}
-	public void generateProtectionInstrumentfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
-		
-			String fileName = Constants.NewfileLocation+"Protection Instrument"+Constants.fileType;
-			 file = new File(fileName); 
-			 outputfile = new FileWriter(file);
-			 hearderData =  createHeader("Protection Instrument");
-		
-	
-	}
-	public void generateRelatedPartyfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
-
-		
-			String fileName = Constants.NewfileLocation+"Related Party"+Constants.fileType;
-			 file = new File(fileName); 
-			 outputfile = new FileWriter(file);
-			 hearderData =  createHeader("Related Party");
-		
-	
-	}
-
-public void writeCotractData(ArrayList<Contract> contractData, FileWriter outputfile) {
+public  void writeCotractData(ArrayList<Contract> contractData, String fileName) {
     try { 
-    	
+    	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
         CSVWriter writer = new CSVWriter(outputfile, ',', 
                                          CSVWriter.NO_QUOTE_CHARACTER, 
@@ -122,9 +52,9 @@ public void writeCotractData(ArrayList<Contract> contractData, FileWriter output
     } 
 }
 
-public void writeCounterPartyData(ArrayList<Counterparty> contractData, FileWriter outputfile) {
+public void writeCounterPartyData(ArrayList<Counterparty> contractData, String fileName) {
     try { 
-    	
+    	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
         CSVWriter writer = new CSVWriter(outputfile, ',', 
                                          CSVWriter.NO_QUOTE_CHARACTER, 
