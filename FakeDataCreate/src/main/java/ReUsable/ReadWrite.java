@@ -23,7 +23,7 @@ public class ReadWrite {
 	 
 	public void generateContractfile(ArrayList<Contract> contractData,String folderName) throws IOException {
 	
-			 String fileName = Constants.fileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.contract+Constants.fileType;
+			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.contract+Constants.fileType;
 			 outputfile = createFileObject(fileName);
 			 writeCotractData(contractData,outputfile);	
 	}
@@ -32,14 +32,14 @@ public class ReadWrite {
 	public void generateCounterpartyfile(ArrayList<Counterparty> contractData,String folderName) throws IOException {
 		
 			 
-			 String fileName = Constants.fileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;
+			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;
 			 outputfile = createFileObject(fileName);
 			 writeCounterPartyData(contractData,outputfile);	
 
 	}
 	public void generateCounterpartyRatingfile(ArrayList<Contract> contractData) throws IOException {
 		
-			String fileName = Constants.fileLocation+"Counterparty Rating"+Constants.fileType;
+			String fileName = Constants.NewfileLocation+"Counterparty Rating"+Constants.fileType;
 			 file = new File(fileName); 
 			 outputfile = new FileWriter(file);
 			 hearderData =  createHeader("Counterparty Rating");
@@ -48,7 +48,7 @@ public class ReadWrite {
 	}
 	public void generateCounterpartyRiskfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
 		
-			String fileName = Constants.fileLocation+"Counterparty Risk"+Constants.fileType;
+			String fileName = Constants.NewfileLocation+"Counterparty Risk"+Constants.fileType;
 			 file = new File(fileName);
 			 outputfile = new FileWriter(file);
 			 hearderData =  createHeader("Counterparty Risk");
@@ -57,7 +57,7 @@ public class ReadWrite {
 	}
 	public void generateInstrumentfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
 		
-			String fileName = Constants.fileLocation+"Instrument"+Constants.fileType;
+			String fileName = Constants.NewfileLocation+"Instrument"+Constants.fileType;
 			 file = new File(fileName); 
 			 outputfile = new FileWriter(file);
 			 hearderData =  createHeader("Instrument");
@@ -66,7 +66,7 @@ public class ReadWrite {
 	}
 	public void generateProtectionfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
 		
-			String fileName = Constants.fileLocation+"Protection"+Constants.fileType;
+			String fileName = Constants.NewfileLocation+"Protection"+Constants.fileType;
 			 file = new File(fileName); 
 			 outputfile = new FileWriter(file);
 			 hearderData =  createHeader("Protection");
@@ -75,7 +75,7 @@ public class ReadWrite {
 	}
 	public void generateProtectionInstrumentfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
 		
-			String fileName = Constants.fileLocation+"Protection Instrument"+Constants.fileType;
+			String fileName = Constants.NewfileLocation+"Protection Instrument"+Constants.fileType;
 			 file = new File(fileName); 
 			 outputfile = new FileWriter(file);
 			 hearderData =  createHeader("Protection Instrument");
@@ -85,7 +85,7 @@ public class ReadWrite {
 	public void generateRelatedPartyfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
 
 		
-			String fileName = Constants.fileLocation+"Related Party"+Constants.fileType;
+			String fileName = Constants.NewfileLocation+"Related Party"+Constants.fileType;
 			 file = new File(fileName); 
 			 outputfile = new FileWriter(file);
 			 hearderData =  createHeader("Related Party");
@@ -131,7 +131,7 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, FileWrit
                                          CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
                                          CSVWriter.DEFAULT_LINE_END); 
         
-        writer.writeNext(headerFiles.contractHeader()); 
+        writer.writeNext(headerFiles.counterPartyHeader()); 
         System.out.println("No of rows = "+contractData.size()); 
         for(Counterparty con : contractData) {
         	String[] rowData =  { 
@@ -178,10 +178,7 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, FileWrit
     } 
 } 
 	
-public void generateContractFile(ArrayList<Contract> contractData,String entityType) {
-	
-	
-}
+
 public FileWriter createFileObject(String fileName) throws IOException{
 	file = new File(fileName); 
 	outputfile = new FileWriter(file);

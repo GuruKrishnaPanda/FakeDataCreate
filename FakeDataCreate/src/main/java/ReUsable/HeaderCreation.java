@@ -46,7 +46,7 @@ public class HeaderCreation {
 
 	
 	public static List<Contract> parseCSVWithHeader() throws IOException {
-		String fileName = Constants.fileLocation+"Contract1"+Constants.fileType;
+		String fileName = Constants.NewfileLocation+"Contract1"+Constants.fileType;
 		CSVReader reader = new CSVReader(new FileReader(fileName), ',');
 		
 		HeaderColumnNameMappingStrategy<Contract> beanStrategy = new HeaderColumnNameMappingStrategy<Contract>();

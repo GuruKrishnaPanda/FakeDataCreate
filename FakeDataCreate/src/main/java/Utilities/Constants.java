@@ -8,7 +8,8 @@ public class Constants {
 	public static String havechar = "N";
 	public static int totalData =  100;
 	public static String fileType =  ".csv";
-	public static String fileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
+	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
+	public static String ArchivefileLocation =  System.getProperty("user.dir")+"\\ArchiveFiles\\";
 	public static String separator =  ";";
 	
 	public static String contract =  "Contract";

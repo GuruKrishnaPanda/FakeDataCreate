@@ -2,6 +2,7 @@ package Execution;
 
 
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 import pojoClases.Contract;
@@ -13,7 +14,7 @@ import Utilities.Utils;
 
 public class MainClass {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		Utils.archiveAvailableFiles();
 		ReusableFactory ref =  new ReusableFactory(); 
