@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 import com.github.javafaker.Faker;
 
-import test.Constants;
+import Utilities.Constants;
 
 public class datacreation {
 	//Faker faker = new Faker(new Locale("pt_US"));

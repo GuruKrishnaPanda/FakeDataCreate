@@ -4,6 +4,7 @@ package ReUsable;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Utilities.Utils;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 

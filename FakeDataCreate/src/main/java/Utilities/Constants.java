@@ -1,4 +1,4 @@
-package test;
+package Utilities;
 
 public class Constants {
 	public static String typeOfData = "N";// Valid Data

@@ -6,8 +6,9 @@ import java.lang.reflect.Field;
 
 import pojoClases.Contract;
 import ReUsable.ReusableFactory;
-import ReUsable.Utils;
 import ReUsable.datacreation;
+import Utilities.Constants;
+import Utilities.Utils;
 
 
 public class MainClass {

@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import pojoClases.Contract;
-import test.Constants;
-import test.headerFiles;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
+
+import Utilities.Constants;
+import Utilities.headerFiles;
 
 public class HeaderCreation {
 

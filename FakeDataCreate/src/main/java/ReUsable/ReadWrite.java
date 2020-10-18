@@ -11,10 +11,10 @@ import java.util.List;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import Utilities.Constants;
+import Utilities.headerFiles;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
-import test.Constants;
-import test.headerFiles;
 
 public class ReadWrite {
 	 File file;
