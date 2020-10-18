@@ -6,14 +6,9 @@ public class Contract {
 	public String instrumentId;
 	public String counterypartyId;
 	
-		
-		
-	
 	public String getReportingEntityId() {
 		return reportingEntityId;
 	}
-	
-	
 	public void setReportingEntityId(String reportingEntityId) {
 		this.reportingEntityId = reportingEntityId;
 	}

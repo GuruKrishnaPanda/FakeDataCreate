@@ -18,8 +18,11 @@ public class ReusableFactory {
 		ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(contractData);
 		
 		try {
-			readwrite.generateContractfile(contractData,"contract");
-			readwrite.generateCounterpartyfile(counterPartyData,"CountrerParty");
+			
+			String folderName = Utils.generateFolderwithName();
+			readwrite.generateContractfile(contractData,folderName);
+			readwrite.generateCounterpartyfile(counterPartyData,folderName);
+			Utils.compressFolder(folderName);
 		} catch (IOException e) {
 			
 			e.printStackTrace();

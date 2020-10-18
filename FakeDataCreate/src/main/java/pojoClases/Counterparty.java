@@ -1,11 +1,14 @@
 package pojoClases;
 
+import java.util.Date;
+
 public class Counterparty {
 	private String reportingEntityId;
 	private String counterypartyId;
 	private String name;
 	private String pan;
 	private String cin;
+	private String din;
 	private String lei;
 	private String tan;
 	private String gstin;
@@ -15,12 +18,21 @@ public class Counterparty {
 	private String addressLine1;
 	private String addressLine2;
 	private String addressLine3;
-	private String pinCode;
+	private String zipCode;
 	private String stateCode;
 	private String districtCode;
 	private String countryCode;
 	private String emailAddress;
-	
+	private  String date;
+	private String adharNo;
+	private String telePhoneNumber;
+	public String phoneNumber;
+	public String casteGen;
+	public String commGen;
+	public String typeOrg;
+	public String burrrower;
+	public String pinCode;
+	public String mobNo;
 	
 	public String getReportingEntityId() {
 		return reportingEntityId;
@@ -33,6 +45,7 @@ public class Counterparty {
 	}
 	public void setCounterypartyId(String counterypartyId) {
 		this.counterypartyId = counterypartyId;
+		
 	}
 	public String getName() {
 		return name;
@@ -106,12 +119,7 @@ public class Counterparty {
 	public void setAddressLine3(String addressLine3) {
 		this.addressLine3 = addressLine3;
 	}
-	public String getPinCode() {
-		return pinCode;
-	}
-	public void setPinCode(String pinCode) {
-		this.pinCode = pinCode;
-	}
+	
 	public String getStateCode() {
 		return stateCode;
 	}
@@ -136,7 +144,80 @@ public class Counterparty {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+	
+	
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	public String getAdharNo() {
+		return adharNo;
+	}
+	public void setAdharNo(String adharNo) {
+		this.adharNo = adharNo;
+	}
+	
+	public String getTelePhoneNumber() {
+		return telePhoneNumber;
+	}
+	public void setTelePhoneNumber(String telePhoneNumber) {
+		this.telePhoneNumber = telePhoneNumber;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getDin() {
+		return din;
+	}
+	public void setDin(String din) {
+		this.din = din;
+	}
+	public String getCasteGen() {
+		return casteGen;
+	}
+	public void setCasteGen(String casteGen) {
+		this.casteGen = casteGen;
+	}
+	public String getCommGen() {
+		return commGen;
+	}
+	public void setCommGen(String commGen) {
+		this.commGen = commGen;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getTypeOrg() {
+		return typeOrg;
+	}
+	public void setTypeOrg(String typeOrg) {
+		this.typeOrg = typeOrg;
+	}
+	public String getBurrrower() {
+		return burrrower;
+	}
+	public void setBurrrower(String burrrower) {
+		this.burrrower = burrrower;
+	}
+	public String getPinCode() {
+		return pinCode;
+	}
+	public void setPinCode(String pinCode) {
+		this.pinCode = pinCode;
+	}
+	public String getMobNo() {
+		return mobNo;
+	}
+	public void setMobNo(String mobNo) {
+		this.mobNo = mobNo;
+	}
 
-	
-	
 }
