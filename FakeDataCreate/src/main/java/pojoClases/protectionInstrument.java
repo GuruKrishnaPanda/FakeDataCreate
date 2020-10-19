@@ -8,6 +8,7 @@ public class protectionInstrument {
 	private String chargeType;
 	public String reportingEntityId;
 	public String contractId;
+	
 	public String getInstrumentId() {
 		return instrumentId;
 	}
