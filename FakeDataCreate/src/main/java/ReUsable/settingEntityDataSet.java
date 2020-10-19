@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.protectionInstrument;
+import pojoClases.relatedParty;
 
 public class settingEntityDataSet {
 	datacreation create ;
@@ -49,18 +51,18 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		 	cp.setReportingEntityId(contract.getReportingEntityId());
 		 	cp.setStateCode(create.stateCode());
 		 	cp.setTan(create.taxCollectionAccountNumber());
-		    	cp.setDate(create.date());
+		    cp.setDate(create.date());
 		 	cp.setAdharNo(create.adharGenerate());
 		 	cp.setUdyogAadhaar(create.udyogAdharNumber());
 		 	cp.setCasteGen(create.createCaste());
-		    	cp.setCommGen(create.createCommunity());
+		    cp.setCommGen(create.createCommunity());
 		 	cp.setDin(create.createDIN());
-		    	cp.setTypeOrg(create.typeOfOrganisation());
-		    	cp.setPinCode(create.pinCode());
-		    	cp.setBurrrower(create.createBurrower());
-		    	cp.setStateCode(create.stateCode());
-		    	cp.setTelePhoneNumber(create.mobileNumber());
-		    	cp.setMobNo(create.landmobileNumber());
+		    cp.setTypeOrg(create.typeOfOrganisation());
+		    cp.setPinCode(create.pinCode());
+		    cp.setBurrrower(create.createBurrower());
+		    cp.setStateCode(create.stateCode());
+		    cp.setTelePhoneNumber(create.mobileNumber());
+		    cp.setMobNo(create.landmobileNumber());
 		    con.add(cp);
 		
 	
@@ -68,4 +70,41 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 	}	
 	return con;
 }
+public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<Contract> contractData)
+{
+	
+	ArrayList<protectionInstrument> con =  new ArrayList<>();
+	
+	for(Contract contract: contractData) 
+	{
+	 	create = new datacreation();
+	 	protectionInstrument p = new protectionInstrument();
+	    p.setReportingEntityId(contract.getReportingEntityId());
+	    p.setInstrumentId(contract.getInstrumentId());
+	    p.setContractId(contract.getContractId());
+	    p.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
+	    p.setProtectionId(create.createProtectionId());
+	    
+	
+	con.add(p);
+	
+
+	
+    }
+	return con;
+}
+public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contractData) {
+	
+	ArrayList<relatedParty> con =  new ArrayList<>();
+	
+	for(Contract contract: contractData) {
+    create = new datacreation();
+    relatedParty rel = new relatedParty();
+    rel.setReportingEntityId(contract.getReportingEntityId());
+    rel.setCounterpartyId(contract.getCounterypartyId());
+    con.add(rel);
+		
+}
+	return con;
+	}
 }

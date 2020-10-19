@@ -1,11 +1,11 @@
 package Utilities;
 
 public class Constants {
-	public static String typeOfData = "N";// Valid Data
+	public static String typeOfData = "Y";// Valid Data
 	public static String haveSpecialChar = "N";
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
-	public static String havechar = "N";
+	public static String havechar = "Y";
 	public static int totalData =  100;
 	public static String fileType =  ".csv";
 	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";

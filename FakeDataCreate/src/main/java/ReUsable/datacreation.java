@@ -616,5 +616,39 @@ int j= faker.number().numberBetween(4, 10);
 				return createdata(10, true, false, true);	
 		 } 
 	 }
+	 public String createProtectionId()
+	 {
+		 int j= faker.number().numberBetween(5, 15);
+			
+			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+			{
+				
+				
+				String value = 	conditionCheck3(j);
+				System.out.println(value);
+				return value;
+				
+			}
+			else {
+			
+				return createdata(10, true, false, true);	
+			     }
+		
+	 }
+	 public String createprotectionAllocatedValue()
+	 {
+		 int j= faker.number().numberBetween(5, 17);
+		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+		 {
+			 String value = conditionCheck5(j);
+				System.out.println(value); 
+				return value;
+		 }
+		 else
+		 {
+			
+				return createdata(10, true, false, true);	
+		 }
+	 }
  }
 
