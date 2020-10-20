@@ -685,6 +685,29 @@ int j= faker.number().numberBetween(4, 10);
 	 {
 		 int j= faker.number().numberBetween(5, 21);
 			
+		String val = createAlpha();
+		return val;
+	 }
+	 public 				String value = 	conditionCheck5(j);
+				System.out.println(value);
+				return value;
+			}
+			else {
+			
+				return createdata(10, true, false, true);	
+			     }
+	 }
+	 public String createAlpha()
+	 {
+		 int j= faker.number().numberBetween(5, 21);
+			
+			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+			{
+				
+ing createAlpha()
+	 {
+		 int j= faker.number().numberBetween(5, 21);
+			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 			{
 				
@@ -699,5 +722,69 @@ int j= faker.number().numberBetween(4, 10);
 				return createdata(10, true, false, true);	
 			     } 
 	 }
+	 public String createCouterpartyIdentifier()
+	 {
+		 int j=faker.number().numberBetween(3, 15);
+		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+		 {
+			 String value = conditionCheck3(j).toUpperCase();
+				System.out.println(value);
+				return value;
+		 }
+		 else
+		 {
+			return null;
+		 }
+	 }
+	 public String createRatingId()
+	 {
+
+	 	 int j=faker.number().numberBetween(5, 20);
+	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 	 {
+	 		 String value = conditionCheck3(j).toUpperCase();
+	 			System.out.println(value);
+	 			return value;
+	 	 }
+	 	 else
+	 	 {
+	 		return null;
+	 	 }
+	 	
+	 	
+	 }
+	 public String creditRating()
+	 {
+
+	 	 int j=faker.number().numberBetween(4, 15);
+	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 	 {
+	 		 String value = conditionCheck3(j).toUpperCase();
+	 			System.out.println(value);
+	 			return value;
+	 	 }
+	 	 else
+	 	 {
+	 		return null;
+	 	 }
+	 	
+	 	
+	 }
+	 public String assessmentAgencyAuthority()
+	 {
+
+	 	 int j=faker.number().numberBetween(6, 20);
+	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 	 {
+	 		 String value = conditionCheck3(j).toUpperCase();
+	 			System.out.println(value);
+	 			return value;
+	 	 }
+	 	 else
+	 	 {
+	 		return null;
+	 	 }
+ 
  }
 
+}

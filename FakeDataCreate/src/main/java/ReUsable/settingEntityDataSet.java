@@ -110,5 +110,20 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 }
 	return con;
 	}
+public ArrayList<counterpartyRating> createcounterpartyRatingData(ArrayList<Contract> contractData) {
+	
 
+	ArrayList<counterpartyRating> con =  new ArrayList<>();
+	
+				for(Contract contract: contractData) {
+			 	create = new datacreation();
+			 	counterpartyRating cpr  =  new counterpartyRating();
+			 	cpr.setReportingEntityId(contract.getReportingEntityId());
+			 	cpr.setCounterpartyId(create.createCouterpartyIdentifier());
+			 	con.add(cpr);
+			 	
+			 	cpr=null;
+				}
+		 	return con;
+}
 }
