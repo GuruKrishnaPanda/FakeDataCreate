@@ -11,17 +11,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.FileUtils;
 
-import ReUsable.ReadWrite;
-import pojoClases.Contract;
-import pojoClases.Counterparty;
+
 
 public class Utils {
 	private static final int BUFFER_SIZE = 4096;
@@ -29,7 +28,6 @@ public class Utils {
 	public static String generateFolderwithName() {
 		String folderName = null;
 		try {
-			Calendar c = Calendar.getInstance();
 			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
 			String strDateFormat = "hhmmss";
 			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
@@ -42,7 +40,6 @@ public class Utils {
 			  Files.createDirectories(path);
 			  System.out.println("Directory is created!");
 			  
-
 			} catch (IOException e) {
 
 			  System.err.println("Failed to create directory!" + e.getMessage());
@@ -100,9 +97,34 @@ public class Utils {
 	private static void moveFileOrDirectory(String contents) throws IOException {
 		 File srcDir = new File(Constants.NewfileLocation+"\\"+contents);
 		 File destDir = new File(Constants.ArchivefileLocation);
-		  FileUtils.moveDirectoryToDirectory(srcDir, destDir, true);
+		 try {
+			 FileUtils.moveDirectoryToDirectory(srcDir, destDir, true);
+			 System.out.println("The File "+contents+" is Successfully archived");
+		 }catch(Exception e) {
+			 System.out.println(e.getStackTrace());
+		 }
+		 
 		
 		}
 	
+	public static void pack(String sourceDirPath, String zipFilePath) throws IOException {
+	    Path p = Files.createFile(Paths.get(zipFilePath));
+	    Path pp = Paths.get(sourceDirPath);
+	    try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(p));
+	        Stream<Path> paths = Files.walk(pp)) {
+	        paths
+	          .filter(path -> !Files.isDirectory(path))
+	          .forEach(path -> {
+	              ZipEntry zipEntry = new ZipEntry(pp.relativize(path).toString());
+	              try {
+	                  zs.putNextEntry(zipEntry);
+	                  Files.copy(path, zs);
+	                  zs.closeEntry();
+	            } catch (IOException e) {
+	                System.err.println(e);
+	            }
+	          });
+	    }
+	}
 
 }
