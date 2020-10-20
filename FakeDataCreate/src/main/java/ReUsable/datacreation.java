@@ -681,9 +681,7 @@ int j= faker.number().numberBetween(4, 10);
 				return createdata(10, true, false, true);	
 			     }
 	 }
-	 
-	
-				
+	 		
 public String createAlpha()
 	 {
 		 int j= faker.number().numberBetween(5, 21);

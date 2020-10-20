@@ -310,8 +310,6 @@ public class Instrument {
 	public void setSuitFielDate(String suitFielDate) {
 		this.suitFielDate = suitFielDate;
 	}
-    
-    
 
     }
 
