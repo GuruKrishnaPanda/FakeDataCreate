@@ -21,6 +21,7 @@ public class ReusableFactory {
 		ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(contractData);
 		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(contractData);
 		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(contractData);
+
 		
 		try {
 			

@@ -2,6 +2,8 @@
 
 import java.util.ArrayList;
 
+import javax.sound.midi.Instrument;
+
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.counterpartyRating;
@@ -79,15 +81,15 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 	for(Contract contract: contractData) 
 	{
 	 	create = new datacreation();
-	 	protectionInstrument p = new protectionInstrument();
-	    p.setReportingEntityId(contract.getReportingEntityId());
-	    p.setInstrumentId(contract.getInstrumentId());
-	    p.setContractId(contract.getContractId());
-	    p.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
-	    p.setProtectionId(create.createProtectionId());
-	    p.setChargeType(create.createChargeType());
+	 	protectionInstrument pi = new protectionInstrument();
+	    pi.setReportingEntityId(contract.getReportingEntityId());
+	    pi.setInstrumentId(contract.getInstrumentId());
+	    pi.setContractId(contract.getContractId());
+	    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
+	    pi.setProtectionId(create.createProtectionId());
+	    pi.setChargeType(create.createChargeType());
 	
-	con.add(p);
+	con.add(pi);
 	
 
 	
@@ -104,9 +106,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
     rel.setReportingEntityId(contract.getReportingEntityId());
     rel.setCounterpartyId(contract.getCounterypartyId());
     rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
-    
-    con.add(rel);
-		
+    con.add(rel);		
 }
 	return con;
 	}

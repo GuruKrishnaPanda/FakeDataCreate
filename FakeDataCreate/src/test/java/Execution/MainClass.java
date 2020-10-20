@@ -15,8 +15,24 @@ public class MainClass {
 		Utils.archiveAvailableFiles();
 		ReusableFactory ref =  new ReusableFactory(); 
 		ref.createData(Constants.totalData);
+<<<<<<< HEAD
 		datacreation d =  new datacreation();
 		d.createprotectionAllocatedValue();
+=======
+		/*datacreation d =  new datacreation();
+<<<<<<< HEAD
+		d.createRelatedCounterepartyId();*/
+		
+		
+		//Utils.generateFolderwithName();
+		
+		
+=======
+		d.createprotectionAllocatedValue();*/
+
+
+>>>>>>> branch 'master' of https://github.com/GuruKrishnaPanda/FakeDataCreate.git
+>>>>>>> refs/remotes/origin/master
 	}
 
 }
