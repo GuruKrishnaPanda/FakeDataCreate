@@ -448,19 +448,9 @@ int j= faker.number().numberBetween(4, 10);
  {
 	 int j= faker.number().numberBetween(3, 8);
 		
-		if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-		{
+			String val = createNumeric();
 			
-			String value = 	conditionCheck5(j);
-			System.out.println(value);
-			return value;
-		}
-		else {
-			String invalidNumber = invalidNumberlength(faker);
-			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
-		     }
-
+			return val;
  }
 
  public String createCommunity()
@@ -672,6 +662,29 @@ int j= faker.number().numberBetween(4, 10);
 	 {
 		 int j= faker.number().numberBetween(5, 21);
 			
+		String val = createAlpha();
+		return val;
+	 }
+	 public String createNumeric()
+	 {
+		 int j= faker.number().numberBetween(3, 8);
+			
+			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+			{
+				
+				String value = 	conditionCheck5(j);
+				System.out.println(value);
+				return value;
+			}
+			else {
+			
+				return createdata(10, true, false, true);	
+			     }
+	 }
+	 public String createAlpha()
+	 {
+		 int j= faker.number().numberBetween(5, 21);
+			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 			{
 				
@@ -684,7 +697,7 @@ int j= faker.number().numberBetween(4, 10);
 			else {
 			
 				return createdata(10, true, false, true);	
-			     }
+			     } 
 	 }
  }
 

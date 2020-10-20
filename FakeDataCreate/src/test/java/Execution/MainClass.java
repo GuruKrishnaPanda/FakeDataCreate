@@ -20,7 +20,7 @@ public class MainClass {
 		ReusableFactory ref =  new ReusableFactory(); 
 		ref.createData(Constants.totalData);
 		/*datacreation d =  new datacreation();
-		d.createprotectionAllocatedValue();*/
+		d.createRelatedCounterepartyId();*/
 		
 		
 		//Utils.generateFolderwithName();
