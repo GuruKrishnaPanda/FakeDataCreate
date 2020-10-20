@@ -681,30 +681,10 @@ int j= faker.number().numberBetween(4, 10);
 				return createdata(10, true, false, true);	
 			     }
 	 }
-	 public String createAlpha()
-	 {
-		 int j= faker.number().numberBetween(5, 21);
-			
-		String val = createAlpha();
-		return val;
-	 }
-	 public 				String value = 	conditionCheck5(j);
-				System.out.println(value);
-				return value;
-			}
-			else {
-			
-				return createdata(10, true, false, true);	
-			     }
-	 }
-	 public String createAlpha()
-	 {
-		 int j= faker.number().numberBetween(5, 21);
-			
-			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-			{
+	 
+	
 				
-ing createAlpha()
+public String createAlpha()
 	 {
 		 int j= faker.number().numberBetween(5, 21);
 			
