@@ -130,20 +130,22 @@ public class headerFiles {
 }
 	public static String[] ProtectionInstrument(){
 	
-		String[] protectionInstrumentHeader = {"protectionInstrumentId",
+		String[] protectionInstrumentHeader = {"reportingEntityId",
 				"instrumentId",
-				"protectionId",
+				"contractId",
 				"protectionAllocatedValue",
-				"chargeType"};
+				"protectionId",
+				"chargeType"
+				};
 
 		return protectionInstrumentHeader;
 	
 }
 	public static String[] RelatedParty(){
 	
-		String[] relatedPartyHeader = {"relatedPartyId",
+		String[] relatedPartyHeader = {"reportingEntityId",
 				"counterpartyId",
-				"relation",
+			
 				"relatedCounterpartyId"};
 
 		

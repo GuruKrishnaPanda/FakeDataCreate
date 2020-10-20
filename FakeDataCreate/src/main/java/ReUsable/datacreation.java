@@ -650,5 +650,41 @@ int j= faker.number().numberBetween(4, 10);
 				return createdata(10, true, false, true);	
 		 }
 	 }
+	 public String createChargeType()
+	 {
+		 int j= faker.number().numberBetween(5, 25);
+			
+			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+			{
+				
+				
+				String value = 	conditionCheck3(j);
+				System.out.println(value);
+				return value;
+				
+			}
+			else {
+			
+				return createdata(10, true, false, true);	
+			     }
+	 }
+	 public String createRelatedCounterepartyId()
+	 {
+		 int j= faker.number().numberBetween(5, 21);
+			
+			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+			{
+				
+				
+				String value = 	conditionCheck3(j);
+				System.out.println(value);
+				return value;
+				
+			}
+			else {
+			
+				return createdata(10, true, false, true);	
+			     }
+	 }
  }
 

@@ -84,7 +84,7 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 	    p.setContractId(contract.getContractId());
 	    p.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
 	    p.setProtectionId(create.createProtectionId());
-	    
+	    p.setChargeType(create.createChargeType());
 	
 	con.add(p);
 	
@@ -102,6 +102,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
     relatedParty rel = new relatedParty();
     rel.setReportingEntityId(contract.getReportingEntityId());
     rel.setCounterpartyId(contract.getCounterypartyId());
+    rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
+    
     con.add(rel);
 		
 }
