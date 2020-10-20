@@ -118,8 +118,8 @@ public ArrayList<counterpartyRating> createcounterpartyRatingData(ArrayList<Cont
 				for(Contract contract: contractData) {
 			 	create = new datacreation();
 			 	counterpartyRating cpr  =  new counterpartyRating();
-			 	cpr.setReportingEntityId(contract.getReportingEntityId());
-			 	cpr.setCounterpartyId(create.createCouterpartyIdentifier());
+			 	//cpr.setReportingEntityId(contract.getReportingEntityId());
+			 	//cpr.setCounterpartyId(create.createCouterpartyIdentifier());
 			 	con.add(cpr);
 			 	
 			 	cpr=null;
