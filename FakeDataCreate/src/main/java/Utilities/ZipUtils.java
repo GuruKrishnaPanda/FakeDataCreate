@@ -19,12 +19,7 @@ public class ZipUtils {
         fileList = new ArrayList < String > ();
     }
 
-    public static void main(String[] args) {
-        ZipUtils appZip = new ZipUtils();
-        appZip.generateFileList(new File(SOURCE_FOLDER));
-        appZip.zipIt(OUTPUT_ZIP_FILE,"");
-    }
-
+   
     public void zipIt(String zipFile1,String SOURCE_FOLDER) {
     	String zipFile =  Constants.NewfileLocation+zipFile1;
         byte[] buffer = new byte[1024];
