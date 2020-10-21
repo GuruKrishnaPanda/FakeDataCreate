@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import Utilities.Constants;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.Protection;
+import pojoClases.counterpartyRating;
+import pojoClases.counterpartyRisk;
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 
@@ -30,14 +33,16 @@ public class GenerateEntityFiles {
 			 rw.writeCounterPartyData(contractData,fileName);	
 
 	}
-	public void generateCounterpartyRatingfile(ArrayList<Contract> contractData,String folderName) throws IOException {
+	public void generateCounterpartyRatingfile(ArrayList<counterpartyRating> contractData,String folderName) throws IOException {
 		
-		  String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;	 
-		 
+		  String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterpartyRating+Constants.fileType;	 
+		 rw.writecounterpartyRatingData(contractData, fileName);
 
 	}
-	public void generateCounterpartyRiskfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
+	public void generateCounterpartyRiskfile(ArrayList<counterpartyRisk> contractData, String folderName) throws IOException {
 		
+		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterpartyRisk+Constants.fileType;	 
+		 rw.writecounterpartyRiskData(contractData, fileName);
 			
 
 	}
@@ -47,8 +52,10 @@ public class GenerateEntityFiles {
 		
 
 	}
-	public void generateProtectionfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
+	public void generateProtectionfile(ArrayList<Protection> contractData, String folderName) throws IOException {
 		
+		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.protection+Constants.fileType;	 
+		 rw.writeProtectionData(contractData, fileName);
 			
 		
 
