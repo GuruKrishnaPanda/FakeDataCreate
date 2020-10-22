@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 
 import pojoClases.Contract;
 import ReUsable.ReusableFactory;
-
+import ReUsable.datacreation;
 import Utilities.Constants;
 import Utilities.Utils;
 
@@ -17,7 +17,11 @@ public class MainClass {
 	public static void main(String[] args)  {
 		
 		
-		//new update
+		//Utils.archiveAvailableFiles();
+		ReusableFactory ref =  new ReusableFactory(); 
+		ref.createData(Constants.totalData);
+		/*datacreation d = new datacreation();
+		d.createSanctionedDate();*/
 
 
 	}
