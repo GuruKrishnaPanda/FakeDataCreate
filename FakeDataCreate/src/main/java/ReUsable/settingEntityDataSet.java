@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 
+
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.counterpartyRating;
@@ -11,6 +12,15 @@ import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 import pojoClases.Protection;
 import pojoClases.counterpartyRisk;
+
+
+
+
+
+/**
+ * @author GuruKrishna,Swapnil,Sushree,Subhashree,Kalpana
+ *
+ */
 public class settingEntityDataSet {
 	datacreation create ;
 	
@@ -28,6 +38,7 @@ public ArrayList<Contract> createContractData(int numberData)
 				c.setReportingEntityId(create.createReportingEntityId());		
 			con.add(c);
 			c=null;
+			create=null;//Newly Added By Guru
 			}	
 		return con;
 	}
@@ -71,6 +82,7 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		
 	
 		cp=null;
+		create=null;//Newly Added By Guru
 	}	
 	return con;
 }
@@ -91,8 +103,8 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 	    pi.setChargeType(create.createChargeType());
 	
 	con.add(pi);
-	
-
+	pi = null;// Missing in the code
+	create=null;//Newly Added By Guru
 	
     }
 	return con;
@@ -102,12 +114,14 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 	ArrayList<relatedParty> con =  new ArrayList<>();
 	
 	for(Contract contract: contractData) {
-    create = new datacreation();
-    relatedParty rel = new relatedParty();
-    rel.setReportingEntityId(contract.getReportingEntityId());
-    rel.setCounterpartyId(contract.getCounterypartyId());
-    rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
-    con.add(rel);		
+		    create = new datacreation();
+		    relatedParty rel = new relatedParty();
+		    rel.setReportingEntityId(contract.getReportingEntityId());
+		    rel.setCounterpartyId(contract.getCounterypartyId());
+		    rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
+	    con.add(rel);
+	    rel = null;// Missing in the code
+		create=null;//Newly Added By Guru
 }
 	return con;
 	}
@@ -116,25 +130,26 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
       {
          ArrayList<Protection> con = new ArrayList<>();
 
-          for(Contract contract: contractData)
-         {
-      create = new datacreation();
-      Protection p = new Protection();
-      p.setReportingEntityId(contract.getReportingEntityId());
-      p.setProtectionId(create.createprotectionId());
-      p.setProtectionProviderId(create.createprotectionProviderId());
-      p.setTypeOfProtection(create.createtypeOfProtection());
-      p.setCurrencyType(create.createcurrencyType());
-      p.setProtectionValue(create.createprotectionValue());
-      p.setTypeOfProtectionValue(create.createtypeOfProtectionValue());
-      p.setProtectionValuationApproach(create.createprotectionValuationApproach());
-      p.setDateOfProtectionValue(create.createdateOfProtectionValue());
-      p.setOriginalProtectionValue(create.createoriginalProtectionValue());
-      p.setDateOfOriginalProtectionValue(create.createdateOfOriginalProtectionValu());
-      p.setProtectionRegistryId(create.createprotectionRegistryId());
-      p.setProtectionExternalId(create.createprotectionExternalId());
+          for(Contract contract: contractData){
+		      create = new datacreation();
+		      Protection p = new Protection();
+		      p.setReportingEntityId(contract.getReportingEntityId());
+		      p.setProtectionId(create.createprotectionId());
+		      p.setProtectionProviderId(create.createprotectionProviderId());
+		      p.setTypeOfProtection(create.createtypeOfProtection());
+		      p.setCurrencyType(create.createcurrencyType());
+		      p.setProtectionValue(create.createprotectionValue());
+		      p.setTypeOfProtectionValue(create.createtypeOfProtectionValue());
+		      p.setProtectionValuationApproach(create.createprotectionValuationApproach());
+		      p.setDateOfProtectionValue(create.createdateOfProtectionValue());
+		      p.setOriginalProtectionValue(create.createoriginalProtectionValue());
+		      p.setDateOfOriginalProtectionValue(create.createdateOfOriginalProtectionValu());
+		      p.setProtectionRegistryId(create.createprotectionRegistryId());
+		      p.setProtectionExternalId(create.createprotectionExternalId());
 
-    con.add(p);
+		  con.add(p);
+		  p = null;// Missing in the code
+		  create=null;//Newly Added By Guru
     }
       return con;
      }
@@ -153,9 +168,9 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
 			        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
 			        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
-				 	con.add(cpr);
-				 	
-				 	cpr=null;
+				 con.add(cpr);	
+				 cpr=null;
+				 create=null;//Newly Added By Guru
 					}
 			 	return con;
 	}
@@ -163,23 +178,25 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		
 		ArrayList<counterpartyRisk> con =  new ArrayList<>();
 		for(Contract contract: contractData) {
-		 	create = new datacreation();
-		 	counterpartyRisk cr  =  new counterpartyRisk();
-		 	cr.setCounterpartyId(contract.getCounterypartyId());
-		 	cr.setReportingEntityId(contract.getReportingEntityId());
-		 	cr.setStatusOfInsolvencyProceedings(create.createStatusOfInsolvencyProceedings());
-		 	cr.setDateOfInitiationOfInsolvencyProceedings(create.dateOfInitiationOfInsolvencyProceedings());
-		 	cr.setWilfulDefaulter(create.createwilfulDefaulter());
-		 	cr.setDateOfWilfulDefaulterClassification(create.dateOfWilfulDefaulterClassification());
-		 	cr.setNonCooperativeBorrower(create.createnonCooperativeBorrower());
-		 	cr.setDateOfNonCooperativeBorrowerClassification(create.dateOfNonCooperativeBorrowerClassification());
-		 	cr.setFradulentActivity(create.createFradulentActivity());	
-		 	cr.setDateOfFradulentActivityClassification(create.dateOfFradulentActivityClassification());
-		 	cr.setInternalRating(create.createinternalRating());
-		 	cr.setDateOfInternalRating(create.dateOfInternalRating());
-			con.add(cr);
-			
+			 	create = new datacreation();
+			 	counterpartyRisk cr  =  new counterpartyRisk();
+			 	cr.setCounterpartyId(contract.getCounterypartyId());
+			 	cr.setReportingEntityId(contract.getReportingEntityId());
+			 	cr.setStatusOfInsolvencyProceedings(create.createStatusOfInsolvencyProceedings());
+			 	cr.setDateOfInitiationOfInsolvencyProceedings(create.dateOfInitiationOfInsolvencyProceedings());
+			 	cr.setWilfulDefaulter(create.createwilfulDefaulter());
+			 	cr.setDateOfWilfulDefaulterClassification(create.dateOfWilfulDefaulterClassification());
+			 	cr.setNonCooperativeBorrower(create.createnonCooperativeBorrower());
+			 	cr.setDateOfNonCooperativeBorrowerClassification(create.dateOfNonCooperativeBorrowerClassification());
+			 	cr.setFradulentActivity(create.createFradulentActivity());	
+			 	cr.setDateOfFradulentActivityClassification(create.dateOfFradulentActivityClassification());
+			 	cr.setInternalRating(create.createinternalRating());
+			 	cr.setDateOfInternalRating(create.dateOfInternalRating());
+			 con.add(cr);
+			 cr = null;// Missing in the code
+			 create=null;//Newly Added By Guru
 			}	
 		return con;
-	}}
+	}
+   }
    
