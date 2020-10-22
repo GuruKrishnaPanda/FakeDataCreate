@@ -42,6 +42,7 @@ public class Instrument {
     private String accProviosions;
     private String accWriteOffs;
     private String settAmmount;
+    private  String restStatus;
     private String restDate;
     private String accountStatus;
     private String statusDate;
@@ -310,6 +311,13 @@ public class Instrument {
 	public void setSuitFielDate(String suitFielDate) {
 		this.suitFielDate = suitFielDate;
 	}
+	public String getRestStatus() {
+		return restStatus;
+	}
+	public void setRestStatus(String restStatus) {
+		this.restStatus = restStatus;
+	}
+	
 
     }
 

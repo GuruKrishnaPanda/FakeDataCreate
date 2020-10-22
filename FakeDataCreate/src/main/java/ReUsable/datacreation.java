@@ -918,9 +918,9 @@ public String createwilfulDefaulter()
 {
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-		 int wil = faker.random().nextInt(Constants.wilful.length);
-		 System.out.println(Constants.wilful[wil]);
-		return Constants.wilful[wil];
+		 int wil = faker.random().nextInt(Constants.priority.length);
+		 System.out.println(Constants.priority[wil]);
+		return Constants.priority[wil];
 	 }
 	 else
 	 {
@@ -945,9 +945,9 @@ public String createnonCooperativeBorrower()
 {
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-		 int nonc = faker.random().nextInt(Constants.non.length);
-		 System.out.println(Constants.non[nonc]);
-		return Constants.non[nonc];
+		 int nonc = faker.random().nextInt(Constants.priority.length);
+		 System.out.println(Constants.priority[nonc]);
+		return Constants.priority[nonc];
 	 }
 	 else
 	 {
@@ -972,9 +972,9 @@ public String createFradulentActivity()
 {
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-		 int frad = faker.random().nextInt(Constants.fradulent.length);
-		 System.out.println(Constants.fradulent[frad]);
-		return Constants.fradulent[frad];
+		 int frad = faker.random().nextInt(Constants.priority.length);
+		 System.out.println(Constants.priority[frad]);
+		return Constants.priority[frad];
 	 }
 	 else
 	 {
@@ -1107,5 +1107,611 @@ public String dateOfInternalRating() {
     System.out.println(strDate);
 	return strDate;
 	
+}
+public String npaSinceDate()
+{
+	Date from = StringToDate("01011970");
+	Date to = StringToDate("01012020");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+    String strDate = dateFormat.format(newData); 
+    System.out.println(strDate);
+	return strDate;
+}
+public String cummulativeRecoveriesNpa()
+{
+
+	 double j= faker.number().numberBetween(10, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(value); 
+	 }
+
+	return d;	
+}
+public String accumulatedProvisions()
+{
+	double j= faker.number().numberBetween(12, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(value); 
+	 }
+
+	return d;	
+}
+public String accumulatedWriteOffs()
+{
+	double j= faker.number().numberBetween(12, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(value); 
+	 }
+
+	return d;	
+}
+public String createSettlementAmount()
+{
+	double j= faker.number().numberBetween(10, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(value); 
+	 }
+
+	return d;	
+}
+public String createRestructuringStatus()
+{
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 int res = faker.random().nextInt(Constants.restruct.length);
+		 System.out.println(Constants.restruct[res]);
+		return Constants.restruct[res];
+	 }
+	 else
+	 {
+		 String genres = faker.lorem().characters(2, 4, true, true).toUpperCase();
+		 System.out.println(genres);
+		 return genres;
+	 }
+}
+public String restructStatusDate()
+{
+	Date from = StringToDate("01012000");
+	Date to = StringToDate("01012020");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+    String strDate = dateFormat.format(newData); 
+    System.out.println(strDate);
+	return strDate;
+}
+public String createStatusDate()
+{
+	Date from = StringToDate("01012000");
+	Date to = StringToDate("01012020");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+    String strDate = dateFormat.format(newData); 
+    System.out.println(strDate);
+	return strDate;
+}
+public String createSuiteFieldDate()
+{
+	Date from = StringToDate("01012000");
+	Date to = StringToDate("01012020");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+    String strDate = dateFormat.format(newData); 
+    System.out.println(strDate);
+	return strDate;
+}
+public String createAccountStatus()
+{
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 int res = faker.random().nextInt(Constants.account.length);
+		 System.out.println(Constants.account[res]);
+		return Constants.account[res];
+	 }
+	 else
+	 {
+		 String genres = faker.lorem().characters(2, 4, true, true).toUpperCase();
+		 System.out.println(genres);
+		 return genres;
+	 }
+}
+public String createBranchCode()
+{
+
+int j= faker.number().numberBetween(2, 10);
+
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+
+String value = conditionCheck3(j);
+System.out.println(value);
+return value;
+}
+else {
+String invalidNumber = invalidNumberlength(faker);
+int i=Integer.parseInt(invalidNumber);
+return createdata(i, true, false, true);
+}
+
+}
+public String createDistrictOfUtilisaton()
+{
+
+int j= faker.number().numberBetween(2, 3);
+
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+
+String value = conditionCheck3(j);
+System.out.println(value);
+return value;
+}
+else {
+String invalidNumber = invalidNumberlength(faker);
+int i=Integer.parseInt(invalidNumber);
+return createdata(i, true, false, true);
+}
+
+}
+public String createInstrumentType()
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+int ins = faker.random().nextInt(Constants.inst.length);
+System.out.println(Constants.inst[ins]);
+return Constants.inst[ins];
+}
+else
+{
+String instru = faker.lorem().characters(2, 4, true, true).toUpperCase();
+System.out.println(instru);
+return instru;
+}
+
+}
+public String createPrioritySector()
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+int sector = faker.random().nextInt(Constants.priority.length);
+System.out.println(Constants.priority[sector]);
+return Constants.priority[sector];
+}
+else
+{
+String sec = faker.lorem().characters(2, 4, true, true).toUpperCase();
+System.out.println(sec);
+return sec;
+}
+
+}
+public String createWeakerSection()
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+int weak = faker.random().nextInt(Constants.priority.length);
+System.out.println(Constants.priority[weak]);
+return Constants.priority[weak];
+}
+else
+{
+String wea = faker.lorem().characters(2, 4, true, true).toUpperCase();
+System.out.println(wea);
+return wea;
+}
+
+}
+public String createClassificationOfActivity()
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+int act = faker.random().nextInt(Constants.activity.length);
+System.out.println(Constants.activity[act]);
+return Constants.activity[act];
+}
+else
+{
+String acti = faker.lorem().characters(2, 4, true, true).toUpperCase();
+System.out.println(acti);
+return acti;
+}
+}
+public String createSanctionedDate()
+
+{
+	 Date from = StringToDate("01011950");
+		Date to = StringToDate("01012000");
+		Date newData =  faker.date().between(from,to);
+		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+	    String strDate = dateFormat.format(newData); 
+	    System.out.println(strDate);
+		return strDate;
+
+} 
+
+public String createDisbursementDate()
+
+{
+Date from = StringToDate("01011950");
+	Date to = StringToDate("01012000");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+   String strDate = dateFormat.format(newData); 
+   System.out.println(strDate);
+	return strDate;
+
+} 
+
+public String createMaturityDate()
+{
+Date from = StringToDate("01011950");
+	Date to = StringToDate("01012000");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+   String strDate = dateFormat.format(newData); 
+   System.out.println(strDate);
+	return strDate;
+
+}
+
+public String createCurrencyCode()
+{
+
+int j= faker.number().numberBetween(3, 3);
+
+if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+{
+	String value = 	conditionCheck4(j);
+	System.out.println(value);
+	return value;		
+}
+else {
+
+	return createdata(10, true, false, true);
+     }
+}
+public String createoriginalSanctionAmount()
+
+{
+	 double j= faker.number().numberBetween(10, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(value); 
+	
+	 }
+	 else
+	 {
+		
+		}
+	return d;
+}
+
+public String createsyndicatedContractID()
+{
+
+int j= faker.number().numberBetween(4, 15);
+	
+	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+	{
+		String value = 	conditionCheck3(j);
+		System.out.println(value);
+		return value;		
+	}
+	else {
+	
+		return createdata(10, true, false, true);	
+	     }
+}
+
+public String createrecourse()
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+	 int recourse = faker.random().nextInt(Constants.priority.length);
+	 System.out.println(Constants.priority[recourse]);
+	return Constants.priority[recourse];
+}
+else
+{
+	 String genrecourse = faker.lorem().characters(2, 4, true, true).toUpperCase();
+	 System.out.println(genrecourse);
+	 return genrecourse;
+}
+}
+
+public String createintrestRateType()
+
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+	 int intrest = faker.random().nextInt(Constants.rateType.length);
+	 System.out.println(Constants.rateType[intrest]);
+	return Constants.rateType[intrest];
+}
+else
+{
+	 String genrate = faker.lorem().characters(2, 4, true, true).toUpperCase();
+	 System.out.println(genrate);
+	 return genrate;
+}
+}
+
+public String createamortisationType()
+{
+
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+int type = faker.random().nextInt(Constants.mortisation.length);
+System.out.println(Constants.mortisation[type]);
+return Constants.mortisation[type];
+}
+else
+{
+String gentype = faker.lorem().characters(2, 4, true, true).toUpperCase();
+System.out.println(gentype);
+return gentype;
+
 }}
+
+public String createpaymentFrequency()
+{
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+	 int payment = faker.random().nextInt(Constants.paymentFrequency.length);
+	 System.out.println(Constants.paymentFrequency[payment]);
+	return Constants.paymentFrequency[payment];
+}
+else
+{
+	 String gentype = faker.lorem().characters(2, 4, true, true).toUpperCase();
+	 System.out.println(gentype);
+	 return gentype;
+}
+}
+public String interestRate()
+{
+	 double j= faker.number().numberBetween(2, 5);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+		
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+		
+	 }
+	
+	else {
+			
+	
+		   }
+	return d;
+}
+public String weightedAverageInterestRate()
+{
+	 double j= faker.number().numberBetween(2, 5);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+	
+	 }
+	
+	else {
+			
+		
+		   }
+	return d;
+}
+public String installmentAmount()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+			
+	 }
+	
+	else {
+			
+			
+		   }
+	return d;
+}
+
+public String  balanceOutstanding()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+		
+	 }
+	
+	else {
+			
+			
+		   }
+	return d;
+}
+
+
+public String unavailedAmount()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+			
+	 }
+	
+	else {
+			
+		
+		   }
+	return d;
+}
+
+public String  offBalanceSheetNominalAmount()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+			
+	 }
+	
+	else {
+			
+			
+		   }
+	return d;
+} 
+
+public String  creditEquivalentOffBalanceSheetNominalAmount()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+			
+	 }
+	
+	else {
+			
+			
+		   }
+	return d;
+} 
+
+
+public String accruedInterest()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+			
+	 }
+	
+	else {
+			
+			
+		   }
+	return d;
+} 	 
+public String amountOverdue()
+{ double j= faker.number().numberBetween(6, 17);
+String d= Double.toString(j);
+if(Constants.typeOfData.equalsIgnoreCase("Y"))
+{
+	 double value =conditionCheck7(j);
+		System.out.println(d); 
+		
+}
+
+else {
+		
+		
+	   }
+return d;
+} 	
+public String numberOfDaysPastDue()
+{
+int j= faker.number().numberBetween(2, 5);
+	
+	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+	{
+		
+		String value = 	conditionCheck5(j);
+		System.out.println(value);
+		return value;
+	}
+	else {
+		String invalidNumber = invalidNumberlength(faker);
+		int i=Integer.parseInt(invalidNumber); 
+		return createdata(i, true, false, true);
+		
+	     }
+}
+public String smaCategory()
+{
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 int sc = faker.random().nextInt(Constants.sma.length);
+		 System.out.println(Constants.sma[sc]);
+		return Constants.sma[sc];
+	 }
+	 else
+	 {
+		 String s = faker.lorem().characters(2, 4, true, true).toUpperCase();
+		 System.out.println(s);
+		 return s;
+	 }
+	 
+}
+public String smaCurrentCategorySinceDate(){
+ 	
+		Date from = StringToDate("01011990");
+		Date to = StringToDate("01012010");
+		Date newData =  faker.date().between(from,to);
+		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+	    String strDate = dateFormat.format(newData); 
+	    System.out.println(strDate);
+		return strDate;
+	}
+
+
+public String npaCategroyCode()
+{
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 int ncc = faker.random().nextInt(Constants.npac.length);
+		 System.out.println(Constants.npac[ncc]);
+		return Constants.npac[ncc];
+	 }
+	 else
+	 {
+		 String npa = faker.lorem().characters(2, 4, true, true).toUpperCase();
+		 System.out.println(npa);
+		 return npa;
+	 }
+	 
+}
+
+
+
+
+
+
+
+
+
+}
 

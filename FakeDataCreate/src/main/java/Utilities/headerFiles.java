@@ -9,7 +9,8 @@ public class headerFiles {
 	}
 	public static String[] counterPartyHeader(){
 		
-		String[] counterPartyHeader = {"counterpartyId",
+		String[] counterPartyHeader = {"reportingEntityId",
+				"counterpartyId",
 				"name",
 				"dateOfBirthOrIncorporation",
 				"caste",
@@ -72,8 +73,10 @@ public class headerFiles {
 	}
 	public static String[] Instrument(){
 	
-		String[] instrumentHeader = {"instrumentId",
+		String[] instrumentHeader = {"reportingEntityID",
+				"instrumentId",
 				"branchCode",
+				"contractId",
 				"districtOfUtilisation",
 				"instrumentType",
 				"prioritySector",

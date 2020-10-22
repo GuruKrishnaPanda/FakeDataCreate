@@ -101,12 +101,17 @@ public class Constants {
 	public static String[] comm = {"Hindu","Muslim","Christian","Zoroastrian","Buddhist","Sikh","Jain","Neo","Buddhist","ND","OTH "};
 	public static String[] ProtectionValue = {"Notional amount", "Fair value","Market value","Long-term sustainable value", "Other"};
 	public static String[] ValuationApproach = {"Mark-to-market", "Counterparty estimation","Creditor valuation","Third party valuation", "Other type of valuation"};
-	
 	public static String[] protectiontype = {"Gold","Depsoits","Securities","Trade receivables","Life insurance policies","Land","building"};
-	public static String[] wilful = {"y","n"};
-    public static String[] non = {"y","n"};
-    public static String[] fradulent = {"y","n"};
     public static String[] status = {"Pending","Resolved","No action"};
     public static String[] internal = {"AAA++","BBB++","CCC++","AAA","BBB","CCC"};
-	
+    public static String[] restruct = {"Restructured due to Non-Performance", "Restructured due to Natural Calamity"," Others"};
+	public static String[] account= {"Open","Closed","Settled & Closed","Written Off","Settled Post Write Off","Invoked/Devolved"};
+	public static String[] inst = {"0100","0630","1100","9999"};
+    public static String[] priority = {"Y","N"};
+    public static String[] activity = {"35102","51000","99000"};
+    public static String[] rateType = {"Fixed","Floating", "Mixed"};
+	public static String[] mortisation = {"French","German","Fixed","Bullet", "Other"};
+	public static String[] paymentFrequency = {"Daily","Weekly","Monthly","Quarterly"," Half Yearly", "Annually","On Demand Bullet", "Zero coupon","Rolling","Other"};
+	public static String[] sma ={"0","1","2"};
+	public static String[] npac = {"Sub-standard", "Doubtful", "Loss"};
 }
