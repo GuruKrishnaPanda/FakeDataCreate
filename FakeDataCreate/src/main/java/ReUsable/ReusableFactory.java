@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import Utilities.Utils;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.Protection;
+import pojoClases.counterpartyRating;
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
+import pojoClases.counterpartyRisk;
 
 
 public class ReusableFactory {
@@ -21,7 +24,9 @@ public class ReusableFactory {
 		ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(contractData);
 		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(contractData);
 		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(contractData);
-
+		ArrayList<Protection> ProtectionData = eds.createProtectionData(contractData);
+		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(contractData);
+		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(contractData);
 		
 		try {
 			
@@ -30,6 +35,9 @@ public class ReusableFactory {
 			generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName);
 			generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName);
 			generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName);
+			generateEntityFiles.generateProtectionfile(ProtectionData, folderName);
+			generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName);
+			generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName);
 			Utils.compressFolder(folderName);
 		} catch (IOException e) {
 			

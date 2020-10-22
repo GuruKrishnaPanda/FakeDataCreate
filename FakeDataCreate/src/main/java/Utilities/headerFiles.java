@@ -53,7 +53,8 @@ public class headerFiles {
 	}
 	public static String[] CounterpartyRisk(){
 		
-		String[] counterpartyRiskHeader = {"counterpartyRiskId",
+		String[] counterpartyRiskHeader = {
+				"reportingEntityId",
 				"counterpartyId",
 				"statusOfInsolvencyProceedings",
 				"dateOfInitiationOfInsolvencyProceedings",
@@ -64,7 +65,8 @@ public class headerFiles {
 				"fraudulentActivity",
 				"dateOfFraudulentActivityClassification",
 				"internalRating",
-				"dateOfInternalRating"};
+				"dateOfInternalRating"
+		};
 		
 		return counterpartyRiskHeader;
 	}
@@ -114,19 +116,22 @@ public class headerFiles {
 	return instrumentHeader;
 }
 	public static String[] Protection(){
-	
-		String[] protectionHeader = {"protectionId",
-				"protectionProviderId",
-				"typeOfProtection",
-				"currencyType",
-				"protectionValue",
-				"typeOfProtectionValue",
-				"protectionValuationApproach",
-				"dateOfProtectionValue",
-				"originalProtectionValue",
-				"dateOfOriginalProtectionValue"};
-		
-	return protectionHeader;
+
+		String[] protectionHeader = {"reportingEntityId",
+		"protectionId",
+		"protectionProviderId",
+		"typeOfProtection",
+		"currencyType",
+		"protectionValue",
+		"typeOfProtectionValue",
+		"protectionValuationApproach",
+		"dateOfProtectionValue",
+		"originalProtectionValue",
+		"dateOfOriginalProtectionValue",
+		"protectionRegistryId",
+		"protectionExternalId"};
+
+		return protectionHeader;
 }
 	public static String[] ProtectionInstrument(){
 	

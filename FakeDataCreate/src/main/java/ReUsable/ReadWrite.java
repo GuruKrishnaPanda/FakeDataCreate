@@ -15,6 +15,9 @@ import Utilities.Constants;
 import Utilities.headerFiles;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.Protection;
+import pojoClases.counterpartyRating;
+import pojoClases.counterpartyRisk;
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 
@@ -169,6 +172,115 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
         
     } 
 }
+public  void writeProtectionData(ArrayList<Protection> contractData, String fileName) {
+    try { 
+    	outputfile = createFileObject(fileName);
+        // create CSVWriter with ';' as separator 
+        CSVWriter writer = new CSVWriter(outputfile, ',', 
+                                         CSVWriter.NO_QUOTE_CHARACTER, 
+                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+                                         CSVWriter.DEFAULT_LINE_END); 
+        
+        writer.writeNext(headerFiles.Protection()); 
+        System.out.println("No of rows = "+contractData.size()); 
+        for(Protection con : contractData) {
+        	String[] rowData =  { 
+        		con.getReportingEntityId(),
+        		con.getProtectionId(),
+        		con.getProtectionProviderId(),
+        		con.getTypeOfProtection(),
+        		con.getCurrencyType(),
+        		con.getProtectionValue(),
+        		con.getTypeOfProtectionValue(),
+        		con.getProtectionValuationApproach(),
+        		con.getDateOfProtectionValue(),
+        		con.getOriginalProtectionValue(),
+        		con.getDateOfOriginalProtectionValue(),
+        		con.getProtectionRegistryId(),
+        		con.getProtectionExternalId()
+        
+        				}; 
+        	writer.writeNext(rowData); 
+        }
+
+        writer.close(); 
+    } 
+    catch (IOException e) { 
+        // TODO Auto-generated catch block 
+        e.printStackTrace(); 
+        
+    } 
+}
+public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractData, String fileName) {
+    try { 
+    	outputfile = createFileObject(fileName);
+        // create CSVWriter with ';' as separator 
+        CSVWriter writer = new CSVWriter(outputfile, ',', 
+                                         CSVWriter.NO_QUOTE_CHARACTER, 
+                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+                                         CSVWriter.DEFAULT_LINE_END); 
+        
+        writer.writeNext(headerFiles.CounterpartyRating()); 
+        System.out.println("No of rows = "+contractData.size()); 
+        for(counterpartyRating con : contractData) {
+        	String[] rowData =  { 
+        				con.getReportingEntityId(), 
+        				con.getCounterpartyId(),
+        				con.getRatingID(),
+        				con.getCreditRating(),
+        				con.getAssessmentAgencyAuthority(),
+        				con.getCreditRatingAsOn(),
+        				con.getCreditRatingExpiryDate()
+        				}; 
+        	writer.writeNext(rowData); 
+        }
+
+        writer.close(); 
+    } 
+    catch (IOException e) { 
+        // TODO Auto-generated catch block 
+        e.printStackTrace(); 
+        
+    } 
+}
+public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData, String fileName) {
+    try { 
+    	outputfile = createFileObject(fileName);
+        // create CSVWriter with ';' as separator 
+        CSVWriter writer = new CSVWriter(outputfile, ',', 
+                                         CSVWriter.NO_QUOTE_CHARACTER, 
+                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+                                         CSVWriter.DEFAULT_LINE_END); 
+        
+        writer.writeNext(headerFiles.CounterpartyRisk()); 
+        System.out.println("No of rows = "+contractData.size()); 
+        for(counterpartyRisk con : contractData) {
+        	String[] rowData =  { 
+        		con.getReportingEntityId(),
+        		con.getCounterpartyId(),
+        		con.getStatusOfInsolvencyProceedings(),
+        		con.getDateOfInitiationOfInsolvencyProceedings(),
+        		con.getWilfulDefaulter(),
+        		con.getDateOfWilfulDefaulterClassification(),
+        		con.getNonCooperativeBorrower(),
+        		con.getDateOfNonCooperativeBorrowerClassification(),
+        		con.getFradulentActivity(),
+        		con.getDateOfFradulentActivityClassification(),
+        		con.getInternalRating(),
+        		con.getDateOfInternalRating()
+        
+        				}; 
+        	writer.writeNext(rowData); 
+        }
+
+        writer.close(); 
+    } 
+    catch (IOException e) { 
+        // TODO Auto-generated catch block 
+        e.printStackTrace(); 
+        
+    } 
+}
 
 
 public FileWriter createFileObject(String fileName) throws IOException{
@@ -219,7 +331,34 @@ public List createHeader(String fileSample) {
 					
 					e.printStackTrace();
 				}
-	  
+
+				if (fileSample.equalsIgnoreCase("counterpartyRisk")) {
+					try {
+						System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
+						filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplecounterpartyRisk.csv");
+					} catch (FileNotFoundException e) {
+						
+						e.printStackTrace();
+					}
+					if (fileSample.equalsIgnoreCase("counterpartyRating")) {
+						try {
+							
+							System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
+							filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplecounterpartyRating.csv");
+						} catch (FileNotFoundException e) {
+							
+							e.printStackTrace();
+						}
+					}
+					if (fileSample.equalsIgnoreCase("Protection")) {
+						try {
+							
+							System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
+							filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleProtection.csv");
+						} catch (FileNotFoundException e) {
+							
+							e.printStackTrace();
+						}
     // create csvReader object passing 
     // file reader as a parameter 
     CSVReader csvReader = new CSVReader(filereader); 
@@ -234,6 +373,9 @@ public List createHeader(String fileSample) {
 
 
 
+	}
+	}
+	
 	}
 	return allData;}}
 
