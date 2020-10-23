@@ -33,7 +33,7 @@ public ArrayList<Contract> createContractData(int numberData)
 			 	create = new datacreation();
 				Contract c  =  new Contract();
 				c.setContractId(create.createContractIdentifier());
-				c.setCounterypartyId(create.createContractIdentifier());
+				c.setCounterypartyId(create.createCouterpartyIdentifier());
 				c.setInstrumentId(create.createInstrumentId());
 				c.setReportingEntityId(create.createReportingEntityId());		
 			con.add(c);
