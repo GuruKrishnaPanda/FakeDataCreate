@@ -1,7 +1,7 @@
 package Utilities;
 
 public class Constants {
-	public static String typeOfData = "Y";// Valid Data
+	public static String typeOfData = "N";// Valid Data
 	public static String haveSpecialChar = "N";
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
@@ -11,7 +11,6 @@ public class Constants {
 	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
 	public static String ArchivefileLocation =  System.getProperty("user.dir")+"\\ArchiveFiles\\";
 	public static String separator =  ";";
-	
 	public static String contract =  "Contract";
 	public static String counterParty =  "CounterParty";
 	public static String counterpartyRating =  "CounterpartyRating";
@@ -20,6 +19,8 @@ public class Constants {
 	public static String protection =  "Protection";
 	public static String protectionInstrument =  "ProtectionInstrument";
 	public static String relatedParty =  "RelatedParty";
+
+	
 	
 	public static String ReportingMemberID = "TCSQA1001";
 	

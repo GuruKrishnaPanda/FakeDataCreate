@@ -32,7 +32,7 @@ public ArrayList<Contract> createContractData(int numberData)
 			 	create = new datacreation();
 				Contract c  =  new Contract();
 				c.setContractId(create.createContractIdentifier());
-				c.setCounterypartyId(create.createContractIdentifier());
+				c.setCounterypartyId(create.createCouterpartyIdentifier());
 				c.setInstrumentId(create.createInstrumentId());
 				c.setReportingEntityId(create.createReportingEntityId());		
 			con.add(c);
@@ -80,7 +80,7 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		 
 		    con.add(cp);
 		    Collections.shuffle(con);
-	
+
 		cp=null;
 		create=null;//Newly Added By Guru
 	}	
@@ -171,8 +171,11 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
 			        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
 			        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
+
 				 con.add(cpr);	
+
 				 Collections.shuffle(con);
+
 				 cpr=null;
 				 create=null;//Newly Added By Guru
 					}
@@ -255,7 +258,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		 	in.setSuitFielDate(create.createSuiteFieldDate());
 		 	
 		 	con.add(in);
-		    
+		 	Collections.shuffle(con);
 		}
 		return con;
 	
