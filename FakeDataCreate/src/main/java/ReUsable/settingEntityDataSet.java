@@ -36,6 +36,7 @@ public ArrayList<Contract> createContractData(int numberData)
 				c.setInstrumentId(create.createInstrumentId());
 				c.setReportingEntityId(create.createReportingEntityId());		
 			con.add(c);
+			Collections.shuffle(con);
 			c=null;
 			create=null;//Newly Added By Guru
 			}	
@@ -78,6 +79,7 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setEmailAddress(create.emailAddress());
 		 
 		    con.add(cp);
+		    Collections.shuffle(con);
 		
 	
 		cp=null;
@@ -102,6 +104,7 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 	    pi.setChargeType(create.createChargeType());
 	
 	con.add(pi);
+	Collections.shuffle(con);
 	pi = null;// Missing in the code
 	create=null;//Newly Added By Guru
 	
@@ -119,6 +122,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		    rel.setCounterpartyId(contract.getCounterypartyId());
 		    rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
 	    con.add(rel);
+	    Collections.shuffle(con);
 	    rel = null;// Missing in the code
 		create=null;//Newly Added By Guru
 }
@@ -147,6 +151,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		      p.setProtectionExternalId(create.createprotectionExternalId());
 
 		  con.add(p);
+		  Collections.shuffle(con);
+		  
 		  p = null;// Missing in the code
 		  create=null;//Newly Added By Guru
     }
@@ -167,8 +173,10 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
 			        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
 			        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
+
 				 con.add(cpr);	
 				 Collections.shuffle(con, null);
+
 				 cpr=null;
 				 create=null;//Newly Added By Guru
 					}
@@ -193,6 +201,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			 	cr.setInternalRating(create.createinternalRating());
 			 	cr.setDateOfInternalRating(create.dateOfInternalRating());
 			 con.add(cr);
+			 Collections.shuffle(con);
 			 cr = null;// Missing in the code
 			 create=null;//Newly Added By Guru
 			}	
@@ -250,7 +259,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		 	in.setSuitFielDate(create.createSuiteFieldDate());
 		 	
 		 	con.add(in);
-		    
+		 	Collections.shuffle(con);
 		}
 		return con;
 	

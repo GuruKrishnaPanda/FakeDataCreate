@@ -41,7 +41,8 @@ public class datacreation {
 		else {
 			String invalidNumber = invalidNumberlength(faker);
 			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			System.out.println(createdata(i, false, true, true));
+			return createdata(i, false, true, true);
 		     }
 		return null;
 	}
@@ -214,25 +215,20 @@ System.out.println(faker.regexify(panNo));
 }
 public String createContractIdentifier() 
 {
-
 	
 	int j= faker.number().numberBetween(5, 36);
 	
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
-		
-	
 		String value = 	conditionCheck3(j);
 		System.out.println(value);
-		return value;
-		
+		return value;	
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
-	     }
-	
+		String d = negAlpha();
+		System.out.println(d);
+		return d;
+         }
 }
 
 public String conditionCheck2(int i)
@@ -279,9 +275,9 @@ int j= faker.number().numberBetween(4, 21);
 		
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
+		String d = negAlpha();
+		System.out.println(d);
+		return d;
 	     }
 	
 }
@@ -429,7 +425,8 @@ int j= faker.number().numberBetween(4, 10);
 		else {
 			String invalidNumber = invalidNumberlength(faker);
 			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			System.out.println(createdata(i, false, true, true));
+			return createdata(i, false, true, true);	
 		     }
 
  } 
@@ -1056,7 +1053,9 @@ public String dateOfFradulentActivityClassification() {
 		 }
 		 else
 		 {
-			 return createdata(10, true, false, true);	
+			 String d = negAlpha();
+			 System.out.println(d);
+			 return d;
 		 }
 	 }
 	 public String createRatingId()
@@ -1717,13 +1716,13 @@ public String npaCategroyCode()
 
 	 
 }
-
-
-
-
-
-
-
+public String negAlpha()
+{
+	String invalidNumber = invalidNumberlength(faker);
+	int i=Integer.parseInt(invalidNumber); 
+	System.out.println(createdata(i, false, true, true));
+	return createdata(i, false, true, true);	
+}
 
 
 }
