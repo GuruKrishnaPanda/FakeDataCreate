@@ -1,8 +1,7 @@
 	package ReUsable;
 
 import java.util.ArrayList;
-
-
+import java.util.Collections;
 
 import pojoClases.Contract;
 import pojoClases.Counterparty;
@@ -33,7 +32,7 @@ public ArrayList<Contract> createContractData(int numberData)
 			 	create = new datacreation();
 				Contract c  =  new Contract();
 				c.setContractId(create.createContractIdentifier());
-				c.setCounterypartyId(create.createContractIdentifier());
+				c.setCounterypartyId(create.createCouterpartyIdentifier());
 				c.setInstrumentId(create.createInstrumentId());
 				c.setReportingEntityId(create.createReportingEntityId());		
 			con.add(c);
@@ -169,6 +168,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
 			        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
 				 con.add(cpr);	
+				 Collections.shuffle(con, null);
 				 cpr=null;
 				 create=null;//Newly Added By Guru
 					}

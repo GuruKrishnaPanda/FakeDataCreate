@@ -374,13 +374,23 @@ int j= faker.number().numberBetween(3, 12);
 		return value;
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);
+		String d=negNum();
+		System.out.println(d);
+		return d;
 		
 	     }
 
 }
+public String negNum() 
+	// TODO Auto-generated method stub
+	{
+		String invalidNumber=invalidNumberlength(faker);
+		int i=Integer.parseInt(invalidNumber);
+		System.out.println(createdata(i,true,true,false));
+		return createdata(i,true,true,false);
+	}
+
+
 public String taxCollectionAccountNumber()
 {
 int j= faker.number().numberBetween(4, 10);
@@ -1702,6 +1712,7 @@ public String npaCategroyCode()
 		 System.out.println(npa);
 		 return npa;
 	 }
+
 	 
 }
 
