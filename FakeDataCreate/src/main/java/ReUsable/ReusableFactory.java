@@ -3,6 +3,8 @@ package ReUsable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import Utilities.Utils;
 import pojoClases.Contract;
@@ -29,18 +31,18 @@ public class ReusableFactory {
 		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(contractData);
 		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(contractData);
 		ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
-		
+	
 		
 		try {
 			
 			String folderName = Utils.generateFolderwithName();
 			generateEntityFiles.generateContractfile(contractData,folderName);
 			generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName);
+			generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName);
 			generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName);
 			generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName);
 			generateEntityFiles.generateProtectionfile(ProtectionData, folderName);
 			generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName);
-			generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName);
 			generateEntityFiles.generateInstrumentfile(InstrumentData, folderName);
 			
 			Utils.compressFolder(folderName);

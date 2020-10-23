@@ -3,6 +3,7 @@ package ReUsable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import Utilities.Constants;
 import pojoClases.Contract;
@@ -11,15 +12,16 @@ import pojoClases.Instrument;
 import pojoClases.Protection;
 import pojoClases.counterpartyRating;
 import pojoClases.counterpartyRisk;
+
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 
 public class GenerateEntityFiles {
 	
 	File file;
+	
 	 ReadWrite rw=  new ReadWrite();
-	 
-	 
+	
 	public void generateContractfile(ArrayList<Contract> contractData,String folderName) throws IOException {
 			
 			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.contract+Constants.fileType;	 
@@ -77,4 +79,5 @@ public class GenerateEntityFiles {
 		String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.instrument+Constants.fileType;	 
 		 rw.writeInstrumentData(contractData,fileName);
 }
+	
 }
