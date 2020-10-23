@@ -15,6 +15,7 @@ import Utilities.Constants;
 import Utilities.headerFiles;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.Instrument;
 import pojoClases.Protection;
 import pojoClases.counterpartyRating;
 import pojoClases.counterpartyRisk;
@@ -211,6 +212,77 @@ public  void writeProtectionData(ArrayList<Protection> contractData, String file
         
     } 
 }
+public  void writeInstrumentData(ArrayList<Instrument> contractData, String fileName) {
+    try { 
+    	outputfile = createFileObject(fileName);
+        // create CSVWriter with ';' as separator 
+        CSVWriter writer = new CSVWriter(outputfile, ',', 
+                                         CSVWriter.NO_QUOTE_CHARACTER, 
+                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+                                         CSVWriter.DEFAULT_LINE_END); 
+        
+        writer.writeNext(headerFiles.Instrument()); 
+        System.out.println("No of rows = "+contractData.size()); 
+        for(Instrument con : contractData) {
+        	String[] rowData =  { 
+        		con.getReportingEntityId(),
+        		con.getInstrumentId(),
+        		con.getBranchCode(),
+        		con.getContractId(),
+        		con.getDistrictOfUtilisation(),
+        		con.getInstrumentType(),
+        		con.getPrioritySector(),
+        		con.getWeakerSection(),
+        		con.getClassificationOfActivity(),
+        		con.getSanctionDate(),
+        		con.getDisbursementDate(),
+        		con.getMaturityDate(),
+        		con.getCurrencyCode(),
+        		con.getOrgsanAmmnt(),
+        		con.getSyndcateContactId(),
+        		con.getRecourse(),
+        		con.getInterestRateType(),
+        		con.getAmortisationType(),
+        		con.getPaymentFrequency(),
+        		con.getInterRate(),
+        		con.getWeightedAverageInterestRate(),
+        		con.getInstallAmnt(),
+        		con.getBalanceOutstanding(),
+        		con.getUnvailedAmmount(),
+        		con.getOffBalMinAmnt(),
+        		con.getCrediteqibaloff(),
+        		con.getAccuInterst(),
+        		con.getAmntOver(),
+        		con.getNumPastDue(),
+        		con.getSmaCatogry(),
+        		con.getSmaCurrentCatg(),
+        		con.getNpaCatgCode(),
+        		con.getNpaSinDate(),
+        		con.getCummRecovSinNpa(),
+        		con.getAccProviosions(),
+        		con.getAccWriteOffs(),
+        		con.getSettAmmount(),
+        		con.getRestStatus(),
+        		con.getRestDate(),
+        		con.getAccountStatus(),
+        		con.getStatusDate(),
+        		con.getSuitFielDate()
+        		
+        		
+        		
+                        
+        				}; 
+        	writer.writeNext(rowData); 
+        }
+
+        writer.close(); 
+    } 
+    catch (IOException e) { 
+        // TODO Auto-generated catch block 
+        e.printStackTrace(); 
+        
+    } 
+}
 public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
@@ -243,6 +315,7 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
         
     } 
 }
+
 public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
@@ -281,6 +354,7 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
         
     } 
 }
+
 
 
 public FileWriter createFileObject(String fileName) throws IOException{
@@ -358,6 +432,16 @@ public List createHeader(String fileSample) {
 						} catch (FileNotFoundException e) {
 							
 							e.printStackTrace();
+						}
+						if (fileSample.equalsIgnoreCase("Instrument")) {
+							try {
+								
+								System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
+								filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleInstrument.csv");
+							} catch (FileNotFoundException e) {
+								
+								e.printStackTrace();
+							}
 						}
     // create csvReader object passing 
     // file reader as a parameter 

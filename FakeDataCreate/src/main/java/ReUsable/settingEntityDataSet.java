@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 
 
-
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.Instrument;
 import pojoClases.counterpartyRating;
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
@@ -49,35 +49,35 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		for(Contract contract: contractData) {
 		 	create = new datacreation();
 		 	Counterparty cp  =  new Counterparty();
+		 	cp.setReportingEntityId(contract.getReportingEntityId());
+		 	cp.setCounterypartyId(contract.getCounterypartyId());
+		 	cp.setName(create.createName());
+		    cp.setDate(create.date());
+		 	cp.setCasteGen(create.createCaste());
+		    cp.setCommGen(create.createCommunity());
+		    cp.setPan(create.validatepan());
+		 	cp.setAdharNo(create.adharGenerate());
+		 	cp.setDin(create.createDIN());
+		 	cp.setCin(create.companyIdentificationNumber());
+		 	cp.setLei(create.legalEntityIdentifier());
+			cp.setTan(create.taxCollectionAccountNumber());
+			cp.setGstin(create.createGstin());
+			cp.setUdyogAadhaar(create.udyogAdharNumber());
+			cp.setTypeOrg(create.typeOfOrganisation());
+			cp.setBurrrower(create.createBurrower());
+		 	cp.setNicCode(create.nicCode());
+		 	cp.setOccupationCode(create.occupationalCode());
 		 	cp.setAddressLine1(create.addressLine1());
 		 	cp.setAddressLine2(create.addressLine2());
 		 	cp.setAddressLine3(create.addressLine3());
-		 	cp.setCin(create.companyIdentificationNumber());
-		 	cp.setCounterypartyId(contract.getCounterypartyId());
-		 	cp.setCountryCode(create.countryCode());
-		 	cp.setDistrictCode(create.districtCode());
-		 	cp.setEmailAddress(create.emailAddress());
-		 	cp.setGstin(create.createGstin());
-		 	cp.setLei(create.legalEntityIdentifier());
-		 	cp.setName(create.createName());
-		 	cp.setNicCode(create.nicCode());
-		 	cp.setOccupationCode(create.occupationalCode());
-		 	cp.setPan(create.validatepan());
-		 	cp.setReportingEntityId(contract.getReportingEntityId());
-		 	cp.setStateCode(create.stateCode());
-		 	cp.setTan(create.taxCollectionAccountNumber());
-		    cp.setDate(create.date());
-		 	cp.setAdharNo(create.adharGenerate());
-		 	cp.setUdyogAadhaar(create.udyogAdharNumber());
-		 	cp.setCasteGen(create.createCaste());
-		    cp.setCommGen(create.createCommunity());
-		 	cp.setDin(create.createDIN());
-		    cp.setTypeOrg(create.typeOfOrganisation());
-		    cp.setPinCode(create.pinCode());
-		    cp.setBurrrower(create.createBurrower());
+		 	cp.setPinCode(create.pinCode());
 		    cp.setStateCode(create.stateCode());
+		    cp.setDistrictCode(create.districtCode());
+		    cp.setCountryCode(create.countryCode());
 		    cp.setTelePhoneNumber(create.mobileNumber());
 		    cp.setMobNo(create.landmobileNumber());
+		    cp.setEmailAddress(create.emailAddress());
+		 
 		    con.add(cp);
 		
 	
@@ -198,5 +198,62 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			}	
 		return con;
 	}
+
+   public ArrayList<Instrument> createInstrumentData(ArrayList<Contract> contractData) {
+		
+		ArrayList<Instrument> con =  new ArrayList<>();
+		for(Contract contract: contractData) {
+		 	create = new datacreation();
+		 	Instrument in  =  new Instrument();
+		 	in.setReportingEntityId(contract.getReportingEntityId());
+		 	in.setInstrumentId(contract.getInstrumentId());
+			in.setBranchCode(create.createBranchCode());
+		 	in.setContractId(contract.getContractId());
+		 	in.setDistrictOfUtilisation(create.createDistrictOfUtilisaton());
+		 	in.setInstrumentType(create.createInstrumentType());
+		 	in.setPrioritySector(create.createPrioritySector());
+		 	in.setWeakerSection(create.createWeakerSection());
+		 	in.setClassificationOfActivity(create.createClassificationOfActivity());
+		 	in.setSanctionDate(create.createSanctionedDate());
+		 	in.setDisbursementDate(create.createDisbursementDate());
+		 	in.setMaturityDate(create.createMaturityDate());
+		 	in.setCurrencyCode(create.createCurrencyCode());
+		 	in.setOrgsanAmmnt(create.createoriginalSanctionAmount());
+		 	in.setSyndcateContactId(create.createsyndicatedContractID());
+		 	in.setRecourse(create.createrecourse());
+		 	in.setInterestRateType(create.createintrestRateType());
+		 	in.setInterRate(create.interestRate());
+		 	in.setAmortisationType(create.createamortisationType());
+		 	in.setPaymentFrequency(create.createpaymentFrequency());
+		 	in.setInterRate(create.interestRate());
+		 	in.setWeightedAverageInterestRate(create.weightedAverageInterestRate());
+		 	in.setInstallAmnt(create.installmentAmount());
+		 	in.setBalanceOutstanding(create.balanceOutstanding());
+		 	in.setUnvailedAmmount(create.unavailedAmount());
+		 	in.setOffBalMinAmnt(create.offBalanceSheetNominalAmount());
+		 	in.setCrediteqibaloff(create.creditEquivalentOffBalanceSheetNominalAmount());
+		 	in.setAccuInterst(create.accruedInterest());
+		 	in.setAmntOver(create.amountOverdue());
+		 	in.setNumPastDue(create.numberOfDaysPastDue());
+		 	in.setSmaCatogry(create.smaCategory());
+		 	in.setSmaCurrentCatg(create.smaCurrentCategorySinceDate());
+		 	in.setNpaCatgCode(create.npaCategroyCode());
+		 	in.setNpaSinDate(create.npaSinceDate());
+		 	in.setCummRecovSinNpa(create.cummulativeRecoveriesNpa());
+		 	in.setAccProviosions(create.accumulatedProvisions());
+		 	in.setAccWriteOffs(create.accumulatedWriteOffs());
+		 	in.setSettAmmount(create.createSettlementAmount());
+		 	in.setAccountStatus(create.createAccountStatus());
+		 	in.setRestDate(create.restructStatusDate());
+		 	in.setRestStatus(create.createRestructuringStatus());
+		 	in.setStatusDate(create.createStatusDate());
+		 	in.setSuitFielDate(create.createSuiteFieldDate());
+		 	
+		 	con.add(in);
+		    
+		}
+		return con;
+	
    }
+}
    

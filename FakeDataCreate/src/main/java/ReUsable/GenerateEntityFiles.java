@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import Utilities.Constants;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
+import pojoClases.Instrument;
 import pojoClases.Protection;
 import pojoClases.counterpartyRating;
 import pojoClases.counterpartyRisk;
@@ -46,12 +47,10 @@ public class GenerateEntityFiles {
 			
 
 	}
-	public void generateInstrumentfile(ArrayList<Contract> contractData, String fileFor) throws IOException {
-		
-			
+	
 		
 
-	}
+	
 	public void generateProtectionfile(ArrayList<Protection> contractData, String folderName) throws IOException {
 		
 		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.protection+Constants.fileType;	 
@@ -74,4 +73,8 @@ public class GenerateEntityFiles {
 		 rw.writeRelatedPartyData(contractData, fileName);
 
 	}
+	public void generateInstrumentfile(ArrayList<Instrument> contractData, String folderName) throws IOException {
+		String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.instrument+Constants.fileType;	 
+		 rw.writeInstrumentData(contractData,fileName);
+}
 }
