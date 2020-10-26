@@ -2,6 +2,7 @@ package ReUsable;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -40,7 +41,8 @@ public class datacreation {
 		else {
 			String invalidNumber = invalidNumberlength(faker);
 			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			System.out.println(createdata(i, false, true, true));
+			return createdata(i, false, true, true);
 		     }
 		return null;
 	}
@@ -213,25 +215,20 @@ System.out.println(faker.regexify(panNo));
 }
 public String createContractIdentifier() 
 {
-
 	
 	int j= faker.number().numberBetween(5, 36);
 	
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
-		
-	
 		String value = 	conditionCheck3(j);
 		System.out.println(value);
-		return value;
-		
+		return value;	
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
-	     }
-	
+		String d = negAlpha();
+		System.out.println(d);
+		return d;
+         }
 }
 
 public String conditionCheck2(int i)
@@ -278,9 +275,9 @@ int j= faker.number().numberBetween(4, 21);
 		
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
+		String d = negAlpha();
+		System.out.println(d);
+		return d;
 	     }
 	
 }
@@ -369,18 +366,30 @@ int j= faker.number().numberBetween(3, 12);
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
 		
+		
 		String value = 	conditionCheck5(j);
 		System.out.println(value);
 		return value;
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);
-		
+
+		String d = negNum1();
+		System.out.println(d);
+		return d;
+				
 	     }
 
 }
+public String negNum1() 
+	// TODO Auto-generated method stub
+	{
+		String invalidNumber=invalidNumberlength(faker);
+		int i=Integer.parseInt(invalidNumber);
+		System.out.println(createdata(i,true,true,false));
+		return createdata(i,true,true,false);
+	}
+
+
 public String taxCollectionAccountNumber()
 {
 int j= faker.number().numberBetween(4, 10);
@@ -417,7 +426,8 @@ int j= faker.number().numberBetween(4, 10);
 		else {
 			String invalidNumber = invalidNumberlength(faker);
 			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			System.out.println(createdata(i, false, true, true));
+			return createdata(i, false, true, true);	
 		     }
 
  } 
@@ -1044,7 +1054,9 @@ public String dateOfFradulentActivityClassification() {
 		 }
 		 else
 		 {
-			 return createdata(10, true, false, true);	
+			 String d = negAlpha();
+			 System.out.println(d);
+			 return d;
 		 }
 	 }
 	 public String createRatingId()
@@ -1702,16 +1714,26 @@ public String npaCategroyCode()
 		 System.out.println(npa);
 		 return npa;
 	 }
+
 	 
 }
 
-
-
-
-
-
-
-
-
+public String negNum()
+{
+	String invalidNumber=invalidNumberlength(faker);
+	int i=Integer.parseInt(invalidNumber);
+	System.out.println(createdata(i,true,true,false));
+	return createdata(i,true,true,false);
 }
+
+
+public String negAlpha()
+{
+	String invalidNumber = invalidNumberlength(faker);
+	int i=Integer.parseInt(invalidNumber); 
+	System.out.println(createdata(i, false, true, true));
+	return createdata(i, false, true, true);	
+
+
+}}
 

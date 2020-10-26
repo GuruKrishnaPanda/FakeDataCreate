@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.opencsv.CSVReader;
@@ -19,6 +20,7 @@ import pojoClases.Instrument;
 import pojoClases.Protection;
 import pojoClases.counterpartyRating;
 import pojoClases.counterpartyRisk;
+
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 
@@ -28,7 +30,7 @@ public class ReadWrite {
 	 List hearderData;
 	 
 	
-
+	
 public  void writeCotractData(ArrayList<Contract> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
@@ -245,8 +247,8 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
         		con.getRestDate(),
         		con.getAccountStatus(),
         		con.getStatusDate(),
-        		con.getSuitFielDate()
-       }; 
+        		con.getSuitFielDate()                       
+        	}; 
         	writer.writeNext(rowData); 
         }
 
