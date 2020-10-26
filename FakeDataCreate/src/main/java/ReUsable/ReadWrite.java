@@ -33,11 +33,8 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
-        
+       
+        CSVWriter writer =createCSVWriter(outputfile);
         writer.writeNext(headerFiles.contractHeader()); 
         System.out.println("No of rows = "+contractData.size()); 
         for(Contract con : contractData) {
@@ -52,20 +49,19 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
 }
 
+
+
 public void writeCounterPartyData(ArrayList<Counterparty> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.counterPartyHeader()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -101,14 +97,10 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
     				con.getEmailAddress()};
         	writer.writeNext(rowData); 
         }
-
-       // writer.writeAll(data); 
-
-        // closing writer connection 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
@@ -118,10 +110,7 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.ProtectionInstrument()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -140,7 +129,7 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+        
         e.printStackTrace(); 
         
     } 
@@ -149,10 +138,7 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.RelatedParty()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -168,7 +154,7 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+      
         e.printStackTrace(); 
         
     } 
@@ -177,10 +163,7 @@ public  void writeProtectionData(ArrayList<Protection> contractData, String file
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.Protection()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -199,15 +182,14 @@ public  void writeProtectionData(ArrayList<Protection> contractData, String file
         		con.getDateOfOriginalProtectionValue(),
         		con.getProtectionRegistryId(),
         		con.getProtectionExternalId()
-        
-        				}; 
+        	}; 
         	writer.writeNext(rowData); 
         }
 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
@@ -216,10 +198,7 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.Instrument()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -267,18 +246,13 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
         		con.getAccountStatus(),
         		con.getStatusDate(),
         		con.getSuitFielDate()
-        		
-        		
-        		
-                        
-        				}; 
+       }; 
         	writer.writeNext(rowData); 
         }
 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
         e.printStackTrace(); 
         
     } 
@@ -287,10 +261,7 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.CounterpartyRating()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -310,7 +281,7 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+        
         e.printStackTrace(); 
         
     } 
@@ -320,10 +291,7 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.CounterpartyRisk()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -341,15 +309,14 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
         		con.getDateOfFradulentActivityClassification(),
         		con.getInternalRating(),
         		con.getDateOfInternalRating()
-        
-        				}; 
+        }; 
         	writer.writeNext(rowData); 
         }
 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
@@ -357,13 +324,19 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
 
 
 
-public FileWriter createFileObject(String fileName) throws IOException{
+private FileWriter createFileObject(String fileName) throws IOException{
 	file = new File(fileName); 
 	outputfile = new FileWriter(file);
 	return outputfile;	
 }
 
-
+private CSVWriter createCSVWriter(FileWriter outputfile) {
+	 CSVWriter writer = new CSVWriter(outputfile, ',', 
+            CSVWriter.NO_QUOTE_CHARACTER, 
+            CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+            CSVWriter.DEFAULT_LINE_END); 
+	 return writer;
+}
 
 
 public List createHeader(String fileSample) {
@@ -449,19 +422,17 @@ public List createHeader(String fileSample) {
     try {
     	allData = csvReader.readAll();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	} }
    
+		}
 }
-
-
-
-	}
 	}
 	
 	}
-	return allData;}}
+	return allData;
+	}
+}
 
 
 
