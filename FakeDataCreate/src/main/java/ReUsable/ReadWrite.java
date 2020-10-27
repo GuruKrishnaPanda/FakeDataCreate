@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -35,11 +37,8 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
-        
+       
+        CSVWriter writer =createCSVWriter(outputfile);
         writer.writeNext(headerFiles.contractHeader()); 
         System.out.println("No of rows = "+contractData.size()); 
         for(Contract con : contractData) {
@@ -54,24 +53,24 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
 }
 
-public void writeCounterPartyData(ArrayList<Counterparty> contractData, String fileName) {
-    try { 
+
+
+public void writeCounterPartyData(ArrayList<Counterparty> counterPartyData, String fileName) {
+    try {
+    	counterPartyData=randomize (counterPartyData);
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.counterPartyHeader()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(Counterparty con : contractData) {
+        System.out.println("No of rows = "+counterPartyData.size()); 
+        for(Counterparty con : counterPartyData) {
         	String[] rowData =  { 
         			con.getReportingEntityId(),
     				con.getCounterypartyId(),
@@ -103,27 +102,23 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
     				con.getEmailAddress()};
         	writer.writeNext(rowData); 
         }
-
-       // writer.writeAll(data); 
-
-        // closing writer connection 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
 } 
 
+
+
+
 public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.ProtectionInstrument()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -142,7 +137,7 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+        
         e.printStackTrace(); 
         
     } 
@@ -151,10 +146,7 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.RelatedParty()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -170,7 +162,7 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+      
         e.printStackTrace(); 
         
     } 
@@ -179,10 +171,7 @@ public  void writeProtectionData(ArrayList<Protection> contractData, String file
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.Protection()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -201,15 +190,14 @@ public  void writeProtectionData(ArrayList<Protection> contractData, String file
         		con.getDateOfOriginalProtectionValue(),
         		con.getProtectionRegistryId(),
         		con.getProtectionExternalId()
-        
-        				}; 
+        	}; 
         	writer.writeNext(rowData); 
         }
 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
@@ -218,10 +206,7 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.Instrument()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -269,14 +254,13 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
         		con.getAccountStatus(),
         		con.getStatusDate(),
         		con.getSuitFielDate()                       
-        				}; 
+        	}; 
         	writer.writeNext(rowData); 
         }
 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
         e.printStackTrace(); 
         
     } 
@@ -285,10 +269,7 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.CounterpartyRating()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -308,7 +289,7 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+        
         e.printStackTrace(); 
         
     } 
@@ -318,10 +299,7 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
     try { 
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
-        CSVWriter writer = new CSVWriter(outputfile, ',', 
-                                         CSVWriter.NO_QUOTE_CHARACTER, 
-                                         CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
-                                         CSVWriter.DEFAULT_LINE_END); 
+    	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.CounterpartyRisk()); 
         System.out.println("No of rows = "+contractData.size()); 
@@ -339,15 +317,14 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
         		con.getDateOfFradulentActivityClassification(),
         		con.getInternalRating(),
         		con.getDateOfInternalRating()
-        
-        				}; 
+        }; 
         	writer.writeNext(rowData); 
         }
 
         writer.close(); 
     } 
     catch (IOException e) { 
-        // TODO Auto-generated catch block 
+       
         e.printStackTrace(); 
         
     } 
@@ -355,111 +332,32 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
 
 
 
-public FileWriter createFileObject(String fileName) throws IOException{
+private FileWriter createFileObject(String fileName) throws IOException{
 	file = new File(fileName); 
 	outputfile = new FileWriter(file);
 	return outputfile;	
 }
 
-
-
-
-public List createHeader(String fileSample) {
-	List allData = null;
-	FileReader filereader = null;
-	
-	if (fileSample.equalsIgnoreCase("contract")) {
-		try {
-			System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-			
-			//HeaderCreation.createContractHeader(fileSample);
-			filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleContract.csv");
-			System.out.println();
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		} 
-	}	if (fileSample.equalsIgnoreCase("Counterparty")) {
-		try {
-			System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-			filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleCounterparty.csv");
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		} 
-		if (fileSample.equalsIgnoreCase("protectionInstrument")) {
-			try {
-				System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-				filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleprotectionInstrument.csv");
-			} catch (FileNotFoundException e) {
-				
-				e.printStackTrace();
-	}
-			if (fileSample.equalsIgnoreCase("relatedParty")) {
-				try {
-					System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-					filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplerelatedParty.csv");
-				} catch (FileNotFoundException e) {
-					
-					e.printStackTrace();
-				}
-
-				if (fileSample.equalsIgnoreCase("counterpartyRisk")) {
-					try {
-						System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-						filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplecounterpartyRisk.csv");
-					} catch (FileNotFoundException e) {
-						
-						e.printStackTrace();
-					}
-					if (fileSample.equalsIgnoreCase("counterpartyRating")) {
-						try {
-							
-							System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-							filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplecounterpartyRating.csv");
-						} catch (FileNotFoundException e) {
-							
-							e.printStackTrace();
-						}
-					}
-					if (fileSample.equalsIgnoreCase("Protection")) {
-						try {
-							
-							System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-							filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleProtection.csv");
-						} catch (FileNotFoundException e) {
-							
-							e.printStackTrace();
-						}
-						if (fileSample.equalsIgnoreCase("Instrument")) {
-							try {
-								
-								System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-								filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleInstrument.csv");
-							} catch (FileNotFoundException e) {
-								
-								e.printStackTrace();
-							}
-						}
-    // create csvReader object passing 
-    // file reader as a parameter 
-    CSVReader csvReader = new CSVReader(filereader); 
-    try {
-    	allData = csvReader.readAll();
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} }
-   
+private CSVWriter createCSVWriter(FileWriter outputfile) {
+	 CSVWriter writer = new CSVWriter(outputfile, ',', 
+            CSVWriter.NO_QUOTE_CHARACTER, 
+            CSVWriter.DEFAULT_ESCAPE_CHARACTER, 
+            CSVWriter.DEFAULT_LINE_END); 
+	 return writer;
 }
 
 
+private ArrayList<Counterparty> randomize( ArrayList<Counterparty> counterPartyData) 
 
-	}
-	}
-	
-	}
-	return allData;}}
+{ 
+	System.out.println(counterPartyData); 
+	Collections.shuffle(counterPartyData); 
+	System.out.println("-------------------------------------------------------"); 
+	System.out.println(counterPartyData); 
+	return counterPartyData;
+} 
+   
+}
 
 
 

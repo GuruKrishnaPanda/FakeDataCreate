@@ -3,7 +3,7 @@ package ReUsable;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 
 import Utilities.Constants;
 import pojoClases.Contract;
@@ -29,11 +29,11 @@ public class GenerateEntityFiles {
 	}
 
 
-	public void generateCounterpartyfile(ArrayList<Counterparty> contractData,String folderName) throws IOException {
+	public void generateCounterpartyfile(ArrayList<Counterparty> counterPartyData,String folderName) throws IOException {
 		
 			 
 			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;	 
-			 rw.writeCounterPartyData(contractData,fileName);	
+			 rw.writeCounterPartyData(counterPartyData,fileName);	
 
 	}
 	public void generateCounterpartyRatingfile(ArrayList<counterpartyRating> contractData,String folderName) throws IOException {

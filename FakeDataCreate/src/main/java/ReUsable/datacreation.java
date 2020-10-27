@@ -374,15 +374,16 @@ int j= faker.number().numberBetween(3, 12);
 		return value;
 	}
 	else {
-		String d=negNum();
+
+		String d = negNum1();
 		System.out.println(d);
 		return d;
-		
+				
 	     }
 
 }
-public String negNum() 
-
+public String negNum1() 
+	
 	{
 		String invalidNumber=invalidNumberlength(faker);
 		int i=Integer.parseInt(invalidNumber);
@@ -1726,6 +1727,16 @@ public String npaCategroyCode()
 
 	 
 }
+
+public String negNum()
+{
+	String invalidNumber=invalidNumberlength(faker);
+	int i=Integer.parseInt(invalidNumber);
+	System.out.println(createdata(i,true,true,false));
+	return createdata(i,true,true,false);
+}
+
+
 public String negAlpha()
 {
 	String invalidNumber = invalidNumberlength(faker);
@@ -1733,7 +1744,5 @@ public String negAlpha()
 	System.out.println(createdata(i, false, true, true));
 	return createdata(i, false, true, true);	
 }
-
 }
-
 	
