@@ -316,10 +316,10 @@ public String adharGenerate() {
 	}	
 	else 
 		{
-		String d = negNum1();
-		System.out.println(d);
-		return d;
+		
+		
 		}
+	return aNo;
 }
 
 public String legalEntityIdentifier()
@@ -1726,27 +1726,6 @@ public String negAlpha()
 	int i=Integer.parseInt(invalidNumber); 
 	System.out.println(createdata(i, false, true, true));
 	return createdata(i, false, true, true);	
-}
-public String negNum1() 
-// TODO Auto-generated method stub
-{
-	String invalidNumber=invalidNumberlength(faker);
-	int i=Integer.parseInt(invalidNumber);
-	System.out.println(createdata(i,true,true,false));
-	return createdata(i,true,true,false);
-}
-
-///
-public String negDecimal() 
-{	
-	// double j= faker.number().numberBetween(6, 17);
-	 //String d= Double.toString(j);
-	 double i=faker.number().randomDouble(6, 10, 24);
-	 String c= Double.toString(i);
-	 
-System.out.println(c);
-return c;
-
 }
 }
 	
