@@ -382,7 +382,7 @@ int j= faker.number().numberBetween(3, 12);
 
 }
 public String negNum() 
-	// TODO Auto-generated method stub
+
 	{
 		String invalidNumber=invalidNumberlength(faker);
 		int i=Integer.parseInt(invalidNumber);
@@ -1503,7 +1503,7 @@ public String interestRate()
 		
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+			System.out.println(value); 
 		
 	 }
 	
@@ -1520,7 +1520,7 @@ public String weightedAverageInterestRate()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+			System.out.println(value); 
 	
 	 }
 	
@@ -1537,7 +1537,7 @@ public String installmentAmount()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+			System.out.println(value); 
 			
 	 }
 	
@@ -1555,7 +1555,7 @@ public String  balanceOutstanding()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+			System.out.println(value); 
 		
 	 }
 	
@@ -1574,9 +1574,8 @@ public String unavailedAmount()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
-			
-	 }
+			System.out.println(value); 
+			}
 	
 	else {
 			
@@ -1592,7 +1591,7 @@ public String  offBalanceSheetNominalAmount()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+			System.out.println(value); 
 			return d;
 	 }
 	
@@ -1605,6 +1604,8 @@ public String  offBalanceSheetNominalAmount()
 	
 } 
 
+
+/////////////////
 public String  creditEquivalentOffBalanceSheetNominalAmount()
 {
 	 double j= faker.number().numberBetween(6, 17);
@@ -1612,15 +1613,18 @@ public String  creditEquivalentOffBalanceSheetNominalAmount()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+		 
+			System.out.println(value); 
+		
 			
 	 }
 	
 	else {
 			
-			
+		
 		   }
 	return d;
+
 } 
 
 
@@ -1631,31 +1635,33 @@ public String accruedInterest()
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
 		 double value =conditionCheck7(j);
-			System.out.println(d); 
+			System.out.println(value); 
 			
 	 }
 	
 	else {
 			
 			
-		   }
+	     }
 	return d;
 } 	 
 public String amountOverdue()
-{ double j= faker.number().numberBetween(6, 17);
-String d= Double.toString(j);
-if(Constants.typeOfData.equalsIgnoreCase("Y"))
-{
-	 double value =conditionCheck7(j);
-		System.out.println(d); 
+{ 
+	double j= faker.number().numberBetween(6, 17);
+	String d= Double.toString(j);
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		double value =conditionCheck7(j);
+		System.out.println(value); 
 		
-}
+	}
 
-else {
+	else 
+	{
 		
 		
-	   }
-return d;
+	}
+	return d;
 } 	
 public String numberOfDaysPastDue()
 {
@@ -1727,5 +1733,7 @@ public String negAlpha()
 	System.out.println(createdata(i, false, true, true));
 	return createdata(i, false, true, true);	
 }
+
 }
+
 	
