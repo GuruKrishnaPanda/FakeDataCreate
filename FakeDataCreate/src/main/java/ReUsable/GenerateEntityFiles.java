@@ -29,11 +29,11 @@ public class GenerateEntityFiles {
 	}
 
 
-	public void generateCounterpartyfile(ArrayList<Counterparty> contractData,String folderName) throws IOException {
+	public void generateCounterpartyfile(ArrayList<Counterparty> counterPartyData,String folderName) throws IOException {
 		
 			 
 			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;	 
-			 rw.writeCounterPartyData(contractData,fileName);	
+			 rw.writeCounterPartyData(counterPartyData,fileName);	
 
 	}
 	public void generateCounterpartyRatingfile(ArrayList<counterpartyRating> contractData,String folderName) throws IOException {

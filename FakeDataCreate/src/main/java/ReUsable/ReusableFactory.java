@@ -50,14 +50,8 @@ public class ReusableFactory {
 			
 			e.printStackTrace();
 		}
-		//ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(contractData);
+		
 		
 		
 	}
-	
-	
-	
-
-
-
 }

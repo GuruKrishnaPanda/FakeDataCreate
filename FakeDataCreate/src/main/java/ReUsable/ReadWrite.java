@@ -6,8 +6,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -59,15 +61,16 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
 
 
 
-public void writeCounterPartyData(ArrayList<Counterparty> contractData, String fileName) {
-    try { 
+public void writeCounterPartyData(ArrayList<Counterparty> counterPartyData, String fileName) {
+    try {
+    	counterPartyData=randomize (counterPartyData);
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
     	 CSVWriter writer =createCSVWriter(outputfile);
         
         writer.writeNext(headerFiles.counterPartyHeader()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(Counterparty con : contractData) {
+        System.out.println("No of rows = "+counterPartyData.size()); 
+        for(Counterparty con : counterPartyData) {
         	String[] rowData =  { 
         			con.getReportingEntityId(),
     				con.getCounterypartyId(),
@@ -107,6 +110,9 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
         
     } 
 } 
+
+
+
 
 public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contractData, String fileName) {
     try { 
@@ -341,99 +347,16 @@ private CSVWriter createCSVWriter(FileWriter outputfile) {
 }
 
 
-public List createHeader(String fileSample) {
-	List allData = null;
-	FileReader filereader = null;
-	
-	if (fileSample.equalsIgnoreCase("contract")) {
-		try {
-			System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-			
-			//HeaderCreation.createContractHeader(fileSample);
-			filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleContract.csv");
-			System.out.println();
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		} 
-	}	if (fileSample.equalsIgnoreCase("Counterparty")) {
-		try {
-			System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-			filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleCounterparty.csv");
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-		} 
-		if (fileSample.equalsIgnoreCase("protectionInstrument")) {
-			try {
-				System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-				filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleprotectionInstrument.csv");
-			} catch (FileNotFoundException e) {
-				
-				e.printStackTrace();
-	}
-			if (fileSample.equalsIgnoreCase("relatedParty")) {
-				try {
-					System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-					filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplerelatedParty.csv");
-				} catch (FileNotFoundException e) {
-					
-					e.printStackTrace();
-				}
+private ArrayList<Counterparty> randomize( ArrayList<Counterparty> counterPartyData) 
 
-				if (fileSample.equalsIgnoreCase("counterpartyRisk")) {
-					try {
-						System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-						filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplecounterpartyRisk.csv");
-					} catch (FileNotFoundException e) {
-						
-						e.printStackTrace();
-					}
-					if (fileSample.equalsIgnoreCase("counterpartyRating")) {
-						try {
-							
-							System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-							filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SamplecounterpartyRating.csv");
-						} catch (FileNotFoundException e) {
-							
-							e.printStackTrace();
-						}
-					}
-					if (fileSample.equalsIgnoreCase("Protection")) {
-						try {
-							
-							System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-							filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleProtection.csv");
-						} catch (FileNotFoundException e) {
-							
-							e.printStackTrace();
-						}
-						if (fileSample.equalsIgnoreCase("Instrument")) {
-							try {
-								
-								System.out.println(System.getProperty("user.dir")+"\\SampleFiles\\");
-								filereader = new FileReader(System.getProperty("user.dir")+"\\SampleFiles\\SampleInstrument.csv");
-							} catch (FileNotFoundException e) {
-								
-								e.printStackTrace();
-							}
-						}
-    // create csvReader object passing 
-    // file reader as a parameter 
-    CSVReader csvReader = new CSVReader(filereader); 
-    try {
-    	allData = csvReader.readAll();
-	} catch (IOException e) {
-		e.printStackTrace();
-	} }
+{ 
+	System.out.println(counterPartyData); 
+	Collections.shuffle(counterPartyData); 
+	System.out.println("-------------------------------------------------------"); 
+	System.out.println(counterPartyData); 
+	return counterPartyData;
+} 
    
-		}
-}
-	}
-	
-	}
-	return allData;
-	}
 }
 
 

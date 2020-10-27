@@ -52,7 +52,6 @@ public class GenericXLSXReader {
 		int number=sheet.getLastRowNum()+1;
 		return number;
 		}
-		
 	}
 	
 	// returns the data from a cell
