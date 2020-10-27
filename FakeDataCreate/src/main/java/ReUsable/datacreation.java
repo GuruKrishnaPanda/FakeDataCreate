@@ -19,6 +19,7 @@ public class datacreation {
 	public String createReportingEntityId() 
 	{
 		String parten = "3|5|4|9";
+		
 		if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 		{
 			faker.regexify("3|5|4|9");
@@ -309,15 +310,16 @@ public String adharGenerate() {
 	
 	String aNo =faker.regexify("[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}");
 	if (Constants.typeOfData.equalsIgnoreCase("Y"))
-		
-System.out.println(faker.regexify(aNo));
-	
-	
-	else {
-	
-	
-	}
-	return aNo;
+	{	
+		System.out.println(faker.regexify(aNo));
+		return faker.regexify(aNo);
+	}	
+	else 
+		{
+		String d = negNum1();
+		System.out.println(d);
+		return d;
+		}
 }
 
 public String legalEntityIdentifier()
@@ -1591,14 +1593,16 @@ public String  offBalanceSheetNominalAmount()
 	 {
 		 double value =conditionCheck7(j);
 			System.out.println(d); 
-			
+			return d;
 	 }
 	
 	else {
 			
+			return d;
 			
 		   }
-	return d;
+	
+	
 } 
 
 public String  creditEquivalentOffBalanceSheetNominalAmount()
@@ -1723,7 +1727,26 @@ public String negAlpha()
 	System.out.println(createdata(i, false, true, true));
 	return createdata(i, false, true, true);	
 }
-
-
+public String negNum1() 
+// TODO Auto-generated method stub
+{
+	String invalidNumber=invalidNumberlength(faker);
+	int i=Integer.parseInt(invalidNumber);
+	System.out.println(createdata(i,true,true,false));
+	return createdata(i,true,true,false);
 }
 
+///
+public String negDecimal() 
+{	
+	// double j= faker.number().numberBetween(6, 17);
+	 //String d= Double.toString(j);
+	 double i=faker.number().randomDouble(6, 10, 24);
+	 String c= Double.toString(i);
+	 
+System.out.println(c);
+return c;
+
+}
+}
+	
