@@ -15,25 +15,11 @@ import Utilities.Utils;
 public class MainClass {
 
 	public static void main(String[] args)  
-
 	{
 
-		
-		// Utils.archiveAvailableFiles();
-		 //ReusableFactory ref = new ReusableFactory();
-		 
-		// ref.createData(Constants.totalData);
 
-
-
-		//ReusableFactory ref = new ReusableFactory();
-		//ref.createData(Constants.totalData);
-		//datacreation d=new datacreation();
-		//d.creditRating();
-	
-		
-		//Utils.archiveAvailableFiles();
 	    GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
+
         
 		DataUtil datautils =  new DataUtil();
 		Hashtable<String, String> data = datautils.getData("", xlsx);
@@ -43,6 +29,8 @@ public class MainClass {
 		
 		 ref.createData(Constants.totalData);
 	
+
 	}
 		
 	}
+
