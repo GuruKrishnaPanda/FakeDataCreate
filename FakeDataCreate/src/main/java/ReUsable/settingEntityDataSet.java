@@ -2,10 +2,7 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
 
-import Utilities.DataUtil;
-import Utilities.GenericXLSXReader;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
@@ -25,9 +22,6 @@ import pojoClases.counterpartyRisk;
  */
 public class settingEntityDataSet {
 	datacreation create ;
-	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Test.xlsx");
-	DataUtil datautils =  new DataUtil();
-	Hashtable<String, String> data = datautils.getData("", xlsx);
 	
 public ArrayList<Contract> createContractData(int numberData) 
   {	
@@ -44,7 +38,7 @@ public ArrayList<Contract> createContractData(int numberData)
 			con.add(c);
 			Collections.shuffle(con);
 			c=null;
-			create=null;//Newly Added By Guru
+			create=null;
 			}	
 		return con;
 	}
@@ -61,8 +55,8 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setDate(create.date());
 		 	cp.setCasteGen(create.createCaste());
 		    cp.setCommGen(create.createCommunity());
-		    cp.setPan(create.validatepan());
-		 	cp.setAdharNo(create.adharGenerate());
+		    cp.setPan(create.pangenerate2());
+		 	cp.setAdharNo(create.adharValidate());
 		 	cp.setDin(create.createDIN());
 		 	cp.setCin(create.companyIdentificationNumber());
 		 	cp.setLei(create.legalEntityIdentifier());
@@ -85,16 +79,12 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setEmailAddress(create.emailAddress());
 		 
 		    con.add(cp);
-		  
+		    Collections.shuffle(con);
 
 		cp=null;
-		create=null;//Newly Added By Guru
-	}
-		if(data.get("isSuffleRequired").equalsIgnoreCase("Y")) {
-		    Collections.shuffle(con);	
-		    return con;
-		}else
-			return con;
+		create=null;
+	}	
+	return con;
 }
 public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<Contract> contractData)
 {
@@ -114,8 +104,8 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 	
 	con.add(pi);
 	Collections.shuffle(con);
-	pi = null;// Missing in the code
-	create=null;//Newly Added By Guru
+	pi = null;
+	create=null;
 	
     }
 	return con;
@@ -132,8 +122,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		    rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
 	    con.add(rel);
 	    Collections.shuffle(con);
-	    rel = null;// Missing in the code
-		create=null;//Newly Added By Guru
+	    rel = null;
+		create=null;
 }
 	return con;
 	}
@@ -161,8 +151,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 
 		  con.add(p);
 		  Collections.shuffle(con);
-		  p = null;// Missing in the code
-		  create=null;//Newly Added By Guru
+		  p = null;
+		  create=null;
     }
       return con;
      }
@@ -187,7 +177,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 Collections.shuffle(con);
 
 				 cpr=null;
-				 create=null;//Newly Added By Guru
+				 create=null;
 					}
 			 	return con;
 	}
@@ -211,8 +201,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			 	cr.setDateOfInternalRating(create.dateOfInternalRating());
 			 con.add(cr);
 			 Collections.shuffle(con);
-			 cr = null;// Missing in the code
-			 create=null;//Newly Added By Guru
+			 cr = null;
+			 create=null;
 			}	
 		return con;
 	}

@@ -115,4 +115,9 @@ public class Constants {
 	public static String[] paymentFrequency = {"Daily","Weekly","Monthly","Quarterly"," Half Yearly", "Annually","On Demand Bullet", "Zero coupon","Rolling","Other"};
 	public static String[] sma ={"0","1","2"};
 	public static String[] npac = {"Sub-standard", "Doubtful", "Loss"};
-}
+
+
+	public static String[] invalidDt = { "dMMYYYY", 
+		    "ddMYYYY", 
+		    "ddMMYYY","ddMMYY","ddMMY","ddMM","YYYY","dd","MM","MMYYYY",
+                    "ddYYYY","ddMM"};}

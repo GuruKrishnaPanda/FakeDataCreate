@@ -1,8 +1,5 @@
 package Utilities;
 
-
-
-
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFHyperlink;
@@ -19,7 +16,7 @@ import java.util.Calendar;
 
 
 public class GenericXLSXReader {
-	public static String filename = System.getProperty("user.dir")+"\\src\\config\\testcases\\TestData.xlsx";
+	public static String filename = System.getProperty("user.dir")+"\\src\\config\\testcases\\ConfigurationData.xlsx";
 	public  String path;
 	public  FileInputStream fis = null;
 	public  FileOutputStream fileOut =null;
