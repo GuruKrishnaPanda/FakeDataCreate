@@ -23,13 +23,8 @@ public class MainClass {
 
 		
 		 //Utils.archiveAvailableFiles();
-		 ReusableFactory ref = new ReusableFactory();
+		 //ReusableFactory ref = new ReusableFactory();
 		 
-		 ref.createData(Constants.totalData);
+		// ref.createData(Constants.totalData);
 
-
-
-		
-	}
-
-}
+	}}

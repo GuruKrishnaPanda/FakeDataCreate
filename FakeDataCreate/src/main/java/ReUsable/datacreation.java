@@ -834,6 +834,7 @@ public String createAlpha()
 			
 	  } 
 	 
+	 
 	 public String createoriginalProtectionValue()
 	  {
 		 double j= faker.number().numberBetween(10, 17);
@@ -1735,5 +1736,16 @@ public String negAlpha()
 	return createdata(i, false, true, true);	
 
 
+}
+public String invallidDate() 
+{
+	int dt=faker.number().numberBetween(0, 14);
+	String invalid =  Constants.invalidDt[dt];
+	DateFormat dateFormat = new SimpleDateFormat(invalid);  
+    String strDate = dateFormat.format(invalid);
+    return dateFormat.format(invalid);
+	
 }}
+
+
 
