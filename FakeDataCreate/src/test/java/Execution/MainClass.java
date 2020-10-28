@@ -14,6 +14,7 @@ import Utilities.Utils;
 public class MainClass {
 
 	public static void main(String[] args)  
+
 	{
 
 		
@@ -21,6 +22,8 @@ public class MainClass {
 		 //ReusableFactory ref = new ReusableFactory();
 		 
 		// ref.createData(Constants.totalData);
+
+
 
 		//ReusableFactory ref = new ReusableFactory();
 		//ref.createData(Constants.totalData);
@@ -39,4 +42,6 @@ public class MainClass {
 		
 		 ref.createData( Integer.parseInt(data.get("NoOfData")));
 	
-	}}
+	}
+		datacreation d = new datacreation();
+	}
