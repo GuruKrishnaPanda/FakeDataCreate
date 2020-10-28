@@ -38,7 +38,7 @@ public ArrayList<Contract> createContractData(int numberData)
 			con.add(c);
 			Collections.shuffle(con);
 			c=null;
-			create=null;//Newly Added By Guru
+			create=null;
 			}	
 		return con;
 	}
@@ -55,8 +55,8 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setDate(create.date());
 		 	cp.setCasteGen(create.createCaste());
 		    cp.setCommGen(create.createCommunity());
-		    cp.setPan(create.validatepan());
-		 	cp.setAdharNo(create.adharGenerate());
+		    cp.setPan(create.pangenerate2());
+		 	cp.setAdharNo(create.adharValidate());
 		 	cp.setDin(create.createDIN());
 		 	cp.setCin(create.companyIdentificationNumber());
 		 	cp.setLei(create.legalEntityIdentifier());
@@ -82,7 +82,7 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    Collections.shuffle(con);
 
 		cp=null;
-		create=null;//Newly Added By Guru
+		create=null;
 	}	
 	return con;
 }
@@ -104,8 +104,8 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 	
 	con.add(pi);
 	Collections.shuffle(con);
-	pi = null;// Missing in the code
-	create=null;//Newly Added By Guru
+	pi = null;
+	create=null;
 	
     }
 	return con;
@@ -122,8 +122,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		    rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
 	    con.add(rel);
 	    Collections.shuffle(con);
-	    rel = null;// Missing in the code
-		create=null;//Newly Added By Guru
+	    rel = null;
+		create=null;
 }
 	return con;
 	}
@@ -151,8 +151,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 
 		  con.add(p);
 		  Collections.shuffle(con);
-		  p = null;// Missing in the code
-		  create=null;//Newly Added By Guru
+		  p = null;
+		  create=null;
     }
       return con;
      }
@@ -177,7 +177,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 Collections.shuffle(con);
 
 				 cpr=null;
-				 create=null;//Newly Added By Guru
+				 create=null;
 					}
 			 	return con;
 	}
@@ -201,8 +201,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			 	cr.setDateOfInternalRating(create.dateOfInternalRating());
 			 con.add(cr);
 			 Collections.shuffle(con);
-			 cr = null;// Missing in the code
-			 create=null;//Newly Added By Guru
+			 cr = null;
+			 create=null;
 			}	
 		return con;
 	}
