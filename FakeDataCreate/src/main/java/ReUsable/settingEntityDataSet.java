@@ -2,7 +2,10 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 
+import Utilities.DataUtil;
+import Utilities.GenericXLSXReader;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
@@ -22,6 +25,9 @@ import pojoClases.counterpartyRisk;
  */
 public class settingEntityDataSet {
 	datacreation create ;
+	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Test.xlsx");
+	DataUtil datautils =  new DataUtil();
+	Hashtable<String, String> data = datautils.getData("", xlsx);
 	
 public ArrayList<Contract> createContractData(int numberData) 
   {	
@@ -79,12 +85,16 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setEmailAddress(create.emailAddress());
 		 
 		    con.add(cp);
-		    Collections.shuffle(con);
+		  
 
 		cp=null;
 		create=null;//Newly Added By Guru
-	}	
-	return con;
+	}
+		if(data.get("isSuffleRequired").equalsIgnoreCase("Y")) {
+		    Collections.shuffle(con);	
+		    return con;
+		}else
+			return con;
 }
 public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<Contract> contractData)
 {

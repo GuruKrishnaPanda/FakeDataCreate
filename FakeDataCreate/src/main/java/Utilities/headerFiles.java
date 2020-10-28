@@ -9,7 +9,8 @@ public class headerFiles {
 	}
 	public static String[] counterPartyHeader(){
 		
-		String[] counterPartyHeader = {"reportingEntityId",
+		String[] counterPartyHeader = {
+				"reportingEntityId",
 				"counterpartyId",
 				"name",
 				"dateOfBirthOrIncorporation",

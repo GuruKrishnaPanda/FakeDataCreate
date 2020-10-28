@@ -63,7 +63,7 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
 
 public void writeCounterPartyData(ArrayList<Counterparty> counterPartyData, String fileName) {
     try {
-    	counterPartyData=randomize (counterPartyData);
+    	
     	outputfile = createFileObject(fileName);
         // create CSVWriter with ';' as separator 
     	 CSVWriter writer =createCSVWriter(outputfile);

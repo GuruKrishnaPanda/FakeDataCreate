@@ -12,16 +12,14 @@ public class MainClass {
 
 	public static void main(String[] args)  {
 
-		 Utils.archiveAvailableFiles();
-		 GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Test.xlsx");
-
+		Utils.archiveAvailableFiles();
+		GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Test.xlsx");
 		DataUtil datautils =  new DataUtil();
 		Hashtable<String, String> data = datautils.getData("", xlsx);
 		System.out.println(data.size());
 		ReusableFactory ref = new ReusableFactory();
 		System.out.println(data.get("NoOfData"));
-		
-		 ref.createData( Integer.parseInt(data.get("NoOfData")));
+	ref.createData( Integer.parseInt(data.get("NoOfData")));
 	
 	}
 
