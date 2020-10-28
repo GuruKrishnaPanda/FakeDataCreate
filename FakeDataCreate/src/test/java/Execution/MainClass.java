@@ -29,7 +29,7 @@ public class MainClass {
 	
 		
 		//Utils.archiveAvailableFiles();
-	    GenericXLSXReader xlsx =  new GenericXLSXReader("C:\\Users\\aloor\\git\\FakeDataCreate\\FakeDataCreate\\resources\\configuration.xlsx");
+	    GenericXLSXReader xlsx =  new GenericXLSXReader("C:\\Users\\Sushree\\git\\FakeDataCreate\\FakeDataCreate\\resources\\configuration.xlsx");
 
 		DataUtil datautils =  new DataUtil();
 		Hashtable<String, String> data = datautils.getData("", xlsx);
