@@ -1062,7 +1062,11 @@ public String dateOfFradulentActivityClassification() {
 			 return d;
 		 }
 	 }
-	 public String createRatingId()
+	 private String negAlpha() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String createRatingId()
 	 {
 
 	 	 int j=faker.number().numberBetween(5, 20);
@@ -1727,40 +1731,5 @@ public String npaCategroyCode()
 	 }
 
 	 
-}
-
-public String negNum()
-{
-	String invalidNumber=invalidNumberlength(faker);
-	int i=Integer.parseInt(invalidNumber);
-	System.out.println(createdata(i,true,true,false));
-	return createdata(i,true,true,false);
-}
-
-
-public String negAlpha()
-{
-	String invalidNumber = invalidNumberlength(faker);
-	int i=Integer.parseInt(invalidNumber); 
-	System.out.println(createdata(i, false, true, true));
-	return createdata(i, false, true, true);	
-
-
-
-}
-public String invallidDate() 
-{
-	int dt=faker.number().numberBetween(0, 14);
-	String invalid =  Constants.invalidDt[dt];
-	DateFormat dateFormat = new SimpleDateFormat(invalid);  
-    String strDate = dateFormat.format(invalid);
-    return dateFormat.format(invalid);
-	
-
-
-
-
-}
-}
-	
+}}
 
