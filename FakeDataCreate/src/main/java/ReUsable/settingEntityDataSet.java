@@ -77,7 +77,6 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setTelePhoneNumber(create.mobileNumber());
 		    cp.setMobNo(create.landmobileNumber());
 		    cp.setEmailAddress(create.emailAddress());
-		 
 		    con.add(cp);
 		    Collections.shuffle(con);
 

@@ -114,59 +114,28 @@ public Date dateofBirth() {
   System.out.println(d);
 return d;
 }
-public String date() {
+   public String date() {
 	//return faker.date().birthday(26, 87);
-	String  strDate=null;
+
 	if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	{
 	Date from = StringToDate("01011950");
 	Date to = StringToDate("01012000");
 	Date newData =  faker.date().between(from,to);
 	DateFormat dateFormat = new SimpleDateFormat("YYYYMMdd");  
-     strDate = dateFormat.format(newData); 
+    String strDate = dateFormat.format(newData); 
     System.out.println(strDate);
 
 	return strDate;
 	}
 	else {
 		
-		int number = faker.number().numberBetween(1, 7);
-		
-		switch(number)
-		{
-	     
-		case 1: strDate = dateoftheme1();
-		        System.out.println(strDate);
-		        
-		        break;
-		case 2: strDate= dateoftheme2();
-		        System.out.println( strDate);
-		        break;      
-		case 3:  strDate= dateoftheme3();
-                 System.out.println( strDate);
-                break;
-		case 4:   strDate= dateoftheme4();
- 		         System.out.println( strDate);
- 		        break;
-		case 5:  strDate= dateoftheme5();
-                 System.out.println( strDate);
-                break;
-		case 6:   strDate= dateoftheme6();
-                 System.out.println( strDate);
-                break;
-		case 7:   strDate= dateoftheme7();
-                 System.out.println(strDate);
-                break;
+		String d = genDate();
+		 return d;
                  
 		}
-		
-	}
-	return  strDate;
-	
-	
-	
-	
 }
+
 public String emailAddress() {
 	Faker faker = new Faker(new Locale("en_IND"));
 	
@@ -193,14 +162,7 @@ public void testingmethod() {
 	System.out.println(f.internet().emailAddress());
 		
 }
-public String createGstin() {
-	String d = faker.regexify("[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9a-zA-Z]{1}");
-	String d1 =faker.regexify("([0]{1}[1-9]{1}|[1-2]{1}[0-9]{1}|[3]{1}[0-7]{1})([a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9a-zA-Z]{1}[zZ]{1}[0-9a-zA-Z]{1})");
-	System.out.println(d);
-	System.out.println(faker.regexify(d));
-	return d;
-	
-}
+
 
 public Date StringToDate(String s){
 
@@ -219,7 +181,7 @@ public Date StringToDate(String s){
 
 public String negAlpha(int j) {
 	
-String v= null;
+    String v= null;
 	int k = faker.number().numberBetween(1, 4);
 		switch(k)
 		
@@ -370,9 +332,8 @@ int j= faker.number().numberBetween(6, 20);
 		
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
+		String d = negAlpha(j);
+		return d;	
 	     }
 
 }
@@ -389,9 +350,8 @@ int j= faker.number().numberBetween(4, 21);
 		return value;
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
+		String d = negAlpha(j);
+		return d;
 	     }
 	
 }
@@ -402,14 +362,13 @@ int j= faker.number().numberBetween(3, 12);
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
 		
-		String value = 	conditionCheck5(j);
+		String value = 	conditionCheck3(j);
 		System.out.println(value);
 		return value;
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);
+		String d = negAlpha(j);
+		return d;
 		
 	     }
 
@@ -428,9 +387,8 @@ int j= faker.number().numberBetween(4, 10);
 		
 	}
 	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);	
+		String d = negAlpha(j);
+		return d;	
 	     }
 	
 }
@@ -448,10 +406,8 @@ int j= faker.number().numberBetween(4, 10);
 			
 		}
 		else {
-			String invalidNumber = invalidNumberlength(faker);
-			int i=Integer.parseInt(invalidNumber); 
-			System.out.println(createdata(i, false, true, true));
-			return createdata(i, false, true, true);	
+			String d = negAlpha(j);
+			return d;
 		     }
 
  } 
@@ -469,9 +425,8 @@ int j= faker.number().numberBetween(4, 10);
 			
 		}
 		else {
-			String invalidNumber = invalidNumberlength(faker);
-			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			String d = negAlpha(j);
+			return d;
 		     }
 	
  }
@@ -481,10 +436,19 @@ int j= faker.number().numberBetween(4, 10);
  public String createDIN()
  {
 	 int j= faker.number().numberBetween(3, 8);
+	 if (Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+
 		
 			String val = createNumeric();
 			
 			return val;
+	 }
+	 else {
+		 String d = negdigit(j);
+		 return d;
+
+	 }
  }
 
  public String createCommunity()
@@ -535,27 +499,13 @@ int j= faker.number().numberBetween(4, 10);
  }
  else
  {
-	 
-	 for(int k =0;k<=4;k++)
-	 switch(k)
-	 {
-	  
-	 case 1: String v =  conditionCheck2(j);
-	         System.out.println(v);
-	         break;
-	 case 2: String v1=  conditionCheck4(j);
-	         System.out.println(v1);
-	         break;      
-	 case 3: String v2= conditionCheck3(j);
-	          System.out.println(v2);
-	         break;
-	 case 4:  String v3= conditionCheck6(j);
-	 	         System.out.println(v3);
-	 	        break;
+	 String d = negdigit(j);
+	 return d;
+
  }
  }
- return value;
- }
+
+ 
  public String stateCode()
  {
 	 int j= faker.number().numberBetween(1, 2);
@@ -567,45 +517,51 @@ int j= faker.number().numberBetween(4, 10);
 	 }
 	 else
 	 {
-		 String invalidNumber = invalidNumberlength(faker);
-			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			String d = negdigit(j);
+			return d;
 	 }
 	
  }
- public String mobileNumber()
- {
-	 
-		if (Constants.typeOfData.equalsIgnoreCase("Y"))
-		{
-			String No =faker.regexify("((\\+){1}91){1}[1-9]{1}[0-9]{9}");
-			System.out.println(faker.regexify(No));
-			Matcher alphaNumericMatcher = Pattern.compile("((\\+){1}91){1}[1-9]{1}[0-9]{9}}").matcher(No);
-
-			 boolean isValid = alphaNumericMatcher.find();
-			 System.out.println(isValid);
-			 if(isValid){
-				 mobileNumber();
-			 }
-			 return No;
-		}
-		else
-		{
-			return "InsideElse";
-		}
-		
- }
+ 
  public String landmobileNumber()
  { 
-	 String No =null;
+	 String No ;
 	
 	 if (Constants.typeOfData.equalsIgnoreCase("Y")) {
 		 No= faker.regexify("[0-9]\\d{2,4}-\\d{6,8}");
-		 System.out.print(faker.regexify(No));
+		 System.out.println(faker.regexify(No));
 
 	 }
-	 return No;
- }
+	 
+		  else 
+		   {
+			   String number = faker.regexify(faker.number().numberBetween(6, 11)+"|12|"+faker.number().numberBetween(13, 16));
+			   int intNumber = Integer.parseInt(number);
+			   String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+			   char[] data = data1. toCharArray();
+			   System.out.println(data);
+			   if (intNumber<=12)
+			   {
+				   No = withSpecialCharData(data, 6);
+				   return No;
+			   }
+			   else if (intNumber>=12)
+			   {
+				   No = withSpecialCharData(data, 16);  
+				   return No;
+			   }
+			   else
+			   {
+				   No = withSpecialCharData(data, 12);
+				   return No;
+
+			   }
+			   
+	       }
+	return No;	
+	 }
+
+ 
  public String pinCode()
  {
 	 String  pcode= faker.regexify("[1-9]{1}[0-9]{2}[0-9]{3}");
@@ -634,9 +590,8 @@ int j= faker.number().numberBetween(4, 10);
 	 }
 	 else
 	 {
-		 String invalidNumber = invalidNumberlength(faker);
-			int i=Integer.parseInt(invalidNumber); 
-			return createdata(i, true, false, true);	
+			String d = negdigit(j);
+			return d;	
 	 }}
 	 public String createBurrower()
 	 {
@@ -654,7 +609,8 @@ int j= faker.number().numberBetween(4, 10);
 		 }
 		 else
 		 { 
-				return createdata(10, true, false, true);	
+				String d = negAlpha(j);
+				return d;
 		 } 
 	 }
 	 public String createProtectionId()
@@ -1885,8 +1841,6 @@ public String negNum1()
 	   {
 		   String number = faker.regexify(faker.number().numberBetween(3, 9)+"|10|"+faker.number().numberBetween(11, 15));
 		   int intNumber = Integer.parseInt(number);
-		   //char[] data = faker.regexify("[A-Z0-9]{​​​​​"+intNumber+"}​​​​​").toCharArray();
-		   //char[] data = faker.lorem().characters(intNumber,true,true).toCharArray();
 		   String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
 		   char[] data = data1. toCharArray();
 		   System.out.println(data);
@@ -1988,7 +1942,7 @@ public String dateoftheme1()
 	DateFormat dateFormat = new SimpleDateFormat("YYYY/MM/dd");  
    String strDate = dateFormat.format(newData); 
    System.out.println(strDate);
-return strDate;
+   return strDate;
 
 }
 
@@ -2118,5 +2072,82 @@ public String genDate() {
 	return strDate;
 
 }
+public String createGstin()
+{  String gNo;
+	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
+	   {
+		    gNo =faker.regexify("[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9a-zA-Z]{1}");
+		   System.out.println(gNo);
+		   return gNo;
+		   
+	   }
+	   else 
+	   {
+		   String number = faker.regexify(faker.number().numberBetween(6, 14)+"|15|"+faker.number().numberBetween(16, 19));
+		   int intNumber = Integer.parseInt(number);
+		   String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+		   char[] data = data1. toCharArray();
+		   System.out.println(data);
+		   if (intNumber<=15)
+		   {
+			   gNo = withSpecialCharData(data, 6);
+			   return gNo;
+		   }
+		   else if (intNumber>=15)
+		   {
+			   gNo = withSpecialCharData(data, 16);  
+			   return gNo;
+		   }
+		   else
+		   {
+			   gNo = withSpecialCharData(data, 15);
+			   return gNo;
+
+		   }
+		   
+       }	
+}
+public String mobileNumber()
+{  String gNo;
+	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
+	   {
+		   String No =faker.regexify("((\\+){1}91){1}[1-9]{1}[0-9]{9}");
+			System.out.println(faker.regexify(No));
+			Matcher alphaNumericMatcher = Pattern.compile("((\\+){1}91){1}[1-9]{1}[0-9]{9}}").matcher(No);
+
+			 boolean isValid = alphaNumericMatcher.find();
+			 System.out.println(isValid);
+			 if(isValid){
+				 mobileNumber();
+			 }
+			 return No;
+	   }
+	   else 
+	   {
+		   String number = faker.regexify(faker.number().numberBetween(6, 11)+"|12|"+faker.number().numberBetween(13, 16));
+		   int intNumber = Integer.parseInt(number);
+		   String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+		   char[] data = data1. toCharArray();
+		   System.out.println(data);
+		   if (intNumber<=12)
+		   {
+			   gNo = withSpecialCharData(data, 6);
+			   return gNo;
+		   }
+		   else if (intNumber>=12)
+		   {
+			   gNo = withSpecialCharData(data, 16);  
+			   return gNo;
+		   }
+		   else
+		   {
+			   gNo = withSpecialCharData(data, 12);
+			   return gNo;
+
+		   }
+		   
+       }	
+}
+
 }
 

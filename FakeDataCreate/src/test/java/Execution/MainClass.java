@@ -31,9 +31,8 @@ public class MainClass {
 	    for(int i=0;i<=10;i++)
 	      {
           datacreation d= new datacreation();
-          d.dateOfFradulentActivityClassification();
+          d.landmobileNumber();
 	
 	}
-	}
+	}}
 
-}
