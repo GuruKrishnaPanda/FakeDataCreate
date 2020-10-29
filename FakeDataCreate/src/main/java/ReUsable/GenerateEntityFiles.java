@@ -79,5 +79,11 @@ public class GenerateEntityFiles {
 		String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.instrument+Constants.fileType;	 
 		 rw.writeInstrumentData(contractData,fileName);
 }
+
+
+	public void generateControlfile(String string, String folderName) {
+		
+		
+	}
 	
 }

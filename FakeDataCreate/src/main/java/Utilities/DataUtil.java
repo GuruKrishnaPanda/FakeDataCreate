@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 public class DataUtil {
 	
-	public Hashtable<String, String> getData(String testName, GenericXLSXReader xls){
+	public static Hashtable<String, String> getData(String testName, GenericXLSXReader xls){
 		//String testName="CreateLeadTest";
 
 		String sheetName="Configuration";

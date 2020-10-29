@@ -46,8 +46,7 @@ public class Utils {
 
 			}
 		return folderName;
-		
-		
+			
 	}
 
 	public static void compressFolder(String folderName) {
@@ -76,7 +75,7 @@ public class Utils {
 
 	public static void archiveAvailableFiles() {
 		
-		File directoryPath = new File(Constants.NewfileLocation);
+		 File directoryPath = new File(Constants.NewfileLocation);
 	      //List of all files and directories
 	      String contents[] = directoryPath.list();
 	      System.out.println("List of files and directories in the specified directory is : ");

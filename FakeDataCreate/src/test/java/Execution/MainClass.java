@@ -17,7 +17,7 @@ public class MainClass {
 	public static void main(String[] args)  
 	{
 
-
+		Utils.archiveAvailableFiles();
 	    GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
 
         
@@ -26,8 +26,7 @@ public class MainClass {
 		System.out.println(data.size());
 		ReusableFactory ref = new ReusableFactory();
 		System.out.println(data.get("NoOfData"));
-		
-		 ref.createData(Constants.totalData);
+	ref.createData(Constants.totalData);
 	
 
 	}
