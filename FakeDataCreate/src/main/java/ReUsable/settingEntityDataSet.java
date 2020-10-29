@@ -77,7 +77,6 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    cp.setTelePhoneNumber(create.mobileNumber());
 		    cp.setMobNo(create.landmobileNumber());
 		    cp.setEmailAddress(create.emailAddress());
-		 
 		    con.add(cp);
 		    Collections.shuffle(con);
 
@@ -165,13 +164,12 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 	create = new datacreation();
 				 	counterpartyRating cpr  =  new counterpartyRating();
 				 	cpr.setReportingEntityId(contract.getReportingEntityId());
-				 	cpr.setCounterpartyId(create.createCouterpartyIdentifier());
+				 	cpr.setCounterpartyId(contract.getCounterypartyId());
 				 	cpr.setRatingID(create.createRatingId());
 				 	cpr.setCreditRating(create.creditRating());
 				 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
 			        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
 			        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
-
 				 con.add(cpr);	
 
 				 Collections.shuffle(con);

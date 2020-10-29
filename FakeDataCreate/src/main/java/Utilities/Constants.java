@@ -1,7 +1,7 @@
 package Utilities;
 
 public class Constants {
-	public static String typeOfData = "Y";// Valid Data
+	public static String typeOfData = "N";// Valid Data
 	public static String haveSpecialChar = "N";
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
@@ -87,18 +87,6 @@ public class Constants {
 	
 	public static char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','`','(',')','-','_','<','>',',','.','|'};
 	public static String[] caste = {"SC","ST","OBC","MBC","ND","GEN"};
-	public static String[] page = 		
-		{
-     		    "[A-Z]{5}[0-9]{4}[A-Z]{1}",
-				"[A-Z]{4}[0-9]{4}[A-Z]{1}",
-				"[A-Z]{5}[0-9]{4}[0-9]{1}",
-				"[A-Z]{8}[0-9]{0}[A-Z]{2}",
-				"[A-Z]{8}[0-9]{0}[A-Z]{2}",
-				"[A-Z]{5}[_]{1}[A-Z]{4}",
-				"[a-z]{5}[0-9]{4}[A-Z]{1}",
-				"[0-9]{5}[0-9]{4}[0-9]{1}",
-				"[A-Z]{5}[0-9]{5}[A-Z]{2}"
-		};
 	public static String[] comm = {"Hindu","Muslim","Christian","Zoroastrian","Buddhist","Sikh","Jain","Neo","Buddhist","ND","OTH "};
 	public static String[] ProtectionValue = {"Notional amount", "Fair value","Market value","Long-term sustainable value", "Other"};
 	public static String[] ValuationApproach = {"Mark-to-market", "Counterparty estimation","Creditor valuation","Third party valuation", "Other type of valuation"};
@@ -115,9 +103,5 @@ public class Constants {
 	public static String[] paymentFrequency = {"Daily","Weekly","Monthly","Quarterly"," Half Yearly", "Annually","On Demand Bullet", "Zero coupon","Rolling","Other"};
 	public static String[] sma ={"0","1","2"};
 	public static String[] npac = {"Sub-standard", "Doubtful", "Loss"};
-
-
-	public static String[] invalidDt = { "dMMYYYY", 
-		    "ddMYYYY", 
-		    "ddMMYYY","ddMMYY","ddMMY","ddMM","YYYY","dd","MM","MMYYYY",
-                    "ddYYYY","ddMM"};}
+	public static String[] currency = {"INR", "USD", "EUR"};
+}
