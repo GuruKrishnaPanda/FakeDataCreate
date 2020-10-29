@@ -18,7 +18,7 @@ public class MainClass {
 	{
 
 
-	    GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
+	  /* GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
 
         
 		DataUtil datautils =  new DataUtil();
@@ -27,10 +27,13 @@ public class MainClass {
 		ReusableFactory ref = new ReusableFactory();
 		System.out.println(data.get("NoOfData"));
 		
-		 ref.createData(Constants.totalData);
+		 ref.createData(Constants.totalData);*/
+	    for(int i=0;i<=10;i++)
+	      {
+          datacreation d= new datacreation();
+          d.dateOfFradulentActivityClassification();
 	
-
 	}
-		
 	}
 
+}
