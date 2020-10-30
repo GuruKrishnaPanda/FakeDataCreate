@@ -51,7 +51,14 @@ public class ReusableFactory {
 		try {
 			 folderName= Utils.generateFolderwithName();
 			 fileName = folderName;
-			if(data.get("Name_Of_File").equalsIgnoreCase("Valid") && data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("No")) {
+			if(data.get("Name_Of_File").equalsIgnoreCase("Valid")) {
+				if(data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("Yes")) {
+					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+					generateEntityFiles.generateControlfile("", folderName,fileName);
+
+				}else {
 				generateEntityFiles.generateContractfile(contractData,folderName,fileName);
 				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
 				generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
@@ -61,13 +68,9 @@ public class ReusableFactory {
 				generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
 				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
 				generateEntityFiles.generateControlfile("", folderName,fileName);
+				}
 			}
-			if(data.get("Name_Of_File").equalsIgnoreCase("Valid") && data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("Yes")) {
-				generateEntityFiles.generateContractfile(contractData,folderName,fileName);
-				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
-				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
-				generateEntityFiles.generateControlfile("", folderName,fileName);
-			}
+			
 
 			if(data.get("Name_Of_File").equalsIgnoreCase("Invalid")) {
 				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Mandetory"))){
