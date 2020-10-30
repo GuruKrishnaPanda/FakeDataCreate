@@ -22,66 +22,63 @@ public class GenerateEntityFiles {
 	
 	 ReadWrite rw=  new ReadWrite();
 	
-	public void generateContractfile(ArrayList<Contract> contractData,String folderName) throws IOException {
+	public void generateContractfile(ArrayList<Contract> contractData,String folderName,String fileName) throws IOException {
 			
-			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.contract+Constants.fileType;	 
+			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.contract+Constants.fileType;	 
 			 rw.writeCotractData(contractData,fileName);	
 	}
 
 
-	public void generateCounterpartyfile(ArrayList<Counterparty> counterPartyData,String folderName) throws IOException {
+	public void generateCounterpartyfile(ArrayList<Counterparty> counterPartyData,String folderName, String fileName) throws IOException {
 		
 			 
-			 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterParty+Constants.fileType;	 
-			 rw.writeCounterPartyData(counterPartyData,fileName);	
+			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.counterParty+Constants.fileType;	 
+			 rw.writeCounterPartyData(counterPartyData,fileLocation);	
 
 	}
-	public void generateCounterpartyRatingfile(ArrayList<counterpartyRating> contractData,String folderName) throws IOException {
+	public void generateCounterpartyRatingfile(ArrayList<counterpartyRating> contractData,String folderName,String fileName) throws IOException {
 		
-		  String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterpartyRating+Constants.fileType;	 
-		 rw.writecounterpartyRatingData(contractData, fileName);
+		  String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.counterpartyRating+Constants.fileType;	 
+		 rw.writecounterpartyRatingData(contractData, fileLocation);
 
 	}
-	public void generateCounterpartyRiskfile(ArrayList<counterpartyRisk> contractData, String folderName) throws IOException {
+	public void generateCounterpartyRiskfile(ArrayList<counterpartyRisk> contractData, String folderName,String fileName) throws IOException {
 		
-		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.counterpartyRisk+Constants.fileType;	 
-		 rw.writecounterpartyRiskData(contractData, fileName);
+		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.counterpartyRisk+Constants.fileType;	 
+		 rw.writecounterpartyRiskData(contractData, fileLocation);
 			
 
 	}
 	
+	public void generateProtectionfile(ArrayList<Protection> contractData, String folderName,String fileName) throws IOException {
 		
-
-	
-	public void generateProtectionfile(ArrayList<Protection> contractData, String folderName) throws IOException {
-		
-		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.protection+Constants.fileType;	 
-		 rw.writeProtectionData(contractData, fileName);
+		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.protection+Constants.fileType;	 
+		 rw.writeProtectionData(contractData, fileLocation);
 			
 		
 
 	}
-	public void generateProtectionInstrumentfile( ArrayList<protectionInstrument>contractData, String folderName) throws IOException {
+	public void generateProtectionInstrumentfile( ArrayList<protectionInstrument>contractData, String folderName,String fileName) throws IOException {
 		
-		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.protectionInstrument+Constants.fileType;	 
-		 rw.writeProtectionInstrumentData(contractData, fileName);
+		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.protectionInstrument+Constants.fileType;	 
+		 rw.writeProtectionInstrumentData(contractData, fileLocation);
 		
 
 	}
-	public void generateRelatedPartyfile(ArrayList<relatedParty> contractData, String folderName) throws IOException {
+	public void generateRelatedPartyfile(ArrayList<relatedParty> contractData, String folderName,String fileName) throws IOException {
 
 
-		 String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.relatedParty+Constants.fileType;	 
-		 rw.writeRelatedPartyData(contractData, fileName);
+		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.relatedParty+Constants.fileType;	 
+		 rw.writeRelatedPartyData(contractData, fileLocation);
 
 	}
-	public void generateInstrumentfile(ArrayList<Instrument> contractData, String folderName) throws IOException {
-		String fileName = Constants.NewfileLocation+"\\"+folderName+"\\"+folderName+"-"+Constants.instrument+Constants.fileType;	 
-		 rw.writeInstrumentData(contractData,fileName);
+	public void generateInstrumentfile(ArrayList<Instrument> contractData, String folderName,String fileName) throws IOException {
+		String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.instrument+Constants.fileType;	 
+		 rw.writeInstrumentData(contractData,fileLocation);
 }
 
 
-	public void generateControlfile(String string, String folderName) {
+	public void generateControlfile(String string, String folderName,String fileName) {
 		
 		
 	}

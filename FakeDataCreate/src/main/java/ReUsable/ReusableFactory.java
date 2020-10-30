@@ -33,6 +33,9 @@ public class ReusableFactory {
 	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
 	Hashtable<String, String> data = DataUtil.getData("", xlsx);
 	Faker faker =  new Faker();
+	datacreation dc = new datacreation();
+	String folderName;
+	String fileName;
 	public void createData(int numberData) {
 		
 		ArrayList<Contract> contractData = eds.createContractData(numberData);
@@ -46,38 +49,112 @@ public class ReusableFactory {
 	
 		
 		try {
-			String folderName = Utils.generateFolderwithName();
-			if(data.get("Name_Of_File").equalsIgnoreCase("Valid")) {
-				generateEntityFiles.generateContractfile(contractData,folderName);
-				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName);
-				generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName);
-				generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName);
-				generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName);
-				generateEntityFiles.generateProtectionfile(ProtectionData, folderName);
-				generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName);
-				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName);
-				generateEntityFiles.generateControlfile("", folderName);
+			 folderName= Utils.generateFolderwithName();
+			 fileName = folderName;
+			if(data.get("Name_Of_File").equalsIgnoreCase("Valid") && data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("No")) {
+				generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+				generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+				generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+				generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+				generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+				generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+				generateEntityFiles.generateControlfile("", folderName,fileName);
 			}
+			if(data.get("Name_Of_File").equalsIgnoreCase("Valid") && data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("Yes")) {
+				generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+				generateEntityFiles.generateControlfile("", folderName,fileName);
+			}
+
 			if(data.get("Name_Of_File").equalsIgnoreCase("Invalid")) {
 				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Mandetory"))){
-					String mandetoryFiles = data.get("MandetoryFiles");
-					String selectedValue = faker.regexify(mandetoryFiles+"|All");
-					inValidFileName();
-									}
+					String selectedValue = faker.regexify("Contract|Instrument|CounterParty|ControlFile|All");
+					String negfileName = inValidFileName();
+					if(selectedValue.equalsIgnoreCase("Contract")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,negfileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+						generateEntityFiles.generateControlfile("", folderName,fileName);
+						
+					}
+					if(selectedValue.equalsIgnoreCase("Instrument")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData,folderName, negfileName);
+						generateEntityFiles.generateControlfile("", folderName,fileName);
+					}
+
+					if(selectedValue.equalsIgnoreCase("CounterParty")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,negfileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData,folderName, fileName);
+						generateEntityFiles.generateControlfile("", folderName,fileName);
+					}
+					if(selectedValue.equalsIgnoreCase("ControlFile")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+						generateEntityFiles.generateControlfile("", folderName,negfileName);
+					}
+					if(selectedValue.equalsIgnoreCase("All")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,inValidFileName());
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,inValidFileName());
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,inValidFileName());
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
+						generateEntityFiles.generateControlfile("", folderName,inValidFileName());
+					}					
+				}
 				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Optional"))){
-					
+					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+					generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+					generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,inValidFileName());
+					generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+					generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
+					generateEntityFiles.generateControlfile("", folderName,fileName);
 				}
 				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Both"))){
-					
+					String negfileName = inValidFileName();
+					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,negfileName);
+					generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+					generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+					generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,inValidFileName());
+					generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+					generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
+					generateEntityFiles.generateControlfile("", folderName,fileName);
 				}
-				generateEntityFiles.generateContractfile(contractData,folderName);
-				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName);
-				generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName);
-				generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName);
-				generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName);
-				generateEntityFiles.generateProtectionfile(ProtectionData, folderName);
-				generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName);
-				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName);
+				
 			}
 			
 			//Utils.compressFolder(folderName);
@@ -92,10 +169,12 @@ public class ReusableFactory {
 		String reportingID;
 		String dateField;
 		String timeField;
-		 String folderName;
+		String folderName = null;
 		String randomValue = faker.regexify("reportingID|date|time|All");
 		if(randomValue.equalsIgnoreCase("reportingID")) {
-			reportingID = faker.regexify("[A-Z0-9]{4}");
+			String value =  faker.regexify("1|2|4");
+			int j = Integer.parseInt(value);
+			reportingID = faker.regexify("[A-Z0-9]{"+j+"}");
 			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
 			String strDateFormat = "hhmmss";
 			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
@@ -106,19 +185,36 @@ public class ReusableFactory {
 		}
 		if(randomValue.equalsIgnoreCase("date")) {
 			
-			
+			dateField = dc.genDate();
+			String strDateFormat = "hhmmss";
+			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+		    Date date = new Date();
+		    timeField =dateFormat.format(date);
+		    folderName = Constants.ReportingMemberID+"-"+dateField+"-"+timeField;	
 		}
 
 		if(randomValue.equalsIgnoreCase("time")) {
-			String data = faker.regexify("[A-Z0-9]{4}");
-			System.out.println(data);
+			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
+			String strDateFormat = "mmss";
+			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+		    Date date = new Date();
+		    dateField = formatter.format(date);
+		    timeField =dateFormat.format(date);
+		    folderName = Constants.ReportingMemberID+"-"+dateField+"-"+timeField;	
 		}
 
 		if(randomValue.equalsIgnoreCase("All")) {
-			reportingID = faker.regexify("[A-Z0-9]{4}");
-			
+			String value =  faker.regexify("1|2|4");
+			int j = Integer.parseInt(value);
+			reportingID = faker.regexify("[A-Z0-9]{"+j+"}");
+			dateField = dc.genDate();
+			String strDateFormat = "mmss";
+			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+		    Date date = new Date();
+		    timeField =dateFormat.format(date);
+		    folderName = Constants.ReportingMemberID+"-"+dateField+"-"+timeField;
 		}
-		return randomValue;
+		return folderName;
 
 	
 	}
