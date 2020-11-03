@@ -6,7 +6,7 @@ public class Constants {
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
 	public static String havechar = "Y";
-	public static int totalData =  2;
+	public static int totalData =  100;
 	public static String fileType =  ".csv";
 	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
 	public static String ArchivefileLocation =  System.getProperty("user.dir")+"\\ArchiveFiles\\";
@@ -19,11 +19,7 @@ public class Constants {
 	public static String protection =  "Protection";
 	public static String protectionInstrument =  "ProtectionInstrument";
 	public static String relatedParty =  "RelatedParty";
-
-	
-	
 	public static String ReportingMemberID = "TCSQA1001";
-	
 	
 	
 	public static String[] array = { "plainaddress", 
@@ -85,7 +81,7 @@ public class Constants {
 			"zh-TW"
 			};
 	
-	public static char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','`','(',')','-','_','<','>',',','.','|'};
+	public static char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','-','_','<','>','.','|'};
 	public static String[] caste = {"SC","ST","OBC","MBC","ND","GEN"};
 	public static String[] comm = {"Hindu","Muslim","Christian","Zoroastrian","Buddhist","Sikh","Jain","Neo","Buddhist","ND","OTH "};
 	public static String[] ProtectionValue = {"Notional amount", "Fair value","Market value","Long-term sustainable value", "Other"};

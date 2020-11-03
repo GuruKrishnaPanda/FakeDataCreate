@@ -25,7 +25,7 @@ public class GenerateEntityFiles {
 	public void generateContractfile(ArrayList<Contract> contractData,String folderName,String fileName) throws IOException {
 			
 			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.contract+Constants.fileType;	 
-			 rw.writeCotractData(contractData,fileName);	
+			 rw.writeCotractData(contractData,fileLocation);	
 	}
 
 

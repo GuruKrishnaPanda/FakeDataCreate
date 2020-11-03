@@ -2,7 +2,6 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
-
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
@@ -11,10 +10,6 @@ import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 import pojoClases.Protection;
 import pojoClases.counterpartyRisk;
-
-
-
-
 
 /**
  * @author GuruKrishna,Swapnil,Sushree,Subhashree,Kalpana
@@ -130,7 +125,6 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
    public ArrayList<Protection> createProtectionData(ArrayList<Contract> contractData)
       {
          ArrayList<Protection> con = new ArrayList<>();
-
           for(Contract contract: contractData){
 		      create = new datacreation();
 		      Protection p = new Protection();
@@ -147,7 +141,6 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		      p.setDateOfOriginalProtectionValue(create.createdateOfOriginalProtectionValu());
 		      p.setProtectionRegistryId(create.createprotectionRegistryId());
 		      p.setProtectionExternalId(create.createprotectionExternalId());
-
 		  con.add(p);
 		  Collections.shuffle(con);
 		  p = null;
@@ -157,7 +150,6 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
      }
    public ArrayList<counterpartyRating> createcounterpartyRatingData(ArrayList<Contract> contractData) {
 		
-
 		ArrayList<counterpartyRating> con =  new ArrayList<>();
 		
 					for(Contract contract: contractData) {
@@ -171,9 +163,7 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
 			        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
 				 con.add(cpr);	
-
 				 Collections.shuffle(con);
-
 				 cpr=null;
 				 create=null;
 					}
@@ -257,6 +247,8 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		 	
 		 	con.add(in);
 		 	Collections.shuffle(con);
+		 	 create=null;
+		 	 in = null;
 		}
 		return con;
 	

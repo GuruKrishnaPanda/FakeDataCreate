@@ -45,7 +45,6 @@ public class headerFiles {
 		String[] counterpartyRatingHeader = {
 				"reportingEntityId",
 				"counterpartyRatingId",
-				"counterpartyId",
 				"ratingId",
 				"creditRating",
 				"assessmentAgencyOrAuthority",

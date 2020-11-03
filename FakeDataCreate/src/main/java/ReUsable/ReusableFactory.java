@@ -197,7 +197,7 @@ public class ReusableFactory {
 		}
 
 		if(randomValue.equalsIgnoreCase("time")) {
-			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
+			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
 			String strDateFormat = "mmss";
 			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
 		    Date date = new Date();
