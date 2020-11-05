@@ -39,35 +39,34 @@ public class DataUtil {
 		}
 		return configTable;
 		
-		/*
-		 * int testStartRowNum=1; while(!xls.getCellData(sheetName, 0,
-		 * testStartRowNum).equalsIgnoreCase(testName)) {
-		 * 
-		 * testStartRowNum++; } // System.out.println("Row num for test "+
-		 * testStartRowNum); int colRowNum = testStartRowNum+1;
-		 * 
-		 * // total cols , rows
-		 * 
-		 * 
-		 * while(!xls.getCellData(sheetName, totalCols, colRowNum).equals("")) {
-		 * totalCols++; } // System.out.println("Total Cols "+ totalCols);
-		 * 
-		 * int dataStartRowNum= colRowNum+1; int totalRows=0;
-		 * while(!xls.getCellData(sheetName, 0, dataStartRowNum+totalRows).equals("")) {
-		 * totalRows++; } //System.out.println("Total Rows "+ totalRows); Object
-		 * testData[][] = new Object[totalRows][1]; // extract data for the test
-		 * Hashtable<String,String> table=null; int i=0; for(int
-		 * rNum=dataStartRowNum;rNum<dataStartRowNum+totalRows;rNum++) { table = new
-		 * Hashtable<String,String>(); for(int cNum=0;cNum<totalCols;cNum++) { String
-		 * data = xls.getCellData(sheetName, cNum, rNum); String key =
-		 * xls.getCellData(sheetName, cNum, colRowNum);
-		 * //System.out.print(key+"-"+data+" --- "); table.put(key, data); } // table
-		 * will be ready testData[i][0]=table; i++;
-		 * 
-		 * }
-		 * 
-		 * return testData;
-		 */
+		
+		 /* int testStartRowNum=1; while(!xls.getCellData(sheetName, 0,
+		  testStartRowNum).equalsIgnoreCase(testName)) {
+		  testStartRowNum++; } 
+		  System.out.println("Row num for test "+
+		  testStartRowNum); int colRowNum = testStartRowNum+1;
+		  
+		  // total cols , rows
+		  
+		  
+		  while(!xls.getCellData(sheetName, totalCols, colRowNum).equals("")) {
+		  totalCols++; }  System.out.println("Total Cols "+ totalCols);
+		  
+		  int dataStartRowNum= colRowNum+1; int totalRows=0;
+		  while(!xls.getCellData(sheetName, 0, dataStartRowNum+totalRows).equals("")) {
+		  totalRows++; } 
+		  System.out.println("Total Rows "+ totalRows); Object
+		  testData[][] = new Object[totalRows][1]; //extract data for the test
+		  Hashtable<String,String> table=null; int i=0; for(int
+		  rNum=dataStartRowNum;rNum<dataStartRowNum+totalRows;rNum++) { table = new
+		  Hashtable<String,String>(); for(int cNum=0;cNum<totalCols;cNum++) { String
+		  data = xls.getCellData(sheetName, cNum, rNum); String key =
+		  xls.getCellData(sheetName, cNum, colRowNum);
+		  System.out.print(key+"-"+data+" --- "); table.put(key, data); } //table
+		  will be ready testData[i][0]=table; i++;
+		 
+		 } return testData;*/
+		 
 	}
 	// true - Y
 	// false - N
