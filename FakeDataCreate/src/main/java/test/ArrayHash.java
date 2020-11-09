@@ -53,18 +53,9 @@ public class ArrayHash {
 			matData.get("Data Type");
 			if(matData.get("Data Type").equalsIgnoreCase("Alphanumeric"))
 			
-			System.out.println(matData.get("Field"));
-			
-			
+			System.out.println(matData.get("Field"));		
 		}
-		
-		
 	}
-	
-	
-	
-	
-	
 	
 	}
 

@@ -306,29 +306,74 @@ public static void main(String[] args) {
 
 public String legalEntityIdentifier()
 {
-int j= faker.number().numberBetween(6, 20);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+	String lei;
+	lei =faker.regexify("[0-9]{4}[0]{2}[A-Z0-9]{12}[0-9]{2}");
+	if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	{
-		return Alpha(j);	
+	//lei =faker.regexify("[0-9]{4}[0]{2}[A-Z0-9]{12}[0-9]{2}");
+	System.out.println(lei);
+	return lei;
 	}
 	else {
-		String d = negAlpha(j);
-		return d;	
-	     }
+	String number = faker.regexify(faker.number().numberBetween(5, 19)+"|20|"+faker.number().numberBetween(21, 25));
+	int intNumber = Integer.parseInt(number);
+	String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+	char[] data = data1. toCharArray();
+	System.out.println(data);
+	if (intNumber<=20)
+	{
+	lei = withSpecialCharData(data, 5);
+	return lei;
+	}
+	else if (intNumber>=20)
+	{
+	lei = withSpecialCharData(data, 21);
+	return lei;
+	}
+	else
+	{
+	lei = withSpecialCharData(data, 20);
+	return lei;
+
+	}
+
+	}
 }
 public String companyIdentificationNumber()
 {
-int j= faker.number().numberBetween(4, 21);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+	String CIN;
+	CIN =faker.regexify("[UL]{1}[0-9]{5}[A-Z]{2}[2]{1}[0]{1}[0-2]{1}[0-9]{1}[P]{1}[TL]{1}[C]{1}[0-9]{6}");
+	if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	{
-		return Alpha(j);
+
+	System.out.println(CIN);
+	return CIN;
+
 	}
+
 	else {
-		String d = negAlpha(j);
-		return d;
-	     }
+	String number = faker.regexify(faker.number().numberBetween(5, 20)+"|21|"+faker.number().numberBetween(22, 25));
+	int intNumber = Integer.parseInt(number);
+	String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+	char[] data = data1. toCharArray();
+	System.out.println(data);
+	if (intNumber<=21)
+	{
+	CIN = withSpecialCharData(data, 5);
+	return CIN;
+	}
+	else if (intNumber>=21)
+	{
+	CIN = withSpecialCharData(data, 22);
+	return CIN;
+	}
+	else
+	{
+	CIN = withSpecialCharData(data, 21);
+	return CIN;
+
+	}
+	}
 }
 public String udyogAdharNumber()
 {
@@ -344,16 +389,38 @@ public String udyogAdharNumber()
 }
 public String taxCollectionAccountNumber()
 {
-int j= faker.number().numberBetween(4, 10);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-	{	
-		return Alpha(j);	
+	String tan;
+	tan =faker.regexify("[A-Z]{3}[A-Z]{1}[0-9]{5}[A-Z]{1}");
+	if (Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+
+	System.out.println(tan);
+
 	}
 	else {
-		String d = negAlpha(j);
-		return d;	
-	     }
+	String number = faker.regexify(faker.number().numberBetween(3, 9)+"|10|"+faker.number().numberBetween(11, 15));
+	int intNumber = Integer.parseInt(number);
+	String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+	char[] data = data1. toCharArray();
+	System.out.println(data);
+	if (intNumber<=10)
+	{
+	tan = withSpecialCharData(data, 3);
+	return tan;
+	}
+	else if (intNumber>=10)
+	{
+	tan = withSpecialCharData(data, 11);
+	return tan;
+	}
+	else
+	{
+	tan = withSpecialCharData(data, 10);
+	return tan;
+
+	}
+	}
+	return tan;
 }
  public String nicCode()
  {
@@ -1450,10 +1517,9 @@ public String negNum1()
    {  String panNo;
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
-		    panNo =faker.regexify("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+		   panNo =faker.regexify("[A-Z]{3}[CPHFATBLJG]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}");
 		   System.out.println(panNo);
-		   return panNo;
-		   
+		   return panNo;	   
 	   }
 	   else 
 	   {
@@ -1685,7 +1751,7 @@ public String createGstin()
 {  String gNo;
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
-		    gNo =faker.regexify("[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9a-zA-Z]{1}");
+		   gNo =faker.regexify("[0-9]{2}[A-Z]{3}[CPHFATBLJG]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9]{1}");
 		   System.out.println(gNo);
 		   return gNo;
 		   

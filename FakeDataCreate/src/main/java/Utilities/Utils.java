@@ -25,7 +25,7 @@ import org.apache.commons.io.FileUtils;
 public class Utils {
 	private static final int BUFFER_SIZE = 4096;
 	 
-	public static String generateFolderwithName() {
+	public static String generateFolderwithName(String reportingMemberID) {
 		String folderName = null;
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
@@ -34,7 +34,7 @@ public class Utils {
 		    Date date = new Date();
 		    String datePart = formatter.format(date);
 		    String timePart =dateFormat.format(date);
-		    folderName = Constants.ReportingMemberID+"-"+datePart+"-"+timePart;
+		    folderName = reportingMemberID+"-"+datePart+"-"+timePart;
 		    System.out.println(folderName);
 		    Path path = Paths.get(Constants.NewfileLocation+folderName); 
 			  Files.createDirectories(path);

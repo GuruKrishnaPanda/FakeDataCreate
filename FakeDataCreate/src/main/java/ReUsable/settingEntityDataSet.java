@@ -2,6 +2,10 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
+
+import Utilities.DataUtil;
+import Utilities.GenericXLSXReader;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
@@ -17,19 +21,24 @@ import pojoClases.counterpartyRisk;
  */
 public class settingEntityDataSet {
 	datacreation create ;
+	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
+	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
+	ArrayList<Hashtable<String, String>> masterData = DataUtil.getMasterdata();	
 	
 public ArrayList<Contract> createContractData(int numberData) 
   {	
 	
 		ArrayList<Contract> con =  new ArrayList<>();
-		
+		create = new datacreation();
+		String reportingEntityId = create.createReportingEntityId();
+		create = null;
 			for (int i=0; i<numberData; i++) {
 			 	create = new datacreation();
 				Contract c  =  new Contract();
 				c.setContractId(create.createContractIdentifier());
 				c.setCounterypartyId(create.createCouterpartyIdentifier());
 				c.setInstrumentId(create.createInstrumentId());
-				c.setReportingEntityId(create.createReportingEntityId());		
+				c.setReportingEntityId(reportingEntityId);		
 			con.add(c);
 			Collections.shuffle(con);
 			c=null;
@@ -39,11 +48,13 @@ public ArrayList<Contract> createContractData(int numberData)
 	}
 public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contractData) {
 	
+	
 	ArrayList<Counterparty> con =  new ArrayList<>();
 	
 		for(Contract contract: contractData) {
 		 	create = new datacreation();
 		 	Counterparty cp  =  new Counterparty();
+		 	
 		 	cp.setReportingEntityId(contract.getReportingEntityId());
 		 	cp.setCounterypartyId(contract.getCounterypartyId());
 		 	cp.setName(create.createName());
@@ -51,6 +62,10 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		 	cp.setCasteGen(create.createCaste());
 		    cp.setCommGen(create.createCommunity());
 		    cp.setPan(create.pangenerate2());
+		    
+		    cp.setPan(create.pangenerate2());
+
+		    
 		 	cp.setAdharNo(create.adharValidate());
 		 	cp.setDin(create.createDIN());
 		 	cp.setCin(create.companyIdentificationNumber());
