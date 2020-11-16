@@ -1933,15 +1933,16 @@ public String controlFile(String filePath, ArrayList<Contract> contractData, Arr
 }}
 public void num()
 {
-	Faker f = new Faker();
-	int j= f.number().numberBetween(1, 10);
-    HashSet<Integer> set = new HashSet<Integer>();
-    for(int i=0;i<=j;i++)
-    {
-    	set.add(j);
-    }
-    
-	System.out.println(j);
+	 int totaldup;
+     Faker f= new Faker();
+     totaldup=f.number().numberBetween(1, 10);
+     HashSet<Integer> ind = new HashSet<Integer>();
+     for(int i=0;i<=totaldup;i++)
+     {
+     	ind.add(f.number().numberBetween(1, 10));
+     }
+   
+	System.out.println(ind);
 }
 }
 
