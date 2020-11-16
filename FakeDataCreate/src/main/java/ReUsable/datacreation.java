@@ -1,17 +1,27 @@
 package ReUsable;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.github.javafaker.Faker;
 
 import Utilities.Constants;
+import pojoClases.Contract;
+import pojoClases.Counterparty;
+import pojoClases.Instrument;
 
 public class datacreation {
 	//Faker faker = new Faker(new Locale("pt_US"));
@@ -1875,6 +1885,63 @@ public String double2()
 	       return x;
 		   }
 	return d;
+}
+public String controlFile(String filePath, ArrayList<Contract> contractData, ArrayList<Counterparty> counterPartyData, ArrayList<Instrument> instrumentData)
+{
+	int csv =0;
+	int xlsx =0;
+	String fileName;
+	String extension = null;
+	File directory = new File(filePath);
+	HashSet<String> setOfExtension= new HashSet<String>();
+	File[] fileList = directory.listFiles();{
+	for(File file : fileList)
+	{
+	fileName = file.toString();
+	int index = fileName.lastIndexOf('.');
+	if(index>0) 
+	{
+	 extension = fileName.substring(index +1);
+	 //System.out.println("Type of file is "+extension);
+	
+
+	if (extension.contains("csv")) {
+	
+		csv++;
+	   setOfExtension.add(extension);}
+	if (extension.contains("xlsx")) {
+		xlsx++;
+	setOfExtension.add(extension);}
+	   
+	}
+	
+	}
+	for(String  extensions: setOfExtension)
+			{
+	System.out.println(extension);
+	}
+	
+	System.out.println("Number of file present is "+csv+"("+"CSV"+")"+","+xlsx+"("+"xlsx"+")");
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	LocalDateTime now = LocalDateTime.now();
+	System.out.println("Date of file creation "+dtf.format(now));
+	System.out.println("Transaction Records in Contract File "+contractData.size());
+	System.out.println("Transaction Records in Contract File "+counterPartyData.size());
+	
+	
+	return null;
+}}
+public void num()
+{
+	Faker f = new Faker();
+	int j= f.number().numberBetween(1, 10);
+    HashSet<Integer> set = new HashSet<Integer>();
+    for(int i=0;i<=j;i++)
+    {
+    	set.add(j);
+    }
+    
+	System.out.println(j);
 }
 }
 

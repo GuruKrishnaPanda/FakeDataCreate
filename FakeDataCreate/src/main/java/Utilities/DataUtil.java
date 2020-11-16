@@ -118,7 +118,7 @@ public class DataUtil {
 		}
 		return masterData;
 		}
-	}
+	
 	// true - Y
 	// false - N
 	
@@ -137,4 +137,38 @@ public class DataUtil {
 	 * }
 	 */
 
+		public static Hashtable<String, String> getFieldValue( String sheetName,GenericXLSXReader xls){
+			//String testName="CreateLeadTest";
+
+			
+			//Xls_Reader xls = new Xls_Reader(System.getProperty("user.dir")+"//Data.xlsx");
+			int totalrows =1;
+			int totalCols=1;
+			while(!xls.getCellData(sheetName, 0, totalrows).equals("")) {
+				
+				totalrows++;
+			}
+			while(!xls.getCellData(sheetName, totalCols, 1).equals("")) {
+				
+				totalCols++;
+			}
+			
+			System.out.println(totalrows-1+"=-------------"+totalCols);
+			
+			
+			Hashtable<String,String> fieldValues=new Hashtable<String,String>();
+			
+			for(int rNum=1;rNum<totalrows;rNum++) {
+				
+					String key = xls.getCellData(sheetName, 0, rNum);
+					String data = xls.getCellData(sheetName, 2, rNum);
+					System.out.print(key+"-"+data+" --- ");
+					fieldValues.put(key, data);
+				
+				
+			}
+			return fieldValues;
+		}
+		
+}
 

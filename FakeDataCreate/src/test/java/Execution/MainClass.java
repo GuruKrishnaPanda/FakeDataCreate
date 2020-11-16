@@ -17,14 +17,14 @@ public class MainClass {
 	public static void main(String[] args)  
 	{
 
-	   Utils.archiveAvailableFiles();
+	  Utils.archiveAvailableFiles();
 		ReusableFactory ref = new ReusableFactory();
 		ref.createData(Constants.totalData);
 		System.out.println(Constants.totalData);
-		/*for  (int i=0;i<10;i++)
+		/*for  (int i=0;i<5;i++)
 		{
 			datacreation d = new datacreation();
-			d.companyIdentificationNumber();
+			d.num();
 		}*/
 	}
 	}
