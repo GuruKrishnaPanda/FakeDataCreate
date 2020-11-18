@@ -21,11 +21,13 @@ public class GenerateEntityFiles {
 	File file;
 	
 	 ReadWrite rw=  new ReadWrite();
+
 	
 	public void generateContractfile(ArrayList<Contract> contractData,String folderName,String fileName) throws IOException {
 			
 			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.contract+Constants.fileType;	 
-			 rw.writeCotractData(contractData,fileName);	
+			 rw.writeCotractData(contractData,fileLocation);	
+		
 	}
 
 
@@ -33,7 +35,8 @@ public class GenerateEntityFiles {
 		
 			 
 			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.counterParty+Constants.fileType;	 
-			 rw.writeCounterPartyData(counterPartyData,fileLocation);	
+			 rw.writeCounterPartyData(counterPartyData,fileLocation);
+			
 
 	}
 	public void generateCounterpartyRatingfile(ArrayList<counterpartyRating> contractData,String folderName,String fileName) throws IOException {
@@ -46,6 +49,7 @@ public class GenerateEntityFiles {
 		
 		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.counterpartyRisk+Constants.fileType;	 
 		 rw.writecounterpartyRiskData(contractData, fileLocation);
+
 			
 
 	}
@@ -54,6 +58,7 @@ public class GenerateEntityFiles {
 		
 		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.protection+Constants.fileType;	 
 		 rw.writeProtectionData(contractData, fileLocation);
+
 			
 		
 
@@ -62,6 +67,7 @@ public class GenerateEntityFiles {
 		
 		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.protectionInstrument+Constants.fileType;	 
 		 rw.writeProtectionInstrumentData(contractData, fileLocation);
+
 		
 
 	}
@@ -70,11 +76,13 @@ public class GenerateEntityFiles {
 
 		 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.relatedParty+Constants.fileType;	 
 		 rw.writeRelatedPartyData(contractData, fileLocation);
+	
 
 	}
 	public void generateInstrumentfile(ArrayList<Instrument> contractData, String folderName,String fileName) throws IOException {
 		String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.instrument+Constants.fileType;	 
 		 rw.writeInstrumentData(contractData,fileLocation);
+	
 }
 
 

@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
+import com.github.javafaker.Faker;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
@@ -41,7 +44,17 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
         CSVWriter writer =createCSVWriter(outputfile);
         writer.writeNext(headerFiles.contractHeader()); 
         System.out.println("No of rows = "+contractData.size()); 
+        int totaldup;
+        Faker f= new Faker();
+        totaldup=f.number().numberBetween(1, 10);
+        HashSet<Integer> ind = new HashSet<Integer>();
+        for(int i=0;i<=totaldup;i++)
+        {
+        	ind.add(f.number().numberBetween(1, 10));
+        }
+        int count = 0;
         for(Contract con : contractData) {
+        	count++;
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getContractId(),

@@ -1,12 +1,12 @@
 package Utilities;
 
 public class Constants {
-	public static String typeOfData = "N";// Valid Data
+	public static String typeOfData = "Y";// Valid Data
 	public static String haveSpecialChar = "N";
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
 	public static String havechar = "Y";
-	public static int totalData =  20;
+	public static int totalData =  10;
 	public static String fileType =  ".csv";
 	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
 	public static String ArchivefileLocation =  System.getProperty("user.dir")+"\\ArchiveFiles\\";
@@ -19,13 +19,8 @@ public class Constants {
 	public static String protection =  "Protection";
 	public static String protectionInstrument =  "ProtectionInstrument";
 	public static String relatedParty =  "RelatedParty";
-
-	
-	
+	public static String controlFile = "ControlFile";
 	public static String ReportingMemberID = "TCSQA1001";
-	
-	
-	
 	public static String[] array = { "plainaddress", 
 		    "#@%^%#$@#$@#.com", 
 		    "@example.com", 
@@ -85,7 +80,7 @@ public class Constants {
 			"zh-TW"
 			};
 	
-	public static char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','`','(',')','-','_','<','>',',','.','|'};
+	public static char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','-','_','<','>','.','|'};
 	public static String[] caste = {"SC","ST","OBC","MBC","ND","GEN"};
 	public static String[] comm = {"Hindu","Muslim","Christian","Zoroastrian","Buddhist","Sikh","Jain","Neo","Buddhist","ND","OTH "};
 	public static String[] ProtectionValue = {"Notional amount", "Fair value","Market value","Long-term sustainable value", "Other"};

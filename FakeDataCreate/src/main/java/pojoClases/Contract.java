@@ -1,6 +1,7 @@
 package pojoClases;
 
 public class Contract {
+	
 	public String reportingEntityId;
 	public String contractId;
 	public String instrumentId;

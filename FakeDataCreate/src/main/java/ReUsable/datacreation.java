@@ -1,17 +1,27 @@
 package ReUsable;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.github.javafaker.Faker;
 
 import Utilities.Constants;
+import pojoClases.Contract;
+import pojoClases.Counterparty;
+import pojoClases.Instrument;
 
 public class datacreation {
 	//Faker faker = new Faker(new Locale("pt_US"));
@@ -64,7 +74,7 @@ public class datacreation {
 	public String createdata(int maximumLength, boolean includeUppercase, boolean includeSpecial, boolean includeDigit) {
         if (includeSpecial) {
             char[] data = faker.lorem().characters(maximumLength, includeUppercase, includeDigit).toCharArray();
-            char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','`','(',')','-','_','<','>',',','.','|'};
+            char[] special = new char[]{'!', '@', '#', '$', '%', '^', '&', '*', '}', '/','+','=','~','`','(',')','-','_','<','>','.','|'};
             for (int i = 0; i < maximumLength; i++) {
                 data[faker.random().nextInt(data.length)] = special[faker.random().nextInt(special.length)];
             }
@@ -119,14 +129,7 @@ return d;
 
 	if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	{
-	Date from = StringToDate("01011950");
-	Date to = StringToDate("01012000");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("YYYYMMdd");  
-    String strDate = dateFormat.format(newData); 
-    System.out.println(strDate);
-
-	return strDate;
+		return dateAuth1();
 	}
 	else {
 		
@@ -230,14 +233,11 @@ public String negdigit(int j) {
 
 public String createContractIdentifier() 
 {
-
 	int j= faker.number().numberBetween(5, 36);
 	
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
-		String value = conditionCheck3(j);
-		System.out.println(value);
-			return value;
+		 return Alpha(j);
 	}
 	else 
 	{
@@ -278,14 +278,10 @@ public String conditionCheck6(int i)
 
 public String createInstrumentId()
 {
-
-int j= faker.number().numberBetween(4, 21);
-	
+    int j= faker.number().numberBetween(4, 21);
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
-		 String value = 	conditionCheck3(j);
-		System.out.println(value);
-		return value;
+		return Alpha(j);
 	}
 	else 
 	{
@@ -320,77 +316,121 @@ public static void main(String[] args) {
 
 public String legalEntityIdentifier()
 {
-int j= faker.number().numberBetween(6, 20);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+	String lei;
+	lei =faker.regexify("[0-9]{4}[0]{2}[A-Z0-9]{12}[0-9]{2}");
+	if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	{
-		
-		System.out.println(j);
-		String value = 	conditionCheck3(j);
-		System.out.println(value);
-		return value;
-		
+	//lei =faker.regexify("[0-9]{4}[0]{2}[A-Z0-9]{12}[0-9]{2}");
+	System.out.println(lei);
+	return lei;
 	}
 	else {
-		String d = negAlpha(j);
-		return d;	
-	     }
+	String number = faker.regexify(faker.number().numberBetween(5, 19)+"|20|"+faker.number().numberBetween(21, 25));
+	int intNumber = Integer.parseInt(number);
+	String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+	char[] data = data1. toCharArray();
+	System.out.println(data);
+	if (intNumber<=20)
+	{
+	lei = withSpecialCharData(data, 5);
+	return lei;
+	}
+	else if (intNumber>=20)
+	{
+	lei = withSpecialCharData(data, 21);
+	return lei;
+	}
+	else
+	{
+	lei = withSpecialCharData(data, 20);
+	return lei;
 
+	}
+
+	}
 }
 public String companyIdentificationNumber()
 {
-
-int j= faker.number().numberBetween(4, 21);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
+	String CIN;
+	CIN =faker.regexify("[UL]{1}[0-9]{5}[A-Z]{2}[2]{1}[0]{1}[0-2]{1}[0-9]{1}[P]{1}[TL]{1}[C]{1}[0-9]{6}");
+	if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	{
-		
-		String value = 	conditionCheck3(j);
-		System.out.println(value);
-		return value;
+
+	System.out.println(CIN);
+	return CIN;
+
 	}
+
 	else {
-		String d = negAlpha(j);
-		return d;
-	     }
-	
+	String number = faker.regexify(faker.number().numberBetween(5, 20)+"|21|"+faker.number().numberBetween(22, 25));
+	int intNumber = Integer.parseInt(number);
+	String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+	char[] data = data1. toCharArray();
+	System.out.println(data);
+	if (intNumber<=21)
+	{
+	CIN = withSpecialCharData(data, 5);
+	return CIN;
+	}
+	else if (intNumber>=21)
+	{
+	CIN = withSpecialCharData(data, 22);
+	return CIN;
+	}
+	else
+	{
+	CIN = withSpecialCharData(data, 21);
+	return CIN;
+
+	}
+	}
 }
 public String udyogAdharNumber()
 {
-int j= faker.number().numberBetween(3, 12);
-	
+    int j= faker.number().numberBetween(3, 12);
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
-		
-		String value = 	conditionCheck3(j);
-		System.out.println(value);
-		return value;
-	}
-	else {
-		String d = negAlpha(j);
-		return d;
-		
-	     }
-
-}
-public String taxCollectionAccountNumber()
-{
-int j= faker.number().numberBetween(4, 10);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-	{
-		
-		
-		String value = 	conditionCheck3(j);
-		System.out.println(value);
-		return value;
-		
+		return Alpha(j);
 	}
 	else {
 		String d = negAlpha(j);
 		return d;	
 	     }
-	
+}
+public String taxCollectionAccountNumber()
+{
+	String tan;
+	tan =faker.regexify("[A-Z]{3}[A-Z]{1}[0-9]{5}[A-Z]{1}");
+	if (Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+
+	System.out.println(tan);
+
+	}
+	else {
+	String number = faker.regexify(faker.number().numberBetween(3, 9)+"|10|"+faker.number().numberBetween(11, 15));
+	int intNumber = Integer.parseInt(number);
+	String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
+	char[] data = data1. toCharArray();
+	System.out.println(data);
+	if (intNumber<=10)
+	{
+	tan = withSpecialCharData(data, 3);
+	return tan;
+	}
+	else if (intNumber>=10)
+	{
+	tan = withSpecialCharData(data, 11);
+	return tan;
+	}
+	else
+	{
+	tan = withSpecialCharData(data, 10);
+	return tan;
+
+	}
+	}
+	return tan;
 }
  public String nicCode()
  {
@@ -398,12 +438,7 @@ int j= faker.number().numberBetween(4, 10);
 		
 		if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 		{
-			
-			System.out.println(j);
-			String value = 	conditionCheck3(j);
-			System.out.println(value);
-			return value;
-			
+			return Alpha(j);			
 		}
 		else {
 			String d = negAlpha(j);
@@ -417,22 +452,13 @@ int j= faker.number().numberBetween(4, 10);
 		
 		if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 		{
-			
-			
-			String value = 	conditionCheck3(j);
-			System.out.println(value);
-			return value;
-			
+			return Alpha(j);
 		}
 		else {
 			String d = negAlpha(j);
 			return d;
-		     }
-	
+		}
  }
-
-
- 
  public String createDIN()
  {
 	 int j= faker.number().numberBetween(3, 8);
@@ -440,9 +466,7 @@ int j= faker.number().numberBetween(4, 10);
 	 {
 
 		
-			String val = createNumeric();
-			
-			return val;
+			return createNumeric(j);
 	 }
 	 else {
 		 String d = negdigit(j);
@@ -493,9 +517,7 @@ int j= faker.number().numberBetween(4, 10);
 	 int j= faker.number().numberBetween(5, 5);
  if(Constants.typeOfData.equalsIgnoreCase("Y"))
  {
-	  value = conditionCheck5(j);
-		System.out.println(value); 
-		return value;
+	 return createNumeric(j);
  }
  else
  {
@@ -618,33 +640,24 @@ int j= faker.number().numberBetween(4, 10);
 		 int j= faker.number().numberBetween(5, 15);
 			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-			{
-				
-				
-				String value = 	conditionCheck3(j);
-				System.out.println(value);
-				return value;
-				
+			{			
+				return Alpha(j);			
 			}
 			else {
 			
 				String d= negAlpha(j);
 				 return d;
 			     }
-		
 	 }
 	 public String createprotectionAllocatedValue()
 	 {
 		 int j= faker.number().numberBetween(5, 17);
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 		 {
-			 String value = conditionCheck5(j);
-				System.out.println(value); 
-				return value;
+			return createNumeric(j);
 		 }
 		 else
 		 {
-			
 				String d= negdigit(j);
 				 return d;	
 		 }
@@ -654,16 +667,10 @@ int j= faker.number().numberBetween(4, 10);
 		 int j= faker.number().numberBetween(5, 25);
 			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-			{
-				
-				
-				String value = 	conditionCheck3(j);
-				System.out.println(value);
-				return value;
-				
+			{		
+				return Alpha(j);			
 			}
 			else {
-			
 				String d= negAlpha(j);
 				 return d;
 			     }
@@ -673,8 +680,7 @@ int j= faker.number().numberBetween(4, 10);
 		 int j= faker.number().numberBetween(5, 21);
 		 if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 		 {
-		String val = createAlpha();
-		return val;
+			 return Alpha(j);
 		 }
 		 else
 		 {
@@ -682,41 +688,16 @@ int j= faker.number().numberBetween(4, 10);
 				 return d;
 		 }
 	 }
-	 public String createNumeric()
+	 public String createNumeric(int j)
 	 {
-		 int j= faker.number().numberBetween(3, 8);
+	
 			
-			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-			{
-				
+		
 				String value = 	conditionCheck5(j);
 				System.out.println(value);
 				return value;
-			}
-			else {
-			
-				return createdata(10, true, false, true);	
-			     }
-	 }
-	 		
-public String createAlpha()
-	 {
-		 int j= faker.number().numberBetween(5, 21);
-			
-			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-			{
-				
-				
-				String value = 	conditionCheck3(j);
-				System.out.println(value);
-				return value;
-				
-			}
-			else {
-			
-				return createdata(10, true, false, true);	
-			     } 
-	 }
+	 }	
+
 	
 	 public String createprotectionProviderId()
 	 {
@@ -725,10 +706,7 @@ public String createAlpha()
 	 	
 	 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	 	{
-	 		
-	 		String value = 	conditionCheck3(j);
-	 		System.out.println(value);
-	 		return value;
+	 		return Alpha(j);
 	 	}
 	 	else {
 	 		String d= negAlpha(j);
@@ -741,9 +719,7 @@ public String createAlpha()
 			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 			{
-				String value = 	conditionCheck3(j);
-				System.out.println(value);
-				return value;		
+				return Alpha(j);	
 			}
 			else {
 			
@@ -787,27 +763,9 @@ public String createAlpha()
 	 public  String createprotectionValue()
 	 {
 	
-		 double j= faker.number().numberBetween(10, 17);
-		 String d= Double.toString(j);
-		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-		 {
-			 double value =conditionCheck7(j);
-				System.out.println(value); 
-			
-		 }
-		 else
-		 {
-		
-
-			
-		}
-		return d;
-				
+		 return double2();				
 	 }
-	
-		 
- 
-	 public String createtypeOfProtectionValue()
+ public String createtypeOfProtectionValue()
 	 {
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
@@ -821,8 +779,6 @@ public String createAlpha()
 		 System.out.println(genprotect);
 		 return genprotect;
 	 }
-
-	 
 } 
 	 public String createprotectionValuationApproach()
 	 {
@@ -844,13 +800,7 @@ public String createAlpha()
 		 
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 		 {
-			Date from = StringToDate("01011950");
-			Date to = StringToDate("01012000");
-			Date newData =  faker.date().between(from,to);
-			DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-		    String strDate = dateFormat.format(newData); 
-		    System.out.println(strDate);
-			return strDate;
+			 return dateAuth1();
 		 }
 		 else {
 			 String d = genDate();
@@ -858,39 +808,17 @@ public String createAlpha()
 		                 
 				}
 		 }
-	
-	
-	  
-	 
+ 
 	 public String createoriginalProtectionValue()
 	  {
-		 double j= faker.number().numberBetween(10, 17);
-		 String d= Double.toString(j);
-		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-		 {
-			 double value =conditionCheck7(j);
-				System.out.println(value); 
-		
-		 }
-		 else
-		 {
-			
-		 }
-		return d;
-	 
+		 return double2();
  }
 	 public String createdateOfOriginalProtectionValu()
 	 {
 	
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 		 {
-		 Date from = StringToDate("01011950");
-			Date to = StringToDate("01012000");
-			Date newData =  faker.date().between(from,to);
-			DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-		    String strDate = dateFormat.format(newData); 
-		    System.out.println(strDate);
-			return strDate;
+			 return dateAuth1();
 		 }
 		 else
 		 {
@@ -904,9 +832,7 @@ public String createAlpha()
 			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 			{
-				String value = 	conditionCheck3(j);
-				System.out.println(value);
-				return value;		
+				return Alpha(j);	
 			}
 			else {
 			
@@ -916,14 +842,11 @@ public String createAlpha()
 	 }	 
 	 public String createprotectionExternalId()
 	 {
-
 		 int j= faker.number().numberBetween(20, 50);
 			
 			if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 			{
-				String value = 	conditionCheck3(j);
-				System.out.println(value);
-				return value;		
+				return Alpha(j);
 			}
 			else {
 			
@@ -956,13 +879,7 @@ public String dateOfInitiationOfInsolvencyProceedings() {
 	 String strDate = null;
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-	 Date from = StringToDate("01011950");
-		Date to = StringToDate("01012000");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	     strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
+		 return dateAuth1();
 	 }
 	 else
 	 {
@@ -993,13 +910,7 @@ public String dateOfWilfulDefaulterClassification() {
 	 String strDate = null;
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-	 Date from = StringToDate("01011950");
-		Date to = StringToDate("01012000");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	     strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
+		 return dateAuth1();
 	 }
 	 else
 	 {
@@ -1028,13 +939,7 @@ public String dateOfNonCooperativeBorrowerClassification() {
 	 String strDate = null;
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-	 Date from = StringToDate("01011950");
-		Date to = StringToDate("01012000");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	     strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
+		 return dateAuth1();
 	 }
 	 else
 	 {
@@ -1065,13 +970,7 @@ public String dateOfFradulentActivityClassification() {
 
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-	 Date from = StringToDate("01011950");
-		Date to = StringToDate("01012000");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	    String strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
+		 return dateAuth1();
 	 }
 	 else
 	 {
@@ -1100,13 +999,7 @@ public String dateOfFradulentActivityClassification() {
 	
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 		 {
-		 Date from = StringToDate("01011950");
-			Date to = StringToDate("01012000");
-			Date newData =  faker.date().between(from,to);
-			DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-		   String  strDate = dateFormat.format(newData); 
-		    System.out.println(strDate);
-			return strDate;
+			 return dateAuth1();
 		 }
 		 else
 		 {
@@ -1119,13 +1012,7 @@ public String dateOfFradulentActivityClassification() {
  		
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 		 {
-		 Date from = StringToDate("01011950");
-			Date to = StringToDate("01012000");
-			Date newData =  faker.date().between(from,to);
-			DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-		    String strDate = dateFormat.format(newData); 
-		    System.out.println(strDate);
-			return strDate;
+	return dateAuth1();
 		 }
 		 else
 		 {
@@ -1136,56 +1023,42 @@ public String dateOfFradulentActivityClassification() {
  	 }
  	public String createCouterpartyIdentifier()
 	 {
- 	
-		 int j=faker.number().numberBetween(3, 15);
+ 	     int j=faker.number().numberBetween(3, 15);
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 		 {
-			String value = conditionCheck3(j).toUpperCase();
-				System.out.println(value);
-				return value;
+				return Alpha(j);
 		 }
 		 else
 		 {
 				String d= negAlpha(j);
-				 return d;
-				
+				 return d;				
 		 }
 	 }
 	 public String createRatingId()
 	 {
-
 	 	 int j=faker.number().numberBetween(5, 20);
 	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 	 {
-	 		 String value = conditionCheck3(j).toUpperCase();
-	 			System.out.println(value);
-	 			return value;
+	 		return Alpha(j);
 	 	 }
 	 	 else
 	 	 {
 	 		String d = negAlpha(j);
 			 return d;
-	 	 }
-	 	
-	 	
+	 	 }	 	
 	 }
 	 public String creditRating()
 	 {
-
 	 	 int j=faker.number().numberBetween(4, 15);
 	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 	 {
-	 		 String value = conditionCheck3(j).toUpperCase();
-	 			System.out.println(value);
-	 			return value;
+	 		return Alpha(j);
 	 	 }
 	 	 else
 	 	 {
 	 		String d = negAlpha(j);
 			 return d;	
-	 	 }
-	 	
-	 	
+	 	 } 	
 	 }
 	 public String assessmentAgencyAuthority()
 	 {
@@ -1193,9 +1066,7 @@ public String dateOfFradulentActivityClassification() {
 	 	 int j=faker.number().numberBetween(6, 20);
 	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 	 {
-	 		 String value = conditionCheck3(j).toUpperCase();
-	 			System.out.println(value);
-	 			return value;
+	 		return Alpha(j);
 	 	 }
 	 	 else
 	 	 {
@@ -1208,13 +1079,7 @@ public String dateOfInternalRating() {
 
 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 	 {
-	 Date from = StringToDate("01011950");
-		Date to = StringToDate("01012000");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	    String strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
+       return dateAuth1();
 	 }
 	 else
 	 {
@@ -1224,62 +1089,33 @@ public String dateOfInternalRating() {
 }
 public String npaSinceDate()
 {
-	Date from = StringToDate("01011970");
-	Date to = StringToDate("01012020");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-    String strDate = dateFormat.format(newData); 
-    System.out.println(strDate);
-	return strDate;
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+    return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 }
 public String cummulativeRecoveriesNpa()
 {
 
-	 double j= faker.number().numberBetween(10, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(value); 
-	 }
-
-	return d;	
+return double2();
 }
 public String accumulatedProvisions()
 {
-	double j= faker.number().numberBetween(12, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(value); 
-	 }
-
-	return d;	
+	return double2();	
 }
 public String accumulatedWriteOffs()
 {
-	double j= faker.number().numberBetween(12, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(value); 
-	 }
-
-	return d;	
+	return double2();
 }
 public String createSettlementAmount()
 {
-	double j= faker.number().numberBetween(10, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(value); 
-	 }
-
-	return d;	
+	return double2();
 }
 public String createRestructuringStatus()
 {
@@ -1298,33 +1134,42 @@ public String createRestructuringStatus()
 }
 public String restructStatusDate()
 {
-	Date from = StringToDate("01012000");
-	Date to = StringToDate("01012020");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-    String strDate = dateFormat.format(newData); 
-    System.out.println(strDate);
-	return strDate;
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		 return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 }
 public String createStatusDate()
 {
-	Date from = StringToDate("01012000");
-	Date to = StringToDate("01012020");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-    String strDate = dateFormat.format(newData); 
-    System.out.println(strDate);
-	return strDate;
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		 return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 }
 public String createSuiteFieldDate()
 {
-	Date from = StringToDate("01012000");
-	Date to = StringToDate("01012020");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-    String strDate = dateFormat.format(newData); 
-    System.out.println(strDate);
-	return strDate;
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		 return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 }
 public String createAccountStatus()
 {
@@ -1349,14 +1194,11 @@ int j= faker.number().numberBetween(2, 10);
 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 {
 
-String value = conditionCheck3(j);
-System.out.println(value);
-return value;
+	return Alpha(j);
 }
 else {
-String invalidNumber = invalidNumberlength(faker);
-int i=Integer.parseInt(invalidNumber);
-return createdata(i, true, false, true);
+	String d = negAlpha(j);
+	return d;
 }
 
 }
@@ -1368,14 +1210,11 @@ int j= faker.number().numberBetween(2, 3);
 if(Constants.typeOfData.equalsIgnoreCase("Y"))
 {
 
-String value = conditionCheck3(j);
-System.out.println(value);
-return value;
+	return Alpha(j);
 }
 else {
-String invalidNumber = invalidNumberlength(faker);
-int i=Integer.parseInt(invalidNumber);
-return createdata(i, true, false, true);
+	String d = negAlpha(j);
+	return d;
 }
 
 }
@@ -1445,38 +1284,45 @@ return acti;
 public String createSanctionedDate()
 
 {
-	 Date from = StringToDate("01011950");
-		Date to = StringToDate("01012000");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	    String strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
-
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		 return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 } 
 
 public String createDisbursementDate()
 
 {
-Date from = StringToDate("01011950");
-	Date to = StringToDate("01012000");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-   String strDate = dateFormat.format(newData); 
-   System.out.println(strDate);
-	return strDate;
-
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		 return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 } 
 
 public String createMaturityDate()
 {
-Date from = StringToDate("01011950");
-	Date to = StringToDate("01012000");
-	Date newData =  faker.date().between(from,to);
-	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-   String strDate = dateFormat.format(newData); 
-   System.out.println(strDate);
-	return strDate;
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		 return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 
 }
 
@@ -1487,9 +1333,7 @@ int j= faker.number().numberBetween(3, 3);
 
 if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 {
-	String value = 	conditionCheck4(j);
-	System.out.println(value);
-	return value;		
+	return Alpha(j);	
 }
 else {
 
@@ -1497,21 +1341,8 @@ else {
      }
 }
 public String createoriginalSanctionAmount()
-
 {
-	 double j= faker.number().numberBetween(10, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(value); 
-	
-	 }
-	 else
-	 {
-		
-		}
-	return d;
+	return double2();
 }
 
 public String createsyndicatedContractID()
@@ -1521,13 +1352,12 @@ int j= faker.number().numberBetween(4, 15);
 	
 	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 	{
-		String value = 	conditionCheck3(j);
-		System.out.println(value);
-		return value;		
+		return Alpha(j);	
 	}
 	else {
 	
-		return createdata(10, true, false, true);	
+	String d = negAlpha(j);
+	return d;
 	     }
 }
 
@@ -1598,181 +1428,45 @@ else
 }
 public String interestRate()
 {
-	 double j= faker.number().numberBetween(2, 5);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-		
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-		
-	 }
-	
-	else {
-			
-	
-		   }
-	return d;
+	return double1();
 }
 public String weightedAverageInterestRate()
 {
-	 double j= faker.number().numberBetween(2, 5);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-	
-	 }
-	
-	else {
-			
-		
-		   }
-	return d;
+	return double1();
 }
 public String installmentAmount()
 {
-	 double j= faker.number().numberBetween(6, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-			
-	 }
-	
-	else {
-			
-			
-		   }
-	return d;
+	return double2();
 }
 
 public String  balanceOutstanding()
 {
-	 double j= faker.number().numberBetween(6, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-		
-	 }
-	
-	else {
-			
-			
-		   }
-	return d;
+	return double2();
 }
-
-
 public String unavailedAmount()
 {
-	 double j= faker.number().numberBetween(6, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-			
-	 }
-	
-	else {
-			
-		
-		   }
-	return d;
+	return double2();
 }
 
 public String  offBalanceSheetNominalAmount()
 {
-	 double j= faker.number().numberBetween(6, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-			
-	 }
-	
-	else {
-			
-			
-		   }
-	return d;
+	return double2();
 } 
 
 public String  creditEquivalentOffBalanceSheetNominalAmount()
 {
-	 double j= faker.number().numberBetween(6, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-			
-	 }
-	
-	else {
-			
-			
-		   }
-	return d;
+	return double2();
 } 
-
-
 public String accruedInterest()
 {
-	 double j= faker.number().numberBetween(6, 17);
-	 String d= Double.toString(j);
-	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-	 {
-		 double value =conditionCheck7(j);
-			System.out.println(d); 
-			
-	 }
-	
-	else {
-			
-			
-		   }
-	return d;
+	return double2();
 } 	 
 public String amountOverdue()
-{ double j= faker.number().numberBetween(6, 17);
-String d= Double.toString(j);
-if(Constants.typeOfData.equalsIgnoreCase("Y"))
-{
-	 double value =conditionCheck7(j);
-		System.out.println(d); 
-		
-}
-
-else {
-		
-		
-	   }
-return d;
+{ return double2();
 } 	
 public String numberOfDaysPastDue()
 {
-int j= faker.number().numberBetween(2, 5);
-	
-	if(Constants.typeOfData.equalsIgnoreCase("Y")) 
-	{
-		
-		String value = 	conditionCheck5(j);
-		System.out.println(value);
-		return value;
-	}
-	else {
-		String invalidNumber = invalidNumberlength(faker);
-		int i=Integer.parseInt(invalidNumber); 
-		return createdata(i, true, false, true);
-		
-	     }
+	return double1();
 }
 public String smaCategory()
 {
@@ -1791,14 +1485,16 @@ public String smaCategory()
 	 
 }
 public String smaCurrentCategorySinceDate(){
- 	
-		Date from = StringToDate("01011990");
-		Date to = StringToDate("01012010");
-		Date newData =  faker.date().between(from,to);
-		DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
-	    String strDate = dateFormat.format(newData); 
-	    System.out.println(strDate);
-		return strDate;
+	if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+      return dateAuth1();
+	}
+	else {
+		
+		String d = genDate();
+		 return d;
+                 
+		}
 	}
 
 
@@ -1819,7 +1515,6 @@ public String npaCategroyCode()
 	 
 }
 
-
 public String negNum1() 
 
 {
@@ -1832,10 +1527,9 @@ public String negNum1()
    {  String panNo;
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
-		    panNo =faker.regexify("[A-Z]{5}[0-9]{4}[A-Z]{1}");
+		   panNo =faker.regexify("[A-Z]{3}[CPHFATBLJG]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}");
 		   System.out.println(panNo);
-		   return panNo;
-		   
+		   return panNo;	   
 	   }
 	   else 
 	   {
@@ -1886,7 +1580,7 @@ public String adharValidate()
 {  String adNo;
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
-		    adNo = faker.regexify("​​​​​[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}");
+		    adNo = faker.regexify("[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}");
 		   System.out.println(adNo);
 		   
 	   }
@@ -1894,8 +1588,6 @@ public String adharValidate()
 	   {
 		   String number = faker.regexify(faker.number().numberBetween(3, 11)+"|12|"+faker.number().numberBetween(13, 16));
 		   int intNumber = Integer.parseInt(number);
-		   //char[] data = faker.regexify("[A-Z0-9]{​​​​​"+intNumber+"}​​​​​").toCharArray();
-		   //char[] data = faker.lorem().characters(intNumber,true,true).toCharArray();
 		   String data1 = faker.lorem().characters(intNumber,true,true).toUpperCase();
 		   char[] data = data1. toCharArray();
 		   System.out.println(data);
@@ -1917,19 +1609,12 @@ public String adharValidate()
 		   int firstPart= faker.number().numberBetween(0, 5);
 		   int secondPart= faker.number().numberBetween(0, 6);
 		   int thirdPart= faker.number().numberBetween(0, 4);
-		   //panNo = faker.regexify("[A-Z]{​​​​​"+firstPart+"}​​​​​[0-9]{​​​​​"+secondPart+"}​​​​​[A-Z]{​​​​​"+thirdPart+"}​​​​​");
-		   adNo = faker.regexify("[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}​​​​​");
+		   adNo = faker.regexify("[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}");
 		   String alphaNumericString = adNo;
-		   Matcher alphaNumericMatcher = Pattern.compile("[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}​​​​​").matcher(alphaNumericString);
+		   Matcher alphaNumericMatcher = Pattern.compile("[2-9]{1}[0-9]{3} [0-9]{4} [0-9]{4}").matcher(alphaNumericString);
 		   //System.out.println(alphaNumericMatcher.find());
 		   boolean isValid = alphaNumericMatcher.find();
-		   if(isValid)
-		   {
-			   adharValidate();
-		   }
-		   else {
-			   System.out.println("-----------");
-		   }
+		  
 	   }
 	return adNo;
 }
@@ -2007,9 +1692,9 @@ public String dateoftheme7()
 	Date to = StringToDate("01012000");
 	Date newData =  faker.date().between(from,to);
 	DateFormat dateFormat = new SimpleDateFormat("YYYY.MM.dd");  
-   String strDate = dateFormat.format(newData); 
-   System.out.println(strDate);
-   return strDate;
+    String strDate = dateFormat.format(newData); 
+    System.out.println(strDate);
+    return strDate;
 
 }
 public void negdigit1(int j) {
@@ -2052,16 +1737,16 @@ public String genDate() {
 			        System.out.println( strDate);
 			        break;      
 			case 3:  strDate= dateoftheme3();
-	                 System.out.println(strDate);
+	                 System.out.println( strDate);
 	                break;
 			case 4:   strDate= dateoftheme4();
-	 		         System.out.println(strDate);
+	 		         System.out.println( strDate);
 	 		        break;
 			case 5:  strDate= dateoftheme5();
-	                 System.out.println(strDate);
+	                 System.out.println( strDate);
 	                break;
 			case 6:   strDate= dateoftheme6();
-	                 System.out.println(strDate);
+	                 System.out.println( strDate);
 	                break;
 			case 7:   strDate= dateoftheme7();
 	                 System.out.println(strDate);
@@ -2076,7 +1761,7 @@ public String createGstin()
 {  String gNo;
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
-		    gNo =faker.regexify("[0-9]{2}[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}[1-9A-Za-z]{1}[Z]{1}[0-9a-zA-Z]{1}");
+		   gNo =faker.regexify("[0-9]{2}[A-Z]{3}[CPHFATBLJG]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9]{1}");
 		   System.out.println(gNo);
 		   return gNo;
 		   
@@ -2148,6 +1833,116 @@ public String mobileNumber()
 		   
        }	
 }
+public String Alpha(int j)
+{
+	String value = 	conditionCheck3(j);
+		System.out.println(value);
+		return value;
+}
 
+public String dateAuth1()
+{
+	Date from = StringToDate("01011950");
+	Date to = StringToDate("01012000");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");  
+    String strDate = dateFormat.format(newData); 
+    System.out.println(strDate);
+	return strDate;
+}
+public String double1()
+{
+	 double j= faker.number().numberBetween(2, 5);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+	
+	 }
+	
+	else {
+	    int jk= faker.number().numberBetween(2, 5);
+	       String x  = negdigit(jk);
+	       return x;
+		   }
+	return d;
+}
+public String double2()
+{
+	 double j= faker.number().numberBetween(6, 17);
+	 String d= Double.toString(j);
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 double value =conditionCheck7(j);
+			System.out.println(d); 
+	
+	 }
+	
+	else {
+	    int jk= faker.number().numberBetween(6, 17);
+	       String x  = negdigit(jk);
+	       return x;
+		   }
+	return d;
+}
+public String controlFile(String filePath, ArrayList<Contract> contractData, ArrayList<Counterparty> counterPartyData, ArrayList<Instrument> instrumentData)
+{
+	int csv =0;
+	int xlsx =0;
+	String fileName;
+	String extension = null;
+	File directory = new File(filePath);
+	HashSet<String> setOfExtension= new HashSet<String>();
+	File[] fileList = directory.listFiles();{
+	for(File file : fileList)
+	{
+	fileName = file.toString();
+	int index = fileName.lastIndexOf('.');
+	if(index>0) 
+	{
+	 extension = fileName.substring(index +1);
+	 //System.out.println("Type of file is "+extension);
+	
+
+	if (extension.contains("csv")) {
+	
+		csv++;
+	   setOfExtension.add(extension);}
+	if (extension.contains("xlsx")) {
+		xlsx++;
+	setOfExtension.add(extension);}
+	   
+	}
+	
+	}
+	for(String  extensions: setOfExtension)
+			{
+	System.out.println(extension);
+	}
+	
+	System.out.println("Number of file present is "+csv+"("+"CSV"+")"+","+xlsx+"("+"xlsx"+")");
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+	LocalDateTime now = LocalDateTime.now();
+	System.out.println("Date of file creation "+dtf.format(now));
+	System.out.println("Transaction Records in Contract File "+contractData.size());
+	System.out.println("Transaction Records in Contract File "+counterPartyData.size());
+	
+	
+	return null;
+}}
+public void num()
+{
+	 int totaldup;
+     Faker f= new Faker();
+     totaldup=f.number().numberBetween(1, 10);
+     HashSet<Integer> ind = new HashSet<Integer>();
+     for(int i=0;i<=totaldup;i++)
+     {
+     	ind.add(f.number().numberBetween(1, 10));
+     }
+   
+	System.out.println(ind);
+}
 }
 

@@ -31,7 +31,7 @@ public class ReusableFactory {
 	settingEntityDataSet eds =  new settingEntityDataSet();
 	GenerateEntityFiles generateEntityFiles = new GenerateEntityFiles();
 	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
-	Hashtable<String, String> data = DataUtil.getData("", xlsx);
+	Hashtable<String, String> data = DataUtil.getData("Configuration", xlsx);
 	Faker faker =  new Faker();
 	datacreation dc = new datacreation();
 	String folderName;
@@ -49,7 +49,7 @@ public class ReusableFactory {
 	
 		
 		try {
-			 folderName= Utils.generateFolderwithName();
+			 folderName= Utils.generateFolderwithName(contractData.get(1).getReportingEntityId());
 			 fileName = folderName;
 			if(data.get("Name_Of_File").equalsIgnoreCase("Valid")) {
 				if(data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("Yes")) {
@@ -165,6 +165,8 @@ public class ReusableFactory {
 			
 			e.printStackTrace();
 		}	
+		
+		
 	}
 	
 	public  String inValidFileName() {
@@ -197,7 +199,7 @@ public class ReusableFactory {
 		}
 
 		if(randomValue.equalsIgnoreCase("time")) {
-			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
+			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
 			String strDateFormat = "mmss";
 			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
 		    Date date = new Date();
@@ -215,7 +217,7 @@ public class ReusableFactory {
 			DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
 		    Date date = new Date();
 		    timeField =dateFormat.format(date);
-		    folderName = Constants.ReportingMemberID+"-"+dateField+"-"+timeField;
+		    folderName = reportingID+"-"+dateField+"-"+timeField;
 		}
 		return folderName;
 
