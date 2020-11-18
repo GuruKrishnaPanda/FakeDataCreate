@@ -21,11 +21,7 @@ public class MainClass {
 		ReusableFactory ref = new ReusableFactory();
 		ref.createData(Constants.totalData);
 		System.out.println(Constants.totalData);
-		/*for  (int i=0;i<5;i++)
-		{
-			datacreation d = new datacreation();
-			d.num();
-		}*/
+		
 	}
 	}
 	

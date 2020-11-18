@@ -1329,15 +1329,13 @@ public String createMaturityDate()
 public String createCurrencyCode()
 {
 
-int j= faker.number().numberBetween(3, 3);
-
+	int j= faker.number().numberBetween(3, 3);
 if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 {
 	return Alpha(j);	
 }
 else {
-
-	return createdata(10, true, false, true);
+	return negAlpha(j);
      }
 }
 public String createoriginalSanctionAmount()
@@ -1835,7 +1833,7 @@ public String mobileNumber()
 }
 public String Alpha(int j)
 {
-	String value = 	conditionCheck3(j);
+		String value = 	conditionCheck3(j);
 		System.out.println(value);
 		return value;
 }

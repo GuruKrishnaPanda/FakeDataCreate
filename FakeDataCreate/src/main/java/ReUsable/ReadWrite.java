@@ -44,17 +44,8 @@ public  void writeCotractData(ArrayList<Contract> contractData, String fileName)
         CSVWriter writer =createCSVWriter(outputfile);
         writer.writeNext(headerFiles.contractHeader()); 
         System.out.println("No of rows = "+contractData.size()); 
-        int totaldup;
-        Faker f= new Faker();
-        totaldup=f.number().numberBetween(1, 10);
-        HashSet<Integer> ind = new HashSet<Integer>();
-        for(int i=0;i<=totaldup;i++)
-        {
-        	ind.add(f.number().numberBetween(1, 10));
-        }
-        int count = 0;
         for(Contract con : contractData) {
-        	count++;
+        	
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getContractId(),
