@@ -6,7 +6,7 @@ public class Constants {
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
 	public static String havechar = "Y";
-	public static int totalData =  2;
+	public static int totalData =  20;
 	public static String fileType =  ".csv";
 	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
 	public static String ArchivefileLocation =  System.getProperty("user.dir")+"\\ArchiveFiles\\";
