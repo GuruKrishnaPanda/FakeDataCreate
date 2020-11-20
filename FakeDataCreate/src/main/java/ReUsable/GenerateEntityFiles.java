@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 //import java.util.Collections;
+import java.util.HashMap;
 
 import Utilities.Constants;
 import pojoClases.Contract;
@@ -85,10 +86,11 @@ public class GenerateEntityFiles {
 	
 }
 
-
-	public void generateControlfile(String string, String folderName,String fileName) {
-		
-		
+	public void generateControlfile(HashMap<String, Integer> cf , String folderName,String fileName) {
+		String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.controlFile+Constants.fileType;	
+		 rw.writeControlFileData(cf,fileLocation);	
 	}
+
+
 	
 }

@@ -1,6 +1,10 @@
 package ReUsable;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -8,6 +12,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Locale;
@@ -1884,51 +1889,123 @@ public String double2()
 		   }
 	return d;
 }
-public String controlFile(String filePath, ArrayList<Contract> contractData, ArrayList<Counterparty> counterPartyData, ArrayList<Instrument> instrumentData)
-{
+public HashMap<String,Integer> controlFile(String filePath) throws IOException  {
 	int csv =0;
 	int xlsx =0;
+	int txt =0;
+	
 	String fileName;
 	String extension = null;
 	File directory = new File(filePath);
 	HashSet<String> setOfExtension= new HashSet<String>();
+	HashMap<String, Integer> hm = new HashMap<String, Integer>();
+	
 	File[] fileList = directory.listFiles();{
 	for(File file : fileList)
 	{
-	fileName = file.toString();
-	int index = fileName.lastIndexOf('.');
-	if(index>0) 
-	{
-	 extension = fileName.substring(index +1);
-	 //System.out.println("Type of file is "+extension);
+		fileName = file.toString();
+		int index = fileName.lastIndexOf('.');
+		if(index>0) 
+		{
+			extension = fileName.substring(index +1);
+			int recordCount  = totalRecords(fileName);
+			 if(fileName.contains("Contract")) {
+		    	 hm.put("Contract File",recordCount-1);
+		    }
+		       if(fileName.contains("CounterParty")) {
+		    	 hm.put("CounterParty File",recordCount-1);
+		    } 
+		       if(fileName.contains("CounterpartyRating")) {
+		    	 hm.put("CounterpartyRating File",recordCount-1);
+		    }  
+		       if(fileName.contains("CounterpartyRisk")) {
+		    	 hm.put("CounterpartyRisk File",recordCount-1);
+		    }
+		       if(fileName.contains("Instrument")) {
+		    	 hm.put("Instrument File",recordCount-1);
+		    }
+		       if(fileName.contains("Protection")) {
+		    	 hm.put( "Protection File",recordCount-1);
+		    }  
+		       if(fileName.contains("ProtectionInstrument")) {
+		    	 hm.put("ProtectionInstrument File",recordCount-1);
+		    }
+		       
+		       if(fileName.contains("RelatedParty")) {
+		    	hm.put( "RelatedParty File",recordCount-1);
+		    }
+		       if(fileName.contains("Control")) {
+		    	 hm.put("Control File",recordCount-1);
+		    	 	 
+		       } 
+			
+			if (extension.contains("csv")) {
+				csv++;
+				setOfExtension.add(extension);
+			}
+	  
+			if (extension.contains("xlsx")) {
+		
+				xlsx++;
+				setOfExtension.add(extension);
+			}
+			if (extension.contains("txt")) {
+		
+				txt++;
+				setOfExtension.add(extension);
+			}  
+		}
+	}
 	
+	for(String  extensions: setOfExtension) {
+			if(extensions.equalsIgnoreCase("csv"))
+				hm.put(".csv",csv );
+			if(extensions.equalsIgnoreCase("xlsx"))
+				hm.put( ".xlsx",xlsx);
+			if(extensions.equalsIgnoreCase("txt"))
+				hm.put(".txt",txt);
+			   
+			   
+			
+	
+	}
+	return hm;
+}
+}
+private int totalRecords(String fileName) {
+	int count = 0;
+	 BufferedReader bufferedReader = null;
+	try {
+		bufferedReader = new BufferedReader(new FileReader(fileName));
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    try {
+		while((bufferedReader.readLine()) != null)
+		{
+		    count++;
+		}
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+    
+	return count;
+}
 
-	if (extension.contains("csv")) {
+		
 	
-		csv++;
-	   setOfExtension.add(extension);}
-	if (extension.contains("xlsx")) {
-		xlsx++;
-	setOfExtension.add(extension);}
-	   
-	}
+public  HashMap<String,Integer> controlFile1(String folderName) throws IOException {
 	
-	}
-	for(String  extensions: setOfExtension)
-			{
-	System.out.println(extension);
-	}
+	String filePath = System.getProperty("user.dir")+"\\ActualFileCreated\\"+folderName+"\\";
+    HashMap<String,Integer> s = controlFile(filePath);
 	
-	System.out.println("Number of file present is "+csv+"("+"CSV"+")"+","+xlsx+"("+"xlsx"+")");
-	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-	LocalDateTime now = LocalDateTime.now();
-	System.out.println("Date of file creation "+dtf.format(now));
-	System.out.println("Transaction Records in Contract File "+contractData.size());
-	System.out.println("Transaction Records in Contract File "+counterPartyData.size());
+	return s;
 	
-	
-	return null;
-}}
+}
+
+
 public void num()
 {
 	 int totaldup;

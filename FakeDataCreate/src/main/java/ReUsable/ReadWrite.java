@@ -5,9 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -350,7 +353,91 @@ private CSVWriter createCSVWriter(FileWriter outputfile) {
 	 return writer;
 }
 
-
+public void writeControlFileData(HashMap<String, Integer> cf, String fileLocation ) {
+	
+	try { 
+		outputfile = createFileObject(fileLocation);
+    	CSVWriter writer =createCSVWriter(outputfile);
+  
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    LocalDateTime now = LocalDateTime.now();
+    String dateToString = dtf.format(now);
+    String [] rowData1 = {"Date",dateToString};
+    writer.writeNext(rowData1);
+	
+	String s = null ;
+	String p = null ;
+	 Set<String> keys = cf.keySet();
+	 
+	 if (keys.contains(".csv")) {
+		 p = "(CSV) "+cf.get(".csv");
+		 if(cf.get(".csv")>0) {
+			 s = "csv";
+			}
+		}
+  
+		if (keys.contains(".xlsx")) {
+			p=p+"(xlsx)"+cf.get(".xlsx");
+			if(cf.get(".xlsx")>0) {
+				s =s+"/xlsx";
+		}
+		}
+		if (keys.contains(".txt")) {
+			p=p+"(txt)"+cf.get(".txt");
+	       if(cf.get(".txt")>0) 
+			{
+				s = s+"/txt";
+			}
+		}  
+	String rowData[] = {"Type of file",s};
+	String rowData2[] = {"Number of file ",p};
+	writer.writeNext(rowData);
+	writer.writeNext(rowData2);
+	
+	 for(String key:keys){
+		 if(key.contains("Contract File")) {
+			String rowContract[]= {"Transaction Records in ContractFile",""+cf.get("Contract File")};
+			writer.writeNext(rowContract);
+			
+	    }
+	       if(key.contains("CounterParty File")) {
+	    	   String rowContract[]= {"Transaction Records in CounterpartyFile",""+cf.get("CounterParty File")};
+	    	   writer.writeNext(rowContract);
+	    } 
+	       if(key.contains("CounterpartyRating File")) {
+	    	   String rowContract[]= {"Transaction Records in CounterpartyFile",""+cf.get("CounterParty File")};
+	    	   writer.writeNext(rowContract);
+	    }  
+	       if(key.contains("CounterpartyRisk File")) {
+	    	   String rowContract[]= {"Transaction Records in Counterparty Risk File",""+cf.get("CounterpartyRisk File")};
+	    	   writer.writeNext(rowContract);
+	    }
+	       if(key.contains("Instrument File")) {
+	    	   String rowContract[]= {"Transaction Records in Instrument File",""+cf.get("Instrument File")};
+	    	   writer.writeNext(rowContract);
+	    }
+	       if(key.contains("Protection File")) {
+	    	   String rowContract[]= {"Transaction Records in Protection File",""+cf.get("Protection File")};
+	    	   writer.writeNext(rowContract);
+	    }  
+	       if(key.contains("ProtectionInstrument File")) {
+	    	   String rowContract[]= {"Transaction Records in IProtection nstrument File",""+cf.get("ProtectionInstrument File")};
+	    	   writer.writeNext(rowContract);
+	    }
+	       
+	       if(key.contains("RelatedParty File")) {
+	    	  String rowContract[]= {"Transaction Records in RelatedParty File",""+cf.get("RelatedParty File")};
+	    	  writer.writeNext(rowContract);
+	    }
+	 }
+	 writer.close(); 
+ } 
+ catch (IOException e) { 
+    
+     e.printStackTrace(); 
+     
+ } 
+}
 private ArrayList<Counterparty> randomize( ArrayList<Counterparty> counterPartyData) 
 
 { 
