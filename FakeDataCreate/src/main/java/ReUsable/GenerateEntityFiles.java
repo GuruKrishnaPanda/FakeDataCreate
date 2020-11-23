@@ -28,15 +28,16 @@ public class GenerateEntityFiles {
 			
 			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.contract+Constants.fileType;	 
 			 rw.writeCotractData(contractData,fileLocation);	
+			 
 		
 	}
 
 
-	public void generateCounterpartyfile(ArrayList<Counterparty> counterPartyData,String folderName, String fileName) throws IOException {
+	public void generateCounterpartyfile(ArrayList<Counterparty> contractData,String folderName, String fileName) throws IOException {
 		
 			 
 			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.counterParty+Constants.fileType;	 
-			 rw.writeCounterPartyData(counterPartyData,fileLocation);
+			 rw.writeCounterPartyData(contractData,fileLocation);
 			
 
 	}
@@ -88,9 +89,12 @@ public class GenerateEntityFiles {
 
 	public void generateControlfile(HashMap<String, Integer> cf , String folderName,String fileName) {
 		String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.controlFile+Constants.fileType;	
-		 rw.writeControlFileData(cf,fileLocation);	
+	
+		rw.writeControlFileData(cf,fileLocation);	
+	
 	}
 
+	
 
 	
 }

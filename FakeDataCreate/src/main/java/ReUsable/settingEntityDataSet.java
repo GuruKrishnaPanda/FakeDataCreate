@@ -29,6 +29,7 @@ public class settingEntityDataSet {
 public ArrayList<Contract> createContractData(int numberData) 
   {	
 	
+	
 		ArrayList<Contract> con =  new ArrayList<>();
 		create = new datacreation();
 		String reportingEntityId = create.createReportingEntityId();

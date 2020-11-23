@@ -22,10 +22,11 @@ public class Constants {
 	public static String controlFile =  "ControlFile";
 	public static String ReportingMemberID = "TCSQA1001";
 
+	
 	public static String[] array = { "plainaddress", 
 		    "#@%^%#$@#$@#.com", 
 		    "@example.com", 
-		    "Joe Smith <email@example.com>", 
+		    "Joe Smith <email@example.com>",
 		    "email.example.com", 
 		    "email@example@example.com", 
 		    ".email@example.com", 

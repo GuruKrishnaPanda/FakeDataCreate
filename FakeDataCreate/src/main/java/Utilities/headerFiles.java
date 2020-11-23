@@ -6,6 +6,7 @@ public class headerFiles {
 		
 		String[] contractHeader = {"reportingEntityId","contractId","instrumentId","counterypartyId"};
 		return contractHeader;
+		
 	}
 	public static String[] counterPartyHeader(){
 		

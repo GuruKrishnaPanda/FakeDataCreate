@@ -125,10 +125,10 @@ public String addressLine3() {
 
 
 public Date dateofBirth() {
-  Date d = faker.date().birthday(18, 98);
-  System.out.println(d);
-return d;
-}
+	  Date d = faker.date().birthday(18, 98);
+	  System.out.println(d);
+	return d;
+	}
    public String date() {
 	//return faker.date().birthday(26, 87);
 
@@ -1698,8 +1698,51 @@ public String dateoftheme7()
     String strDate = dateFormat.format(newData); 
     System.out.println(strDate);
     return strDate;
-
 }
+public String dateoftheme8()
+{
+	Date from = StringToDate("01011950");
+	Date to = StringToDate("01012000");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("0000-00-00");  
+   String strDate = dateFormat.format(newData); 
+   System.out.println(strDate);
+   return strDate;
+}
+
+public String dateoftheme9() {
+	  Date date = new Date();
+	  SimpleDateFormat formatter = new SimpleDateFormat();
+       String sdate = formatter.format(date);
+	return sdate;	
+	}
+public String dateoftheme10()
+{
+	
+	Date from = StringToDate("01011950");
+	Date to = StringToDate("01012000");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("YYYYMMdd");  
+   String strDate = dateFormat.format(newData); 
+   System.out.println(strDate);
+    return strDate;
+}
+public String dateoftheme11()
+{
+	int k = faker.number().numberBetween(13, 40);
+	int l = faker.number().numberBetween(32, 59);
+	String xx = Integer.toString(k);
+	String ll = Integer.toString(l);
+	Date from = StringToDate("01011950");
+	Date to = StringToDate("01012020");
+	Date newData =  faker.date().between(from,to);
+	DateFormat dateFormat = new SimpleDateFormat("YYYY");  
+    String strDate = dateFormat.format(newData); 
+    System.out.println(ll+xx+strDate);
+    return strDate;
+}
+
+
 public void negdigit1(int j) {
 	
     String v= null;
@@ -1754,6 +1797,20 @@ public String genDate() {
 			case 7:   strDate= dateoftheme7();
 	                 System.out.println(strDate);
 	                break;
+			case 8:   strDate= dateoftheme8();
+            System.out.println(strDate);
+           break;
+			case 9:   strDate= dateoftheme9();
+            System.out.println(strDate);
+           break;
+           
+			case 10:   strDate= dateoftheme10();
+            System.out.println(strDate);
+           break;
+			case 11:   strDate= dateoftheme11();
+            System.out.println(strDate);
+           break;
+           
 	                 
 	 }
 
@@ -1845,6 +1902,7 @@ public String Alpha(int j)
 
 public String dateAuth1()
 {
+	
 	Date from = StringToDate("01011950");
 	Date to = StringToDate("01012000");
 	Date newData =  faker.date().between(from,to);
@@ -2004,7 +2062,16 @@ public  HashMap<String,Integer> controlFile1(String folderName) throws IOExcepti
 	return s;
 	
 }
+public void ecp()
+{
+	int k = faker.number().numberBetween(13, 40);
+	int l = faker.number().numberBetween(32, 59);
+	String xx = Integer.toString(k);
+	String ll = Integer.toString(l);
+    System.out.println(xx);
+    System.out.println(ll); 
 
+}
 
 public void num()
 {

@@ -10,6 +10,7 @@ public class counterpartyRating {
 	private String creditRatingExpiryDate;
 	public String getReportingEntityId() {
 		return reportingEntityId;
+		
 	}
 	public void setReportingEntityId(String reportingEntityId) {
 		this.reportingEntityId = reportingEntityId;
