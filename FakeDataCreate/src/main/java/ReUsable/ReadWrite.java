@@ -45,66 +45,7 @@ public class ReadWrite {
 	 FileWriter outputfile;
 	 List hearderData;
 	
-	
-/*public  void writeCotractData(ArrayList<Contract> contractData, String fileName) {
-    try { 
-    	outputfile = createFileObject(fileName);
-        // create CSVWriter with ';' as separator 
-       
-        CSVWriter writer =createCSVWriter(outputfile);
-        writer.writeNext(headerFiles.contractHeader()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(Contract con : contractData) {
-        	
-        	String[] rowData =  { 
-        				con.getReportingEntityId(), 
-        				con.getContractId(),
-        				con.getInstrumentId(),
-        				con.getCounterypartyId()}; 
-        	writer.writeNext(rowData); 
-        }
 
-        writer.close(); 
-    } 
-    catch (IOException e) { 
-       
-        e.printStackTrace(); 
-        
-    } 
-}*/
-	 /*if(the condition in th econfig excel file is yes){
-     {
-     	
-			List<String> strList = Arrays.asList(s);
-			Collections.shuffle(strList);
-			s = strList.toArray(new String[strList.size()]);
-     	 writer.writeNext(s);
-     	 for(Contract con : contractData) {
-     	 	Arraylist<String> rowdata =new Arraylist();
-     	 	for(STring header :strList){}
-     	 	
-     	 		if(header.eqoigonecare("reportingEntityId")
-     	 			rowdata.add(con.getReportingEntityId());
-     	 	}
-     	 	
-			   String writingRowData = rowdata.toArray(new String[rowdata.size()]);
-			   writer.writeNext(writingRowData); 
-     	 	}
-     	
-     
-     }if(the condition in config file is no)
-     {
-     	 writer.writeNext(s); 
-     	 for(Contract con : contractData) {
-     	String[] rowData =  { 
-     				con.getReportingEntityId(), 
-     				con.getContractId(),
-     				con.getInstrumentId(),
-     				con.getCounterypartyId()}; 
-     	writer.writeNext(rowData); 
-     }
-     
-     */
 	 public void writeCotractData(ArrayList<Contract> contractData, String fileName) {
 		 try {
 		 outputfile = createFileObject(fileName);
@@ -313,9 +254,48 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
 public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
-        // create CSVWriter with ';' as separator 
-    	 CSVWriter writer =createCSVWriter(outputfile);
         
+    	 CSVWriter writer =createCSVWriter(outputfile);
+    	 System.out.println("No of rows = "+contractData.size()); 
+		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
+		 String[] s = headerFiles.ProtectionInstrument();
+		 List<String> strList = Arrays.asList(s);
+		 Collections.shuffle(strList);
+		 s = strList.toArray(new String[strList.size()]);
+		 writer.writeNext(s);
+		 for(protectionInstrument con : contractData) {
+		 ArrayList<String> rowdata =new ArrayList();
+		 
+		 for(String header :strList){
+		 if(header.equalsIgnoreCase("reportingEntityId")) {
+		 rowdata.add(con.getReportingEntityId());
+		 }
+		 if(header.equalsIgnoreCase("InstrumentId")) {
+		 rowdata.add(con.getInstrumentId());
+		 }
+		 if(header.equalsIgnoreCase("contractId")) {
+		 rowdata.add(con.getContractId());
+		 }
+		 if(header.equalsIgnoreCase("protectionAllocatedValue")) {
+		 rowdata.add(con.getProtectionAllocatedValue());
+		 }
+		 if(header.equalsIgnoreCase("protectionId")) {
+			 rowdata.add(con.getProtectionId());
+		 }
+		 if(header.equalsIgnoreCase("chargeType")) {
+			 rowdata.add(con.getChargeType());
+		 }
+		 }
+		 String[] writingRowData = rowdata.toArray(new String[rowdata.size()]);
+		 writer.writeNext(writingRowData);
+		 }
+		 
+		 writer.close();
+
+		 } 
+		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
+	     {
+
         writer.writeNext(headerFiles.ProtectionInstrument()); 
         System.out.println("No of rows = "+contractData.size()); 
         for(protectionInstrument con : contractData) {
@@ -331,7 +311,7 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
         }
 
         writer.close(); 
-    } 
+    } }
     catch (IOException e) { 
         
         e.printStackTrace(); 
@@ -486,68 +466,222 @@ e.printStackTrace();
 
 
 public  void writeInstrumentData(ArrayList<Instrument> contractData, String fileName) {
-    try { 
-    	outputfile = createFileObject(fileName);
-        // create CSVWriter with ';' as separator 
-    	 CSVWriter writer =createCSVWriter(outputfile);
-    	  
-        writer.writeNext(headerFiles.Instrument()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(Instrument con : contractData) {
-        	String[] rowData =  { 
-        		con.getReportingEntityId(),
-        		con.getInstrumentId(),
-        		con.getBranchCode(),
-        		con.getContractId(),
-        		con.getDistrictOfUtilisation(),
-        		con.getInstrumentType(),
-        		con.getPrioritySector(),
-        		con.getWeakerSection(),
-        		con.getClassificationOfActivity(),
-        		con.getSanctionDate(),
-        		con.getDisbursementDate(),
-        		con.getMaturityDate(),
-        		con.getCurrencyCode(),
-        		con.getOrgsanAmmnt(),
-        		con.getSyndcateContactId(),
-        		con.getRecourse(),
-        		con.getInterestRateType(),
-        		con.getAmortisationType(),
-        		con.getPaymentFrequency(),
-        		con.getInterRate(),
-        		con.getWeightedAverageInterestRate(),
-        		con.getInstallAmnt(),
-        		con.getBalanceOutstanding(),
-        		con.getUnvailedAmmount(),
-        		con.getOffBalMinAmnt(),
-        		con.getCrediteqibaloff(),
-        		con.getAccuInterst(),
-        		con.getAmntOver(),
-        		con.getNumPastDue(),
-        		con.getSmaCatogry(),
-        		con.getSmaCurrentCatg(),
-        		con.getNpaCatgCode(),
-        		con.getNpaSinDate(),
-        		con.getCummRecovSinNpa(),
-        		con.getAccProviosions(),
-        		con.getAccWriteOffs(),
-        		con.getSettAmmount(),
-        		con.getRestStatus(),
-        		con.getRestDate(),
-        		con.getAccountStatus(),
-        		con.getStatusDate(),
-        		con.getSuitFielDate()                       
-        	}; 
-        	writer.writeNext(rowData); 
-        }
+	 try 
+		 {
+			 outputfile = createFileObject(fileName);
+			 CSVWriter writer =createCSVWriter(outputfile);
+			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) 
+		 {
+				 String[] s = headerFiles.Instrument();
+				 List<String> strList = Arrays.asList(s);
+				 Collections.shuffle(strList);
+				 s = strList.toArray(new String[strList.size()]);
+				 writer.writeNext(s);
+				 for(Instrument con : contractData)
+				 {
+					 ArrayList<String> rowdata =new ArrayList();
+		 
+					 for(String header :strList)
+					 {
+						 if(header.equalsIgnoreCase("reportingEntityID")) 
+						 {
+							 rowdata.add(con.getReportingEntityId());
+						 }
+						 if(header.equalsIgnoreCase("instrumentId")) {
+							 rowdata.add(con.getInstrumentId());
+						 }
+						 if(header.equalsIgnoreCase("branchCode")) {
+							 rowdata.add(con.getBranchCode());
+						 }
+						 
+						 if(header.equalsIgnoreCase("contractId")) 
+						 {
+							 rowdata.add(con.getContractId());
+						 }
+						 if(header.equalsIgnoreCase("districtOfUtilisation")) {
+							 rowdata.add(con.getDistrictOfUtilisation());
+						 }
+						 if(header.equalsIgnoreCase("instrumentType")) {
+							 rowdata.add(con.getInstrumentType());
+						 }
+						 if(header.equalsIgnoreCase("prioritySector")) 
+						 {
+							 rowdata.add(con.getPrioritySector());
+						 }
+						 if(header.equalsIgnoreCase("weakerSection")) {
+							 rowdata.add(con.getWeakerSection());
+						 }
+						 if(header.equalsIgnoreCase("classificationOfActivity")) {
+							 rowdata.add(con.getClassificationOfActivity());
+						 }
+						 if(header.equalsIgnoreCase("sanctionedDate")) {
+							 rowdata.add(con.getSanctionDate());
+						 }
+						 if(header.equalsIgnoreCase("disbursementDate")) {
+							 rowdata.add(con.getDisbursementDate());
+						 }
+						 if(header.equalsIgnoreCase("maturityDate")) {
+							 rowdata.add(con.getMaturityDate());
+						 }
+						 if(header.equalsIgnoreCase("currencyCode")) {
+							 rowdata.add(con.getCurrencyCode());
+						 }
+						 if(header.equalsIgnoreCase("originalSanctionAmount")) {
+							 rowdata.add(con.getOrgsanAmmnt());
+						 }
+						 if(header.equalsIgnoreCase("syndicatedContractId")) {
+							 rowdata.add(con.getSyndcateContactId());
+						 }
+						 if(header.equalsIgnoreCase("recourse")) {
+							 rowdata.add(con.getRecourse());
+						 }
+						 if(header.equalsIgnoreCase("interestRateType")) {
+							 rowdata.add(con.getInterestRateType());
+						 }
+						 if(header.equalsIgnoreCase("amortisationType")) {
+							 rowdata.add(con.getAmortisationType());
+						 }
+						 if(header.equalsIgnoreCase("paymentFrequency")) {
+							 rowdata.add(con.getPaymentFrequency());
+						 }
+						 if(header.equalsIgnoreCase("interestRate")) {
+							 rowdata.add(con.getInterRate());
+						 }
+						 if(header.equalsIgnoreCase("weightedAverageInterestRate")) {
+							 rowdata.add(con.getWeightedAverageInterestRate());
+						 }
+						 if(header.equalsIgnoreCase("instalmentAmount")) {
+							 rowdata.add(con.getInstallAmnt());
+						 }
+						 if(header.equalsIgnoreCase("balanceOutstanding")) {
+							 rowdata.add(con.getBalanceOutstanding());
+						 }
+						 if(header.equalsIgnoreCase("unavailedAmount")) {
+							 rowdata.add(con.getUnvailedAmmount());
+						 }
+						 if(header.equalsIgnoreCase("offBalanceSheetNominalAmount")) {
+							 rowdata.add(con.getOffBalMinAmnt());
+						 }
+						 if(header.equalsIgnoreCase("creditEquivalentOfOffBalanceSheetNominalAmount")) {
+							 rowdata.add(con.getCrediteqibaloff());	 
+						 }
+						 if(header.equalsIgnoreCase("accruedInterest")) {
+							 rowdata.add(con.getAccuInterst());	 
+						 }
+						 if(header.equalsIgnoreCase("amountOverdue")) {
+							 rowdata.add(con.getAmntOver());	 
+						 }
+						 if(header.equalsIgnoreCase("numberOfDaysPastDue")) {
+							 rowdata.add(con.getNumPastDue());	 
+						 }
+						 if(header.equalsIgnoreCase("smaCategory")) {
+							 rowdata.add(con.getSmaCatogry());	 
+						 }
+						 if(header.equalsIgnoreCase("smaCurrentCategorySinceDate")) {
+							 rowdata.add(con.getSmaCurrentCatg());	 
+						 }
+						 if(header.equalsIgnoreCase("npaCategory")) {
+							 rowdata.add(con.getNpaCatgCode());	 
+						 }
+						 if(header.equalsIgnoreCase("npaSinceDate")) {
+							 rowdata.add(con.getNpaSinDate());	 
+						 }
+						 if(header.equalsIgnoreCase("cumulativeRecoveriesSinceNpa")) {
+							 rowdata.add(con.getCummRecovSinNpa());	 
+						 }
+						 if(header.equalsIgnoreCase("accumulatedProvisions")) {
+							 rowdata.add(con.getAccProviosions());	 
+						 }
+						 if(header.equalsIgnoreCase("accumulatedWriteOffs")) {
+							 rowdata.add(con.getAccWriteOffs());	 
+						 }
+						 if(header.equalsIgnoreCase("settlementAmount")) {
+							 rowdata.add(con.getSettAmmount());	 
+						 }
+						 if(header.equalsIgnoreCase("restructuringStatus")) {
+							 rowdata.add(con.getRestStatus());	 
+						 }
+						 if(header.equalsIgnoreCase("restructuringStatusDate")) {
+							 rowdata.add(con.getRestDate());	 
+						 }
+						 if(header.equalsIgnoreCase("status")) {
+							 rowdata.add(con.getAccountStatus());	 
+						 }
+						 if(header.equalsIgnoreCase("statusDate")) {
+							 rowdata.add(con.getStatusDate());	 
+						 }
+						 if(header.equalsIgnoreCase("suitFiledDate")) {
+							 rowdata.add(con.getSuitFielDate());	 
+						 }
+						 
+					 }
+					 String[] writingRowData = rowdata.toArray(new String[rowdata.size()]);
+					 writer.writeNext(writingRowData);
+				 }
+		 
+				 writer.close();
+		 	}
 
-        writer.close(); 
-    } 
-    catch (IOException e) { 
-        e.printStackTrace(); 
-        
-    } 
-}
+		 
+		 
+		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
+	   {
+		     writer.writeNext(headerFiles.Instrument()); 
+	   	 for(Instrument con : contractData) {
+	   	String[] rowData =  { 
+
+	    		con.getReportingEntityId(),
+	    		con.getInstrumentId(),
+	    		con.getBranchCode(),
+	    		con.getContractId(),
+	    		con.getDistrictOfUtilisation(),
+	    		con.getInstrumentType(),
+	    		con.getPrioritySector(),
+	    		con.getWeakerSection(),
+	    		con.getClassificationOfActivity(),
+	    		con.getSanctionDate(),
+	    		con.getDisbursementDate(),
+	    		con.getMaturityDate(),
+	    		con.getCurrencyCode(),
+	    		con.getOrgsanAmmnt(),
+	    		con.getSyndcateContactId(),
+	    		con.getRecourse(),
+	    		con.getInterestRateType(),
+	    		con.getAmortisationType(),
+	    		con.getPaymentFrequency(),
+	    		con.getInterRate(),
+	    		con.getWeightedAverageInterestRate(),
+	    		con.getInstallAmnt(),
+	    		con.getBalanceOutstanding(),
+	    		con.getUnvailedAmmount(),
+	    		con.getOffBalMinAmnt(),
+	    		con.getCrediteqibaloff(),
+	    		con.getAccuInterst(),
+	    		con.getAmntOver(),
+	    		con.getNumPastDue(),
+	    		con.getSmaCatogry(),
+	    		con.getSmaCurrentCatg(),
+	    		con.getNpaCatgCode(),
+	    		con.getNpaSinDate(),
+	    		con.getCummRecovSinNpa(),
+	    		con.getAccProviosions(),
+	    		con.getAccWriteOffs(),
+	    		con.getSettAmmount(),
+	    		con.getRestStatus(),
+	    		con.getRestDate(),
+	    		con.getAccountStatus(),
+	    		con.getStatusDate(),
+	    		con.getSuitFielDate()
+	   };
+	   	writer.writeNext(rowData); 
+	   }
+	   	writer.close();}}
+		 
+		 catch (IOException e) {
+
+		 e.printStackTrace();
+
+		 } }   
 public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
