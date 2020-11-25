@@ -109,7 +109,7 @@ public class ReadWrite {
 		 try {
 		 outputfile = createFileObject(fileName);
 		 CSVWriter writer =createCSVWriter(outputfile);
-		   System.out.println("No of rows = "+contractData.size()); 
+		  System.out.println("No of rows = "+contractData.size()); 
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 		 String[] s = headerFiles.contractHeader();
 		 List<String> strList = Arrays.asList(s);
