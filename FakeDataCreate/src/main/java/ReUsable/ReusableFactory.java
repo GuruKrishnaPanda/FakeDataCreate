@@ -1,4 +1,4 @@
-package ReUsable;
+package ReUsable;  
 
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class ReusableFactory {
 	
 	settingEntityDataSet eds =  new settingEntityDataSet();
 	GenerateEntityFiles generateEntityFiles = new GenerateEntityFiles();
-	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
+	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
 	Hashtable<String, String> data = DataUtil.getData("Configuration", xlsx);
 	Faker faker =  new Faker();
 	datacreation dc = new datacreation();
@@ -47,11 +47,10 @@ public class ReusableFactory {
 		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(contractData);
 		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(contractData);
 		ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
-	
-		
-		try {
+	    	try {
 			 folderName= Utils.generateFolderwithName(contractData.get(1).getReportingEntityId());
 			 fileName = folderName;
+			 if(data.get("All_Files").equalsIgnoreCase("No")) {
 			if(data.get("Name_Of_File").equalsIgnoreCase("Valid")) {
 				if(data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("Yes")) {
 					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
@@ -59,6 +58,8 @@ public class ReusableFactory {
 					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
 					HashMap<String,Integer> cf = dc.controlFile1(folderName);
 					generateEntityFiles.generateControlfile(cf, folderName, fileName);
+					//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+					
 
 				}else {
 				generateEntityFiles.generateContractfile(contractData,folderName,fileName);
@@ -71,6 +72,7 @@ public class ReusableFactory {
 				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
 				HashMap<String,Integer> cf = dc.controlFile1(folderName);
 				generateEntityFiles.generateControlfile(cf, folderName, fileName);
+				//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
 				}
 			}
 			
@@ -90,7 +92,9 @@ public class ReusableFactory {
 						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
 						HashMap<String,Integer> cf = dc.controlFile1(folderName);
 						generateEntityFiles.generateControlfile(cf, folderName, fileName);
-						
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+				
+				
 					}
 					if(selectedValue.equalsIgnoreCase("Instrument")) {
 						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
@@ -103,6 +107,8 @@ public class ReusableFactory {
 						generateEntityFiles.generateInstrumentfile(InstrumentData,folderName, negfileName);
 						HashMap<String,Integer> cf = dc.controlFile1(folderName);
 						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
 					}
 
 					if(selectedValue.equalsIgnoreCase("CounterParty")) {
@@ -116,6 +122,8 @@ public class ReusableFactory {
 						generateEntityFiles.generateInstrumentfile(InstrumentData,folderName, fileName);
 						HashMap<String,Integer> cf = dc.controlFile1(folderName);
 						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
 					}
 					if(selectedValue.equalsIgnoreCase("ControlFile")) {
 						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
@@ -128,6 +136,8 @@ public class ReusableFactory {
 						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
 						HashMap<String,Integer> cf = dc.controlFile1(folderName);
 						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
 					}
 					if(selectedValue.equalsIgnoreCase("All")) {
 						generateEntityFiles.generateContractfile(contractData,folderName,inValidFileName());
@@ -140,6 +150,8 @@ public class ReusableFactory {
 						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
 						HashMap<String,Integer> cf = dc.controlFile1(folderName);
 						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
 					}					
 				}
 				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Optional"))){
@@ -153,6 +165,8 @@ public class ReusableFactory {
 					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
 					HashMap<String,Integer> cf = dc.controlFile1(folderName);
 					generateEntityFiles.generateControlfile(cf, folderName, fileName);
+					//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+					
 				}
 				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Both"))){
 					String negfileName = inValidFileName();
@@ -166,10 +180,16 @@ public class ReusableFactory {
 					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
 					HashMap<String,Integer> cf = dc.controlFile1(folderName);
 					generateEntityFiles.generateControlfile(cf, folderName, fileName);
+					//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+					
 				}
 				
 			}
-			
+			 }
+			 if(data.get("All_Files").equalsIgnoreCase("Yes")) 
+			 {
+					generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+			 }
 			//Utils.compressFolder(folderName);
 		} catch (IOException e) {
 			

@@ -25,7 +25,7 @@ public class settingEntityDataSet {
 	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
 	//ArrayList<Hashtable<String, String>> masterData = DataUtil.getMasterdata();
 	Hashtable<String, String> fieldValues;
-	
+
 public ArrayList<Contract> createContractData(int numberData) 
   {	
 	

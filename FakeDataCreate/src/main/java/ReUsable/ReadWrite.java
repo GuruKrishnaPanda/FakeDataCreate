@@ -40,6 +40,7 @@ public class ReadWrite {
 	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
 	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
 	Hashtable<String, String> fieldValues;
+	Faker faker = new Faker();
 	
 	 File file;
 	 FileWriter outputfile;
@@ -83,15 +84,32 @@ public class ReadWrite {
 		 } 
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 	     {
+		 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+	     {  
+			 int count = 0;
+			 String  totalRecords = xls.getCellData("Configuration",1, 2);
+	         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+			 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
 		     writer.writeNext(headerFiles.contractHeader()); 
 	     	 for(Contract con : contractData) {
+				count++;
+	     		 
 	     	String[] rowData =  { 
 	     				con.getReportingEntityId(), 
 	     				con.getContractId(),
 	     				con.getInstrumentId(),
-	     				con.getCounterypartyId()}; 
-	     	writer.writeNext(rowData); 
-	     }
+	     				con.getCounterypartyId()};
+	     	boolean flag= false;
+	     	if(allIndexes.contains(count)) {
+	     		flag = true;
+	     		if(flag) {
+		     		for(int z =0;z<=1;z++) {
+		     			writer.writeNext(rowData);
+		     		}}}
+	     		else {
+		     		writer.writeNext(rowData);
+		     		
+		     	}}}
 	     	writer.close();}}
 		 
 		 catch (IOException e) {
@@ -99,20 +117,50 @@ public class ReadWrite {
 		 e.printStackTrace();
 
 		 } }
+	
+private ArrayList<Integer> uniqunumber(String totalDuplicateRecords, String totalRecords) {
+		
+		double f=Double.parseDouble(totalDuplicateRecords);
+		int DuplicateRecords=(int)f;
+		double f1=Double.parseDouble(totalRecords);
+		int Records=(int)f1;
+		ArrayList<Integer> duplicatedataIndex = new ArrayList<>();
+		if(duplicatedataIndex.size()== 0) {
+			duplicatedataIndex = new ArrayList<>();
+		}
+		for(int i = 0;i<DuplicateRecords;i++) {
+			int dr = faker.number().numberBetween(1, Records);
+			int data = isUniqueNo(dr,duplicatedataIndex,Records);
+			duplicatedataIndex.add(data);
+		
+	}
+		return duplicatedataIndex;
+}
+private int isUniqueNo(int dr, ArrayList<Integer> duplicatedataIndex,int Records) {
+	if(duplicatedataIndex.contains(dr)) {
+		 dr = faker.number().numberBetween(1, Records);
+		 isUniqueNo(dr,duplicatedataIndex,Records);
+	}
+	
+	else {
+		return  dr;
+		}
 
-public void writeCounterPartyData(ArrayList<Counterparty> contractData, String fileName) {
+	return dr;
+	}
+public void writeCounterPartyData(ArrayList<Counterparty> contractData1, String fileName) {
     try {
     	
     	outputfile = createFileObject(fileName);
         CSVWriter writer =createCSVWriter(outputfile);
-        System.out.println("No of rows = "+contractData.size()); 
+        System.out.println("No of rows = "+contractData1.size()); 
         if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 			 String[] s = headerFiles.counterPartyHeader();
 			 List<String> strList = Arrays.asList(s);
 			 Collections.shuffle(strList);
 			 s = strList.toArray(new String[strList.size()]);
 			 writer.writeNext(s);
-			 for(Counterparty con : contractData) {
+			 for(Counterparty con : contractData1) {
 			 ArrayList<String> rowdata =new ArrayList();
 			 
 			 for(String header :strList){
@@ -209,7 +257,7 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 	     {
 		     writer.writeNext(headerFiles.counterPartyHeader()); 
-	     	 for(Counterparty con : contractData) {
+	     	 for(Counterparty con : contractData1) {
 	     	String[] rowData =  { 
 	     			con.getReportingEntityId(),
     				con.getCounterypartyId(),
@@ -241,8 +289,7 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
     				con.getEmailAddress()}; 
 	     	writer.writeNext(rowData); 
 	     }
-	     	writer.close();}
-		 }
+	     	writer.close();}}
     catch (IOException e) { 
        
         e.printStackTrace(); 
@@ -251,19 +298,19 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData, String f
 } 
 
 
-public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contractData, String fileName) {
+public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contractData5, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
         
     	 CSVWriter writer =createCSVWriter(outputfile);
-    	 System.out.println("No of rows = "+contractData.size()); 
+    	 System.out.println("No of rows = "+contractData5.size()); 
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 		 String[] s = headerFiles.ProtectionInstrument();
 		 List<String> strList = Arrays.asList(s);
 		 Collections.shuffle(strList);
 		 s = strList.toArray(new String[strList.size()]);
 		 writer.writeNext(s);
-		 for(protectionInstrument con : contractData) {
+		 for(protectionInstrument con : contractData5) {
 		 ArrayList<String> rowdata =new ArrayList();
 		 
 		 for(String header :strList){
@@ -297,8 +344,8 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
 	     {
 
         writer.writeNext(headerFiles.ProtectionInstrument()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(protectionInstrument con : contractData) {
+        System.out.println("No of rows = "+contractData5.size()); 
+        for(protectionInstrument con : contractData5) {
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getContractId(),
@@ -318,18 +365,18 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
         
     } 
 }
-public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String fileName) {
+public  void writeRelatedPartyData(ArrayList<relatedParty> contractData6, String fileName) {
     try { 
     	     outputfile = createFileObject(fileName);
 			 CSVWriter writer =createCSVWriter(outputfile);
-			   System.out.println("No of rows = "+contractData.size()); 
+			   System.out.println("No of rows = "+contractData6.size()); 
 			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 			 String[] s = headerFiles.RelatedParty();
 			 List<String> strList = Arrays.asList(s);
 			 Collections.shuffle(strList);
 			 s = strList.toArray(new String[strList.size()]);
 			 writer.writeNext(s);
-			 for(relatedParty con : contractData) {
+			 for(relatedParty con : contractData6) {
 			 ArrayList<String> rowdata =new ArrayList();
 			 
 			 for(String header :strList){
@@ -352,8 +399,8 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
 			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 		     {
         writer.writeNext(headerFiles.RelatedParty()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(relatedParty con : contractData) {
+        System.out.println("No of rows = "+contractData6.size()); 
+        for(relatedParty con : contractData6) {
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getCounterpartyId(),
@@ -371,7 +418,7 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData, String 
     } 
 }
 
-public  void writeProtectionData(ArrayList<Protection> contractData, String fileName) {
+public  void writeProtectionData(ArrayList<Protection> contractData4, String fileName) {
  	 try {
 outputfile = createFileObject(fileName);
 CSVWriter writer =createCSVWriter(outputfile);
@@ -381,7 +428,7 @@ List<String> strList = Arrays.asList(s);
 Collections.shuffle(strList);
 s = strList.toArray(new String[strList.size()]);
 writer.writeNext(s);
-for(Protection con : contractData) {
+for(Protection con : contractData4) {
 ArrayList<String> rowdata =new ArrayList();
 
 for(String header :strList){
@@ -437,7 +484,7 @@ writer.close();
 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 {
 writer.writeNext(headerFiles.Protection()); 
-for(Protection con : contractData) {
+for(Protection con : contractData4) {
 String[] rowData =  { 
 		con.getReportingEntityId(),
 	con.getProtectionId(),
@@ -465,7 +512,7 @@ e.printStackTrace();
 
 
 
-public  void writeInstrumentData(ArrayList<Instrument> contractData, String fileName) {
+public  void writeInstrumentData(ArrayList<Instrument> contractData7, String fileName) {
 	 try 
 		 {
 			 outputfile = createFileObject(fileName);
@@ -477,7 +524,7 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
 				 Collections.shuffle(strList);
 				 s = strList.toArray(new String[strList.size()]);
 				 writer.writeNext(s);
-				 for(Instrument con : contractData)
+				 for(Instrument con : contractData7)
 				 {
 					 ArrayList<String> rowdata =new ArrayList();
 		 
@@ -627,7 +674,7 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 	   {
 		     writer.writeNext(headerFiles.Instrument()); 
-	   	 for(Instrument con : contractData) {
+	   	 for(Instrument con : contractData7) {
 	   	String[] rowData =  { 
 
 	    		con.getReportingEntityId(),
@@ -682,19 +729,19 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData, String file
 		 e.printStackTrace();
 
 		 } }   
-public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractData, String fileName) {
+public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractData2, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
         
     	 CSVWriter writer =createCSVWriter(outputfile);
-    	   System.out.println("No of rows = "+contractData.size()); 
+    	   System.out.println("No of rows = "+contractData2.size()); 
     	 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 			 String[] s = headerFiles.CounterpartyRating();
 			 List<String> strList = Arrays.asList(s);
 			 Collections.shuffle(strList);
 			 s = strList.toArray(new String[strList.size()]);
 			 writer.writeNext(s);
-			 for(counterpartyRating con : contractData) {
+			 for(counterpartyRating con : contractData2) {
 			 ArrayList<String> rowdata =new ArrayList();
 			 
 			 for(String header :strList){
@@ -730,8 +777,8 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
 		     {
        
         writer.writeNext(headerFiles.CounterpartyRating()); 
-        System.out.println("No of rows = "+contractData.size()); 
-        for(counterpartyRating con : contractData) {
+        System.out.println("No of rows = "+contractData2.size()); 
+        for(counterpartyRating con : contractData2) {
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getCounterpartyId(),
@@ -753,18 +800,18 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
     } 
 }
 
-public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData, String fileName) {
+public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData3, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
     	CSVWriter writer =createCSVWriter(outputfile);
-    	   System.out.println("No of rows = "+contractData.size()); 
+    	   System.out.println("No of rows = "+contractData3.size()); 
     	if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
    		 String[] s = headerFiles.CounterpartyRisk();
    		 List<String> strList = Arrays.asList(s);
    		 Collections.shuffle(strList);
    		 s = strList.toArray(new String[strList.size()]);
    		 writer.writeNext(s);
-   		 for(counterpartyRisk con : contractData) {
+   		 for(counterpartyRisk con : contractData3) {
    		 ArrayList<String> rowdata =new ArrayList();
    		 
    		 for(String header :strList){
@@ -812,7 +859,7 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData,
    } 
     	if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No")) {
     		 writer.writeNext(headerFiles.CounterpartyRisk()); 
-    	        for(counterpartyRisk con : contractData) {
+    	        for(counterpartyRisk con : contractData3) {
     	        	String[] rowData =  { 
     	        		con.getReportingEntityId(),
     	        		con.getCounterpartyId(),
@@ -936,5 +983,153 @@ private ArrayList<Counterparty> randomize( ArrayList<Counterparty> counterPartyD
 	System.out.println("-------------------------------------------------------"); 
 	System.out.println(counterPartyData); 
 	return counterPartyData;
-} 
 }
+
+public void writeCotractData1(ArrayList<Contract> contractData, ArrayList<Counterparty> contractData1,
+		ArrayList<counterpartyRating> contractData2, ArrayList<counterpartyRisk> contractData3,
+		ArrayList<Protection> contractData4, ArrayList<protectionInstrument> contractData5,
+		ArrayList<relatedParty> contractData6, ArrayList<Instrument> contractData7, String fileLocation) {
+	// TODO Auto-generated method stub
+	
+}
+
+ void abc(ArrayList<Contract> contractData, ArrayList<Counterparty> contractData1) {
+	for(int i =0;i<=contractData1.size();i++) {
+		//contractData1.get(i).get
+
+		
+	}
+	
+}
+
+public void writeAllData(ArrayList<Contract> contractData, ArrayList<Counterparty> counterpartyData,
+		ArrayList<counterpartyRating> counterpartyRatingData, ArrayList<counterpartyRisk> counterpartyRiskData,
+		ArrayList<Protection> ProtectionData, ArrayList<protectionInstrument> protectionInstrumentData,
+		ArrayList<relatedParty> relatedPartyData, ArrayList<Instrument> instrumentData, String fileName) throws IOException {
+
+	 outputfile = createFileObject(fileName);
+	 CSVWriter writer =createCSVWriter(outputfile);
+	 writer.writeNext(headerFiles.AllDataHeader());
+	 for(int i =0;i<=contractData.size()-1;i++) 
+		 
+	 {
+		 
+		String[] rowData= { 
+		 contractData.get(i).getReportingEntityId(),
+		 contractData.get(i).getContractId(),
+		 contractData.get(i).getInstrumentId(),
+		 contractData.get(i).getCounterypartyId(),
+		 counterpartyData.get(i).getName(),
+		 counterpartyData.get(i).getDate(),
+		 counterpartyData.get(i).getCasteGen(),
+		 counterpartyData.get(i).getCommGen(),
+		 counterpartyData.get(i).getPan(),
+		 counterpartyData.get(i).getAdharNo(),
+		 counterpartyData.get(i).getDin(),
+		 counterpartyData.get(i).getCin(),
+		 counterpartyData.get(i).getLei(),
+		 counterpartyData.get(i).getTan(),
+		 counterpartyData.get(i).getGstin(),
+		 counterpartyData.get(i).getUdyogAadhaar(),
+		 counterpartyData.get(i).getTypeOrg(),
+		 counterpartyData.get(i).getBurrrower(),
+		 counterpartyData.get(i).getNicCode(),
+		 counterpartyData.get(i).getOccupationCode(),
+		 counterpartyData.get(i).getAddressLine1(),
+		 counterpartyData.get(i).getAddressLine2(),
+		 counterpartyData.get(i).getAddressLine3(),
+		 counterpartyData.get(i).getPinCode(),
+		 counterpartyData.get(i).getStateCode(),
+		 counterpartyData.get(i).getDistrictCode(),
+		 counterpartyData.get(i).getCountryCode(),
+		 counterpartyData.get(i).getTelePhoneNumber(),
+		 counterpartyData.get(i).getMobNo(),
+		 counterpartyData.get(i).getEmailAddress(),
+		 counterpartyRatingData.get(i).getRatingID(),
+		 counterpartyRatingData.get(i).getCreditRating(),
+		 counterpartyRatingData.get(i).getAssessmentAgencyAuthority(),
+		 counterpartyRatingData.get(i).getCreditRatingAsOn(),
+		 counterpartyRatingData.get(i).getCreditRatingExpiryDate(),
+		 counterpartyRiskData.get(i).getStatusOfInsolvencyProceedings(),
+		 counterpartyRiskData.get(i).getDateOfInitiationOfInsolvencyProceedings(),
+		 counterpartyRiskData.get(i).getWilfulDefaulter(),
+		 counterpartyRiskData.get(i).getDateOfWilfulDefaulterClassification(),
+		 counterpartyRiskData.get(i).getNonCooperativeBorrower(),
+		 counterpartyRiskData.get(i).getDateOfNonCooperativeBorrowerClassification(),
+		 counterpartyRiskData.get(i).getFradulentActivity(),
+		 counterpartyRiskData.get(i).getDateOfFradulentActivityClassification(),
+		 counterpartyRiskData.get(i).getInternalRating(),
+		 counterpartyRiskData.get(i).getDateOfInternalRating(),
+		 instrumentData.get(i).getBranchCode(),
+		 instrumentData.get(i).getDistrictOfUtilisation(),
+		 instrumentData.get(i).getInstrumentType(),
+		 instrumentData.get(i).getPrioritySector(),
+		 instrumentData.get(i).getWeakerSection(),
+		 instrumentData.get(i).getClassificationOfActivity(),
+		 instrumentData.get(i).getSanctionDate(),
+		 instrumentData.get(i).getDisbursementDate(),
+		 instrumentData.get(i).getMaturityDate(),
+		 instrumentData.get(i).getCurrencyCode(),
+		 instrumentData.get(i).getOrgsanAmmnt(),
+		 instrumentData.get(i).getSyndcateContactId(),
+		 instrumentData.get(i).getRecourse(),
+		 instrumentData.get(i).getInterestRateType(),
+		 instrumentData.get(i).getAmortisationType(),
+		 instrumentData.get(i).getPaymentFrequency(),
+		 instrumentData.get(i).getInterRate(),
+		 instrumentData.get(i).getWeightedAverageInterestRate(),
+		 instrumentData.get(i).getInstallAmnt(),
+		 instrumentData.get(i).getBalanceOutstanding(),
+		 instrumentData.get(i).getUnvailedAmmount(),
+		 instrumentData.get(i).getOffBalMinAmnt(),
+		 instrumentData.get(i).getCrediteqibaloff(),
+		 instrumentData.get(i).getAccuInterst(),
+		 instrumentData.get(i).getAmntOver(),
+		 instrumentData.get(i).getNumPastDue(),
+		 instrumentData.get(i).getSmaCatogry(),
+		 instrumentData.get(i).getSmaCurrentCatg(),
+		 instrumentData.get(i).getNpaCatgCode(),
+		 instrumentData.get(i).getNpaSinDate(),
+		 instrumentData.get(i).getCummRecovSinNpa(),
+		 instrumentData.get(i).getAccProviosions(),
+		 instrumentData.get(i).getAccWriteOffs(),
+		 instrumentData.get(i).getSettAmmount(),
+		 instrumentData.get(i).getRestStatus(),
+		 instrumentData.get(i).getRestDate(),
+		 instrumentData.get(i).getAccountStatus(),
+		 instrumentData.get(i).getStatusDate(),
+		 instrumentData.get(i).getSuitFielDate(),
+		 ProtectionData.get(i).getProtectionId(),
+		 ProtectionData.get(i).getProtectionProviderId(),
+		 ProtectionData.get(i).getTypeOfProtection(),
+		 ProtectionData.get(i).getCurrencyType(),
+		 ProtectionData.get(i).getProtectionValue(),
+		 ProtectionData.get(i).getTypeOfProtectionValue(),
+		 ProtectionData.get(i).getProtectionValuationApproach(),
+		 ProtectionData.get(i).getDateOfProtectionValue(),
+		 ProtectionData.get(i).getOriginalProtectionValue(),
+		 ProtectionData.get(i).getDateOfOriginalProtectionValue(),
+		 ProtectionData.get(i).getProtectionRegistryId(),
+		 ProtectionData.get(i).getProtectionExternalId(),
+		 protectionInstrumentData.get(i).getProtectionAllocatedValue(),
+		 protectionInstrumentData.get(i).getChargeType(),
+		 relatedPartyData.get(i).getRelatedCounterpartyID()
+		
+		 };
+		writer.writeNext(rowData);
+		
+	 }
+	 writer.close();
+	
+	/* for(int i =0;i<=counterpartyData.size()-1;i++)
+	 {
+		String[] rowData1 = {
+				counterpartyData.get(i).getName()
+				
+		};
+		writer.writeNext(rowData1);
+	 }
+	 writer.close();*/
+}
+} 
+

@@ -21,6 +21,7 @@ public class Constants {
 	public static String relatedParty =  "RelatedParty";
 	public static String controlFile =  "ControlFile";
 	public static String ReportingMemberID = "TCSQA1001";
+	public static String allFile="AllFile";
 
 	
 	public static String[] array = { "plainaddress", 
