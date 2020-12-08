@@ -107,8 +107,7 @@ public class ReadWrite {
 		     			writer.writeNext(rowData);
 		     		}}}
 	     		else {
-		     		writer.writeNext(rowData);
-		     		
+		     		writer.writeNext(rowData);	
 		     	}}}
 	     	writer.close();}}
 		 
@@ -148,19 +147,19 @@ private int isUniqueNo(int dr, ArrayList<Integer> duplicatedataIndex,int Records
 
 	return dr;
 	}
-public void writeCounterPartyData(ArrayList<Counterparty> contractData1, String fileName) {
+public void writeCounterPartyData(ArrayList<Counterparty> counterpartyData, String fileName) {
     try {
     	
     	outputfile = createFileObject(fileName);
         CSVWriter writer =createCSVWriter(outputfile);
-        System.out.println("No of rows = "+contractData1.size()); 
+        System.out.println("No of rows = "+counterpartyData.size()); 
         if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 			 String[] s = headerFiles.counterPartyHeader();
 			 List<String> strList = Arrays.asList(s);
 			 Collections.shuffle(strList);
 			 s = strList.toArray(new String[strList.size()]);
 			 writer.writeNext(s);
-			 for(Counterparty con : contractData1) {
+			 for(Counterparty con : counterpartyData) {
 			 ArrayList<String> rowdata =new ArrayList();
 			 
 			 for(String header :strList){
@@ -254,63 +253,79 @@ public void writeCounterPartyData(ArrayList<Counterparty> contractData1, String 
 			 }
 			 
 			 writer.close();}
-		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
+        if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 	     {
+			 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+	     
+	     {  
+			 int count = 0;
+			 String  totalRecords = xls.getCellData("Configuration",1, 2);
+	         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+			 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
 		     writer.writeNext(headerFiles.counterPartyHeader()); 
-	     	 for(Counterparty con : contractData1) {
+	     	 for(Counterparty con : counterpartyData) {
+	     		 count++;
 	     	String[] rowData =  { 
-	     			con.getReportingEntityId(),
-    				con.getCounterypartyId(),
-    				con.getName(),
-    				con.getDate(),
-    				con.getCasteGen(),
-    				con.getCommGen(),
-    				con.getPan(),
-    				con.getAdharNo(),
-    				con.getDin(),
-    				con.getCin(),
-    				con.getLei(),
-    				con.getTan(),
-    				con.getGstin(),
-    				con.getUdyogAadhaar(),
-    				con.getTypeOrg(),
-    				con.getBurrrower(),
-    				con.getNicCode(),
-    				con.getOccupationCode(),
-    				con.getAddressLine1(),
-    				con.getAddressLine2(),
-    				con.getAddressLine3(),
-    				con.getPinCode(),
-    				con.getStateCode(),
-    				con.getDistrictCode(),
-    				con.getCountryCode(),
-    				con.getTelePhoneNumber(),
-    				con.getMobNo(),
-    				con.getEmailAddress()}; 
-	     	writer.writeNext(rowData); 
-	     }
+	     		con.getReportingEntityId(),
+   				con.getCounterypartyId(),
+   				con.getName(),
+   				con.getDate(),
+   				con.getCasteGen(),
+   				con.getCommGen(),
+   				con.getPan(),
+   				con.getAdharNo(),
+   				con.getDin(),
+   				con.getCin(),
+   				con.getLei(),
+   				con.getTan(),
+   				con.getGstin(),
+   				con.getUdyogAadhaar(),
+   				con.getTypeOrg(),
+   				con.getBurrrower(),
+   				con.getNicCode(),
+   				con.getOccupationCode(),
+   				con.getAddressLine1(),
+   				con.getAddressLine2(),
+   				con.getAddressLine3(),
+   				con.getPinCode(),
+   				con.getStateCode(),
+   				con.getDistrictCode(),
+   				con.getCountryCode(),
+   				con.getTelePhoneNumber(),
+   				con.getMobNo(),
+   				con.getEmailAddress()}; 
+	     	boolean flag= false;
+	     	if(allIndexes.contains(count)) {
+	     		flag = true;
+	     		if(flag) {
+		     		for(int z =0;z<=1;z++) {
+		     			writer.writeNext(rowData);
+		     		}}}
+	     		else {
+		     		writer.writeNext(rowData);
+		     		
+		     	}}}
 	     	writer.close();}}
-    catch (IOException e) { 
-       
-        e.printStackTrace(); 
-        
-    } 
-} 
+		 
+		 catch (IOException e) {
 
+		 e.printStackTrace();
 
-public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contractData5, String fileName) {
+		 } }
+
+public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> protectionInstrumentData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
         
     	 CSVWriter writer =createCSVWriter(outputfile);
-    	 System.out.println("No of rows = "+contractData5.size()); 
+    	 System.out.println("No of rows = "+protectionInstrumentData.size()); 
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 		 String[] s = headerFiles.ProtectionInstrument();
 		 List<String> strList = Arrays.asList(s);
 		 Collections.shuffle(strList);
 		 s = strList.toArray(new String[strList.size()]);
 		 writer.writeNext(s);
-		 for(protectionInstrument con : contractData5) {
+		 for(protectionInstrument con : protectionInstrumentData) {
 		 ArrayList<String> rowdata =new ArrayList();
 		 
 		 for(String header :strList){
@@ -342,10 +357,17 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
 		 } 
 		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 	     {
-
-        writer.writeNext(headerFiles.ProtectionInstrument()); 
-        System.out.println("No of rows = "+contractData5.size()); 
-        for(protectionInstrument con : contractData5) {
+			 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+		     {  
+				 int count = 0;
+				 String  totalRecords = xls.getCellData("Configuration",1, 2);
+		         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+				 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
+			     writer.writeNext(headerFiles.ProtectionInstrument()); 
+		     	 for(protectionInstrument con : protectionInstrumentData) {
+					count++;
+		    
+       
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getContractId(),
@@ -354,29 +376,38 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> contr
         				con.getProtectionAllocatedValue(),
         				con.getChargeType()
         				}; 
-        	writer.writeNext(rowData); 
-        }
+        	boolean flag= false;
+	     	if(allIndexes.contains(count)) {
+	     		flag = true;
+	     		if(flag) {
+		     		for(int z =0;z<=1;z++) {
+		     			writer.writeNext(rowData);
+		     		}}}
+	     		else {
+		     		writer.writeNext(rowData);
+		     		
+		     	}}}
+	     	writer.close();
+	     	
+	     }}
+		 
+		 catch (IOException e) {
 
-        writer.close(); 
-    } }
-    catch (IOException e) { 
-        
-        e.printStackTrace(); 
-        
-    } 
-}
-public  void writeRelatedPartyData(ArrayList<relatedParty> contractData6, String fileName) {
+		 e.printStackTrace();
+
+		 } }
+public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, String fileName) {
     try { 
     	     outputfile = createFileObject(fileName);
 			 CSVWriter writer =createCSVWriter(outputfile);
-			   System.out.println("No of rows = "+contractData6.size()); 
+			   System.out.println("No of rows = "+relatedPartyData.size()); 
 			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 			 String[] s = headerFiles.RelatedParty();
 			 List<String> strList = Arrays.asList(s);
 			 Collections.shuffle(strList);
 			 s = strList.toArray(new String[strList.size()]);
 			 writer.writeNext(s);
-			 for(relatedParty con : contractData6) {
+			 for(relatedParty con : relatedPartyData) {
 			 ArrayList<String> rowdata =new ArrayList();
 			 
 			 for(String header :strList){
@@ -398,27 +429,43 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> contractData6, String
 			 } 
 			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 		     {
-        writer.writeNext(headerFiles.RelatedParty()); 
-        System.out.println("No of rows = "+contractData6.size()); 
-        for(relatedParty con : contractData6) {
+					 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+				     {  
+						 int count = 0;
+						 String  totalRecords = xls.getCellData("Configuration",1, 2);
+				         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+						 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
+					     writer.writeNext(headerFiles.RelatedParty()); 
+				     	 for(relatedParty con :relatedPartyData) {
+							count++;
+				    
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getCounterpartyId(),
         				con.getRelatedCounterpartyID()
-        				}; 
-        	writer.writeNext(rowData); 
-        }
+        				};
+        	boolean flag= false;
+	     	if(allIndexes.contains(count)) {
+	     		flag = true;
+	     		if(flag) {
+		     		for(int z =0;z<=1;z++) {
+		     			writer.writeNext(rowData);
+		     		}}}
+	     		else {
+		     		writer.writeNext(rowData);
+		     		
+		     	}}}
+	     	writer.close();
+	     	
+	     }}
+		 
+		 catch (IOException e) {
 
-        writer.close(); 
-    } }
-    catch (IOException e) { 
-      
-        e.printStackTrace(); 
-        
-    } 
-}
+		 e.printStackTrace();
 
-public  void writeProtectionData(ArrayList<Protection> contractData4, String fileName) {
+		 } }
+
+public  void writeProtectionData(ArrayList<Protection> ProtectionData, String fileName) {
  	 try {
 outputfile = createFileObject(fileName);
 CSVWriter writer =createCSVWriter(outputfile);
@@ -428,7 +475,7 @@ List<String> strList = Arrays.asList(s);
 Collections.shuffle(strList);
 s = strList.toArray(new String[strList.size()]);
 writer.writeNext(s);
-for(Protection con : contractData4) {
+for(Protection con : ProtectionData) {
 ArrayList<String> rowdata =new ArrayList();
 
 for(String header :strList){
@@ -483,8 +530,15 @@ writer.close();
 } 
 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 {
-writer.writeNext(headerFiles.Protection()); 
-for(Protection con : contractData4) {
+		 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+	     {  
+			 int count = 0;
+			 String  totalRecords = xls.getCellData("Configuration",1, 2);
+	         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+			 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
+		     writer.writeNext(headerFiles.Protection()); 
+             for(Protection con : ProtectionData) {
+	         count++;
 String[] rowData =  { 
 		con.getReportingEntityId(),
 	con.getProtectionId(),
@@ -498,11 +552,21 @@ String[] rowData =  {
 	con.getOriginalProtectionValue(),
 	con.getDateOfOriginalProtectionValue(),
 	con.getProtectionRegistryId(),
-	con.getProtectionExternalId()
-};
-writer.writeNext(rowData); 
-}
-writer.close();}}
+	con.getProtectionExternalId()};
+boolean flag= false;
+	if(allIndexes.contains(count)) {
+		flag = true;
+		if(flag) {
+ 		for(int z =0;z<=1;z++) {
+ 			writer.writeNext(rowData);
+ 		}}}
+		else {
+ 		writer.writeNext(rowData);
+ 		
+ 	}}}
+	writer.close();
+	
+}}
 
 catch (IOException e) {
 
@@ -511,8 +575,7 @@ e.printStackTrace();
 } }
 
 
-
-public  void writeInstrumentData(ArrayList<Instrument> contractData7, String fileName) {
+public  void writeInstrumentData(ArrayList<Instrument> instrumentData, String fileName) {
 	 try 
 		 {
 			 outputfile = createFileObject(fileName);
@@ -524,7 +587,7 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData7, String fil
 				 Collections.shuffle(strList);
 				 s = strList.toArray(new String[strList.size()]);
 				 writer.writeNext(s);
-				 for(Instrument con : contractData7)
+				 for(Instrument con : instrumentData)
 				 {
 					 ArrayList<String> rowdata =new ArrayList();
 		 
@@ -671,77 +734,96 @@ public  void writeInstrumentData(ArrayList<Instrument> contractData7, String fil
 
 		 
 		 
-		 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
-	   {
-		     writer.writeNext(headerFiles.Instrument()); 
-	   	 for(Instrument con : contractData7) {
-	   	String[] rowData =  { 
+			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
+			   {
+					 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+				     {  
+						 int count = 0;
+						 String  totalRecords = xls.getCellData("Configuration",1, 2);
+				         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+						 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
+					     writer.writeNext(headerFiles.Instrument()); 
+				     	 for(Instrument con : instrumentData) {
+							count++;
+				      
+			   	String[] rowData =  { 
 
-	    		con.getReportingEntityId(),
-	    		con.getInstrumentId(),
-	    		con.getBranchCode(),
-	    		con.getContractId(),
-	    		con.getDistrictOfUtilisation(),
-	    		con.getInstrumentType(),
-	    		con.getPrioritySector(),
-	    		con.getWeakerSection(),
-	    		con.getClassificationOfActivity(),
-	    		con.getSanctionDate(),
-	    		con.getDisbursementDate(),
-	    		con.getMaturityDate(),
-	    		con.getCurrencyCode(),
-	    		con.getOrgsanAmmnt(),
-	    		con.getSyndcateContactId(),
-	    		con.getRecourse(),
-	    		con.getInterestRateType(),
-	    		con.getAmortisationType(),
-	    		con.getPaymentFrequency(),
-	    		con.getInterRate(),
-	    		con.getWeightedAverageInterestRate(),
-	    		con.getInstallAmnt(),
-	    		con.getBalanceOutstanding(),
-	    		con.getUnvailedAmmount(),
-	    		con.getOffBalMinAmnt(),
-	    		con.getCrediteqibaloff(),
-	    		con.getAccuInterst(),
-	    		con.getAmntOver(),
-	    		con.getNumPastDue(),
-	    		con.getSmaCatogry(),
-	    		con.getSmaCurrentCatg(),
-	    		con.getNpaCatgCode(),
-	    		con.getNpaSinDate(),
-	    		con.getCummRecovSinNpa(),
-	    		con.getAccProviosions(),
-	    		con.getAccWriteOffs(),
-	    		con.getSettAmmount(),
-	    		con.getRestStatus(),
-	    		con.getRestDate(),
-	    		con.getAccountStatus(),
-	    		con.getStatusDate(),
-	    		con.getSuitFielDate()
-	   };
-	   	writer.writeNext(rowData); 
-	   }
-	   	writer.close();}}
-		 
-		 catch (IOException e) {
+			    		con.getReportingEntityId(),
+			    		con.getInstrumentId(),
+			    		con.getBranchCode(),
+			    		con.getContractId(),
+			    		con.getDistrictOfUtilisation(),
+			    		con.getInstrumentType(),
+			    		con.getPrioritySector(),
+			    		con.getWeakerSection(),
+			    		con.getClassificationOfActivity(),
+			    		con.getSanctionDate(),
+			    		con.getDisbursementDate(),
+			    		con.getMaturityDate(),
+			    		con.getCurrencyCode(),
+			    		con.getOrgsanAmmnt(),
+			    		con.getSyndcateContactId(),
+			    		con.getRecourse(),
+			    		con.getInterestRateType(),
+			    		con.getAmortisationType(),
+			    		con.getPaymentFrequency(),
+			    		con.getInterRate(),
+			    		con.getWeightedAverageInterestRate(),
+			    		con.getInstallAmnt(),
+			    		con.getBalanceOutstanding(),
+			    		con.getUnvailedAmmount(),
+			    		con.getOffBalMinAmnt(),
+			    		con.getCrediteqibaloff(),
+			    		con.getAccuInterst(),
+			    		con.getAmntOver(),
+			    		con.getNumPastDue(),
+			    		con.getSmaCatogry(),
+			    		con.getSmaCurrentCatg(),
+			    		con.getNpaCatgCode(),
+			    		con.getNpaSinDate(),
+			    		con.getCummRecovSinNpa(),
+			    		con.getAccProviosions(),
+			    		con.getAccWriteOffs(),
+			    		con.getSettAmmount(),
+			    		con.getRestStatus(),
+			    		con.getRestDate(),
+			    		con.getAccountStatus(),
+			    		con.getStatusDate(),
+			    		con.getSuitFielDate() };
+			   	boolean flag= false;
+				if(allIndexes.contains(count)) {
+					flag = true;
+					if(flag) {
+			 		for(int z =0;z<=1;z++) {
+			 			writer.writeNext(rowData);
+			 		}}}
+					else {
+			 		writer.writeNext(rowData);
+			 		
+			 	}}}
+				writer.close();
+				
+			}}
 
-		 e.printStackTrace();
+			catch (IOException e) {
 
-		 } }   
-public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractData2, String fileName) {
+			e.printStackTrace();
+
+			} }
+
+public  void writecounterpartyRatingData(ArrayList<counterpartyRating> counterpartyRatingData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
         
     	 CSVWriter writer =createCSVWriter(outputfile);
-    	   System.out.println("No of rows = "+contractData2.size()); 
+    	   System.out.println("No of rows = "+counterpartyRatingData.size()); 
     	 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
 			 String[] s = headerFiles.CounterpartyRating();
 			 List<String> strList = Arrays.asList(s);
 			 Collections.shuffle(strList);
 			 s = strList.toArray(new String[strList.size()]);
 			 writer.writeNext(s);
-			 for(counterpartyRating con : contractData2) {
+			 for(counterpartyRating con : counterpartyRatingData) {
 			 ArrayList<String> rowdata =new ArrayList();
 			 
 			 for(String header :strList){
@@ -775,10 +857,16 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
 			 } 
 			 if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
 		     {
+				 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+			     {  
+					 int count = 0;
+					 String  totalRecords = xls.getCellData("Configuration",1, 2);
+			         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+					 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
+				     writer.writeNext(headerFiles.CounterpartyRating()); 
+		             for(counterpartyRating con : counterpartyRatingData) {
+			         count++;
        
-        writer.writeNext(headerFiles.CounterpartyRating()); 
-        System.out.println("No of rows = "+contractData2.size()); 
-        for(counterpartyRating con : contractData2) {
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getCounterpartyId(),
@@ -788,30 +876,39 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> contractD
         				con.getCreditRatingAsOn(),
         				con.getCreditRatingExpiryDate()
         				}; 
-        	writer.writeNext(rowData); 
-        }
+        	boolean flag= false;
+        	if(allIndexes.contains(count)) {
+        		flag = true;
+        		if(flag) {
+         		for(int z =0;z<=1;z++) {
+         			writer.writeNext(rowData);
+         		}}}
+        		else {
+         		writer.writeNext(rowData);
+         		
+         	}}}
+        	writer.close();
+        	
+        }}
 
-        writer.close(); 
-    } }
-    catch (IOException e) { 
-        
-        e.printStackTrace(); 
-        
-    } 
-}
+        catch (IOException e) {
 
-public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData3, String fileName) {
+        e.printStackTrace();
+
+        } }
+
+public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> counterpartyRiskData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
     	CSVWriter writer =createCSVWriter(outputfile);
-    	   System.out.println("No of rows = "+contractData3.size()); 
+    	   System.out.println("No of rows = "+counterpartyRiskData.size()); 
     	if(configurationData.get("Shuffled_Header").equalsIgnoreCase("Yes")) {
    		 String[] s = headerFiles.CounterpartyRisk();
    		 List<String> strList = Arrays.asList(s);
    		 Collections.shuffle(strList);
    		 s = strList.toArray(new String[strList.size()]);
    		 writer.writeNext(s);
-   		 for(counterpartyRisk con : contractData3) {
+   		 for(counterpartyRisk con : counterpartyRiskData) {
    		 ArrayList<String> rowdata =new ArrayList();
    		 
    		 for(String header :strList){
@@ -857,9 +954,18 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData3
 		 writer.close(); 
     
    } 
-    	if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No")) {
-    		 writer.writeNext(headerFiles.CounterpartyRisk()); 
-    	        for(counterpartyRisk con : contractData3) {
+    	if(configurationData.get("Shuffled_Header").equalsIgnoreCase("No"))
+    	{
+    		 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+    	     {  
+    			 int count = 0;
+    			 String  totalRecords = xls.getCellData("Configuration",1, 2);
+    	         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+    			 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
+    		     writer.writeNext(headerFiles.CounterpartyRisk()); 
+                 for(counterpartyRisk con : counterpartyRiskData) {
+    	         count++;
+   
     	        	String[] rowData =  { 
     	        		con.getReportingEntityId(),
     	        		con.getCounterpartyId(),
@@ -872,15 +978,28 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> contractData3
     	        		con.getFradulentActivity(),
     	        		con.getDateOfFradulentActivityClassification(),
     	        		con.getInternalRating(),
-    	        		con.getDateOfInternalRating()
-    	        }; 
-    	        	writer.writeNext(rowData); 
-    	}
-    	}}
-   catch (IOException e) { 
-       e.printStackTrace();   
-   } 
-}
+    	        		con.getDateOfInternalRating()  }; 
+    	        	
+    	        	boolean flag= false;
+    	        	if(allIndexes.contains(count)) {
+    	        		flag = true;
+    	        		if(flag) {
+    	         		for(int z =0;z<=1;z++) {
+    	         			writer.writeNext(rowData);
+    	         		}}}
+    	        		else {
+    	         		writer.writeNext(rowData);
+    	         		
+    	         	}}}
+    	        	writer.close();
+    	        	
+    	        }}
+
+    	        catch (IOException e) {
+
+    	        e.printStackTrace();
+
+    	        } }
 private FileWriter createFileObject(String fileName) throws IOException{
 	file = new File(fileName); 
 	outputfile = new FileWriter(file);
@@ -1009,12 +1128,21 @@ public void writeAllData(ArrayList<Contract> contractData, ArrayList<Counterpart
 
 	 outputfile = createFileObject(fileName);
 	 CSVWriter writer =createCSVWriter(outputfile);
+	 if(configurationData.get("DuplicateFile_generation" ).equalsIgnoreCase("Yes"))
+     {  
+		 int count = 0;
+		 String  totalRecords = xls.getCellData("Configuration",1, 2);
+         String totalDuplicateRecords = xls.getCellData("Configuration",1, 15);
+		 ArrayList<Integer> allIndexes =uniqunumber(totalDuplicateRecords ,totalRecords);
 	 writer.writeNext(headerFiles.AllDataHeader());
+	 
 	 for(int i =0;i<=contractData.size()-1;i++) 
 		 
 	 {
+		count++; 
+	 
 		 
-		String[] rowData= { 
+		 String[] rowData= { 
 		 contractData.get(i).getReportingEntityId(),
 		 contractData.get(i).getContractId(),
 		 contractData.get(i).getInstrumentId(),
@@ -1116,20 +1244,19 @@ public void writeAllData(ArrayList<Contract> contractData, ArrayList<Counterpart
 		 relatedPartyData.get(i).getRelatedCounterpartyID()
 		
 		 };
-		writer.writeNext(rowData);
+		boolean flag= false;
+		if(allIndexes.contains(count)) {
+			flag = true;
+			if(flag) {
+	 		for(int z =0;z<=1;z++) {
+	 			writer.writeNext(rowData);
+	 		}}}
+			else {
+	 		writer.writeNext(rowData);
+	 		
+	 	}}}
+		writer.close();
 		
-	 }
-	 writer.close();
-	
-	/* for(int i =0;i<=counterpartyData.size()-1;i++)
-	 {
-		String[] rowData1 = {
-				counterpartyData.get(i).getName()
-				
-		};
-		writer.writeNext(rowData1);
-	 }
-	 writer.close();*/
-}
+	}
 } 
 
