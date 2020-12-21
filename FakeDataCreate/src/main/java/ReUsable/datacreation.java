@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Random;
@@ -24,35 +25,43 @@ import java.util.regex.Pattern;
 import com.github.javafaker.Faker;
 
 import Utilities.Constants;
+import Utilities.DataUtil;
+import Utilities.GenericXLSXReader;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
 
 public class datacreation {
+	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
+	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
 	//Faker faker = new Faker(new Locale("pt_US"));
 	Faker faker =  new Faker();
-	public String createReportingEntityId() 
+	public String createReportingEntityId(String bankSymbol) 
 	{
-		String parten = "3|5|4|9";
 		
 		if(Constants.typeOfData.equalsIgnoreCase("Y")) 
 		{
-			faker.regexify("3|5|4|9");
-			String d = faker.regexify("3|5|4|9");
+
+			String d = faker.regexify("0|1|2|6");
 			int i=Integer.parseInt(d); 
-			System.out.println(i);
-					if(Constants.haveSpecialChar.equalsIgnoreCase("Y")&&Constants.haveDigit.equalsIgnoreCase("N")&&Constants.havechar.equalsIgnoreCase("N"))
-						return createdata(i, false, true, false);
-					if (Constants.haveSpecialChar.equalsIgnoreCase("Y")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("N"))
-						return createdata(i, false, true, true);
-					if (Constants.haveSpecialChar.equalsIgnoreCase("N")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("Y"))
-						return createdata(i, true, false, true);
-					if (Constants.haveSpecialChar.equalsIgnoreCase("N")&&Constants.haveDigit.equalsIgnoreCase("N")&&Constants.havechar.equalsIgnoreCase("Y"))
-						return createdata(i, true, false, false);
-					if (Constants.haveSpecialChar.equalsIgnoreCase("N")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("N"))
-						return faker.number().digits(i);
-					if (Constants.haveSpecialChar.equalsIgnoreCase("Y")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("Y"))
-						return createdata(i, true, true, true);	
+			if(i==0) {
+				return bankSymbol; 
+			}
+			else {
+				if(Constants.haveSpecialChar.equalsIgnoreCase("Y")&&Constants.haveDigit.equalsIgnoreCase("N")&&Constants.havechar.equalsIgnoreCase("N"))
+					return bankSymbol+createdata(i, false, true, false);
+				if (Constants.haveSpecialChar.equalsIgnoreCase("Y")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("N"))
+					return bankSymbol+createdata(i, false, true, true);
+				if (Constants.haveSpecialChar.equalsIgnoreCase("N")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("Y"))
+					return bankSymbol+createdata(i, true, false, true);
+				if (Constants.haveSpecialChar.equalsIgnoreCase("N")&&Constants.haveDigit.equalsIgnoreCase("N")&&Constants.havechar.equalsIgnoreCase("Y"))
+					return bankSymbol+createdata(i, true, false, false);
+				if (Constants.haveSpecialChar.equalsIgnoreCase("N")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("N"))
+					return faker.number().digits(i);
+				if (Constants.haveSpecialChar.equalsIgnoreCase("Y")&&Constants.haveDigit.equalsIgnoreCase("Y")&&Constants.havechar.equalsIgnoreCase("Y"))
+					return bankSymbol+createdata(i, true, true, true);	
+				}
+			
 		}
 		else {
 			String invalidNumber = invalidNumberlength(faker);
@@ -216,6 +225,7 @@ public String negdigit(int j) {
          String v= null;
 	int k = faker.number().numberBetween(1, 4);
 		switch(k)
+		
 		
 		{
 		case 1: v =  conditionCheck2(j);
@@ -1026,12 +1036,14 @@ public String dateOfFradulentActivityClassification() {
 		 }
 
  	 }
- 	public String createCouterpartyIdentifier()
+ 	public String createCouterpartyIdentifier(String bankSymbol)
 	 {
- 	     int j=faker.number().numberBetween(3, 15);
+ 		
+ 	     int j=faker.number().numberBetween(4, 15);
 		 if(Constants.typeOfData.equalsIgnoreCase("Y"))
-		 {
-				return Alpha(j);
+		 { 
+			 j=faker.number().numberBetween(1, 12);
+				return bankSymbol+Alpha(j);
 		 }
 		 else
 		 {
@@ -1531,7 +1543,7 @@ public String negNum1()
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
 		   panNo =faker.regexify("[A-Z]{3}[CPHFATBLJG]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}");
-		   System.out.println(panNo);
+		   //System.out.println(panNo);
 		   return panNo;	   
 	   }
 	   else 
@@ -1982,11 +1994,11 @@ public HashMap<String,Integer> controlFile(String filePath) throws IOException  
 		       if(fileName.contains("Instrument")) {
 		    	 hm.put("Instrument File",recordCount-1);
 		    }
-		       if(fileName.contains("Protection")) {
-		    	 hm.put( "Protection File",recordCount-1);
+		       if(fileName.contains("Protection.")) {
+		    	 hm.put( "ProtectionFile",recordCount-1);
 		    }  
-		       if(fileName.contains("ProtectionInstrument")) {
-		    	 hm.put("ProtectionInstrument File",recordCount-1);
+		       if(fileName.contains("Protectioninstrument")) {
+		    	 hm.put("Protectioninstrument File",recordCount-1);
 		    }
 		       
 		       if(fileName.contains("RelatedParty")) {
@@ -2085,6 +2097,21 @@ public void num()
      }
    
 	System.out.println(ind);
+}
+public String createRelation()
+{
+	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 {
+		 int rel = faker.random().nextInt(Constants.relation.length);
+		 System.out.println(Constants.relation[rel]);
+		return Constants.relation[rel];
+	 }
+	 else
+	 {
+		 String genrel = faker.lorem().characters(2, 4, true, true).toUpperCase();
+		 System.out.println(genrel);
+		 return genrel;
+	 }
 }
 }
 

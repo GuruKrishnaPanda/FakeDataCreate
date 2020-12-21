@@ -17,6 +17,7 @@ public class DataUtil {
 		int totalCols=1;
 		while(!xls.getCellData(sheetName, 0, totalrows).equals("")) {
 			
+			
 			totalrows++;
 		}
 		while(!xls.getCellData(sheetName, totalCols, 1).equals("")) {

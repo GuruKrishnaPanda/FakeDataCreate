@@ -2,10 +2,16 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
+
+import com.github.javafaker.Faker;
 
 import Utilities.DataUtil;
+import Utilities.DuplicateDataCheck;
 import Utilities.GenericXLSXReader;
+import Utilities.Utils;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
@@ -23,94 +29,286 @@ public class settingEntityDataSet {
 	datacreation create ;
 	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
 	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
+	Hashtable<String, String> bankingInfo = DataUtil.getData("BankMapping", xls);
 	//ArrayList<Hashtable<String, String>> masterData = DataUtil.getMasterdata();
 	Hashtable<String, String> fieldValues;
+	Faker faker = new Faker();
+	Utils ut = new Utils();
+	DuplicateDataCheck duplicatecheck = new DuplicateDataCheck();
+	
+	String bankSymbol = bankingInfo.get(configurationData.get("Bank_Type"));
 
-public ArrayList<Contract> createContractData(int numberData) 
-  {	
 	
+
+ public ArrayList<Contract> createContractData(ArrayList<Counterparty> counterpartyData) 
+			  {	
+				 ReadWrite rw =  new ReadWrite();
+				
+					ArrayList<Contract> con =  new ArrayList<>();
+					ArrayList<String> conid =  new ArrayList<>();
+					ArrayList<String> instrumentid =  new ArrayList<>();
+					//create = new datacreation();
+					
+					String counterPartyId ;
+					create = null;
+					Contract c;
+					ArrayList<Integer> allIndexes = null;
+					int count = 0;
+					if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
+					{
+						
+						if(configurationData.get("MultipleDataGenerationForContract").equalsIgnoreCase("Yes")) {
+						fieldValues = DataUtil.getFieldValue("MasterData", xls);
+						 for(Counterparty counterparty: counterpartyData) {
+						 		create = new datacreation();
+						 	    c  =  new Contract();
+						 	   counterPartyId = create.createCouterpartyIdentifier(bankSymbol);
+						 		count++;		
+							 
+							if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
+							{
+								allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_incontractFile") ,configurationData.get("NoOfData"));
+								if(allIndexes.contains(count)) {
+									
+									int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_incontractFile"));
+									int m =  faker.number().numberBetween(1,z );
+									for(int k = 1;k<=m;k++) {
+										c  =  new Contract();
+								if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
+									c.setReportingEntityId(counterparty.getReportingEntityId());	
+						    	}else
+						    		c.setReportingEntityId("");
+						    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
+						    		c.setCounterypartyId(counterPartyId);
+						    	}else
+						    		c.setCounterypartyId("");
+						    	if(fieldValues.get("ContractId").equalsIgnoreCase("Mandatory")) {
+						    		c.setContractId(create.createContractIdentifier());
+						    	}else
+						    		c.setContractId("");
+						    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Mandatory")) {
+						    		
+						    		c.setInstrumentId(create.createInstrumentId());
+						    	}else
+						    		c.setInstrumentId("");
+						    	con.add(c);
+						    	
+							}}
+								else {
+									c  =  new Contract();
+									if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
+										c.setReportingEntityId(counterparty.getReportingEntityId());	
+							    	}else
+							    		c.setReportingEntityId("");
+							    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
+							    		c.setCounterypartyId(counterPartyId);
+							    	}else
+							    		c.setCounterypartyId("");
+							    	if(fieldValues.get("ContractId").equalsIgnoreCase("Mandatory")) {
+							    		c.setContractId(create.createContractIdentifier());
+							    	}else
+							    		c.setContractId("");
+							    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Mandatory")) {
+							    		c.setInstrumentId(create.createInstrumentId());
+							    	}else
+							    		c.setInstrumentId("");
+									
+									con.add(c);
+								}}
+									
+									
+							 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
+								 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_incontractFile") ,configurationData.get("NoOfData"));
+								 if(allIndexes.contains(count)) {
+										
+										int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_incontractFile"));
+										int m =  faker.number().numberBetween(1,z );
+										for(int k = 1;k<=m;k++) {
+											c  =  new Contract();
+								 
+									if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
+										c.setReportingEntityId(counterparty.getReportingEntityId());	
+							    	}else
+							    		c.setReportingEntityId("");
+							    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
+							    		c.setCounterypartyId(counterPartyId);
+							    	}else
+							    		c.setCounterypartyId("");
+							    	if(fieldValues.get("ContractId").equalsIgnoreCase("Optional")) {
+							    		c.setContractId(create.createContractIdentifier());
+							    	}else
+							    		c.setContractId("");
+							    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Optional")) {
+							    		c.setInstrumentId(create.createInstrumentId());
+							    	}else
+							    		c.setInstrumentId("");
+							 
+						con.add(c);
+						}}
+								 else {
+										c  =  new Contract();
+										if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
+											c.setReportingEntityId(counterparty.getReportingEntityId());	
+								    	}else
+								    		c.setReportingEntityId("");
+								    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
+								    		c.setCounterypartyId(counterPartyId);
+								    	}else
+								    		c.setCounterypartyId("");
+								    	if(fieldValues.get("ContractId").equalsIgnoreCase("Optional")) {
+								    		c.setContractId(create.createContractIdentifier());
+								    	}else
+								    		c.setContractId("");
+								    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Optional")) {
+								    		c.setInstrumentId(create.createInstrumentId());
+								    	}else
+								    		c.setInstrumentId("");
+								    	con.add(c);}}
+						
+						
+						}}
+						else {
+							for(Counterparty counterparty: counterpartyData) {
+									
+									
+								create = new datacreation();
+								 c  =  new Contract();
+								 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
+									{
+										if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
+											c.setReportingEntityId(counterparty.getReportingEntityId());	
+								    	}else
+								    		c.setReportingEntityId("");
+								    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
+								    		c.setCounterypartyId(create.createCouterpartyIdentifier(bankSymbol));
+								    	}else
+								    		c.setCounterypartyId("");
+								    	if(fieldValues.get("ContractId").equalsIgnoreCase("Mandatory")) {
+								    		c.setContractId(create.createContractIdentifier());
+								    	}else
+								    		c.setContractId("");
+								    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Mandatory")) {
+								    		c.setInstrumentId(create.createInstrumentId());
+								    	}else
+								    		c.setInstrumentId("");
+								    	
+									}
+									 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
+											if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
+												c.setReportingEntityId(counterparty.getReportingEntityId());	
+									    	}else
+									    		c.setReportingEntityId("");
+									    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
+									    		c.setCounterypartyId(create.createCouterpartyIdentifier(bankSymbol));
+									    	}else
+									    		c.setCounterypartyId("");
+									    	if(fieldValues.get("ContractId").equalsIgnoreCase("Optional")) {
+									    		c.setContractId(create.createContractIdentifier());
+									    	}else
+									    		c.setContractId("");
+									    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Optional")) {
+									    		c.setInstrumentId(create.createInstrumentId());
+									    	}else
+									    		c.setInstrumentId("");
+									 }
+								con.add(c);
+								
+								}} }
+
+			else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
+				 if(configurationData.get("MultipleDataGenerationForContract").equalsIgnoreCase("Yes")) {
+							 
+					 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_incontractFile") ,configurationData.get("NoOfData")); 
+					 for(Counterparty counterparty: counterpartyData) {
+								 count++;
+								 create = new datacreation();
+								  c  =  new Contract();
+								 counterPartyId = counterparty.getCounterypartyId();
+								if(allIndexes.contains(count)) {
+									
+									int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_incontractFile"));
+									//using faker create randomenumber from 1to z
+									int m =  faker.number().numberBetween(1,z );
+									for(int k = 1;k<=m;k++) {
+										c  =  new Contract();
+										c.setReportingEntityId(counterparty.getReportingEntityId());
+										//c.setContractId(create.createContractIdentifier());
+										 String contract = duplicatecheck.createUniqueContractNew(conid,create);
+								    		c.setContractId(contract);
+								    		conid.add(contract);
+										//c.setInstrumentId(create.createInstrumentId());
+										String instrument = duplicatecheck.createUniqueInstrumentNew(instrumentid,create);
+							    		c.setInstrumentId(instrument);
+							    		instrumentid.add(instrument);
+										
+										c.setCounterypartyId(counterPartyId);
+									 con.add(c);
+										
+									}  
+									
+								}else {
+									c  =  new Contract();
+									c.setReportingEntityId(counterparty.getReportingEntityId());	
+									//c.setContractId(create.createContractIdentifier());
+									 String contract = duplicatecheck.createUniqueContractNew(conid,create);
+							    		c.setContractId(contract);
+							    		conid.add(contract);
+									//c.setInstrumentId(create.createInstrumentId());
+									String instrument = duplicatecheck.createUniqueInstrumentNew(instrumentid,create);
+						    		c.setInstrumentId(instrument);
+						    		instrumentid.add(instrument);
+									c.setCounterypartyId(counterPartyId);
+									con.add(c);
+								}
+						 }
+						 }else {
+							 for(Counterparty counterparty: counterpartyData) {
+									
+									
+								create = new datacreation();
+								 c  =  new Contract();
+								c.setReportingEntityId(counterparty.getReportingEntityId());
+								//c.setContractId(create.createContractIdentifier());
+								String contract = duplicatecheck.createUniqueContractNew(conid,create);
+					    		c.setContractId(contract);
+					    		conid.add(contract);
+								//c.setInstrumentId(create.createInstrumentId());
+								String instrument = duplicatecheck.createUniqueInstrumentNew(instrumentid,create);
+					    		c.setInstrumentId(instrument);
+					    		instrumentid.add(instrument);
+								c.setCounterypartyId(create.createCouterpartyIdentifier(bankSymbol));
+								
+								con.add(c);
+								c=null;
+								create=null;
+							 }}
+						  
+						}
+					return con;
+						 }
+public ArrayList<Counterparty> createCounterPartyData(int numberData) {
+	create = new datacreation();
+	create = null;
 	
-		ArrayList<Contract> con =  new ArrayList<>();
-		create = new datacreation();
-		String reportingEntityId = create.createReportingEntityId();
-		create = null;
-		if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
-		{
-			fieldValues = DataUtil.getFieldValue("MasterData", xls);
-			for (int i=0; i<numberData; i++) {
-			 		create = new datacreation();
-			 		Contract c  =  new Contract();
-				 
-				if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
-				{
-					if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-						c.setReportingEntityId(reportingEntityId);	
-			    	}else
-			    		c.setReportingEntityId("");
-			    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
-			    		c.setCounterypartyId(create.createCouterpartyIdentifier());
-			    	}else
-			    		c.setCounterypartyId("");
-			    	if(fieldValues.get("ContractId").equalsIgnoreCase("Mandatory")) {
-			    		c.setContractId(create.createContractIdentifier());
-			    	}else
-			    		c.setContractId("");
-			    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Mandatory")) {
-			    		c.setInstrumentId(create.createInstrumentId());
-			    	}else
-			    		c.setInstrumentId("");
-			    	
-				}
-				 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
-						if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-							c.setReportingEntityId(reportingEntityId);	
-				    	}else
-				    		c.setReportingEntityId("");
-				    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
-				    		c.setCounterypartyId(create.createCouterpartyIdentifier());
-				    	}else
-				    		c.setCounterypartyId("");
-				    	if(fieldValues.get("ContractId").equalsIgnoreCase("Optional")) {
-				    		c.setContractId(create.createContractIdentifier());
-				    	}else
-				    		c.setContractId("");
-				    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Optional")) {
-				    		c.setInstrumentId(create.createInstrumentId());
-				    	}else
-				    		c.setInstrumentId("");
-				 }
-			con.add(c);
-			c=null;
-			create=null;
-			}	
-		}else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
-		for (int i=0; i<numberData; i++) {
-			 	create = new datacreation();
-				Contract c  =  new Contract();
-				c.setContractId(create.createContractIdentifier());
-				c.setCounterypartyId(create.createCouterpartyIdentifier());
-				c.setInstrumentId(create.createInstrumentId());
-				c.setReportingEntityId(reportingEntityId);	
-				con.add(c);
-				c=null;
-				create=null;
-			}	
-		}
-		Collections.shuffle(con);
-		return con;
-	}
-public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contractData) {
-	
-	ArrayList<Counterparty> con =  new ArrayList<>();
+	ArrayList<Counterparty> con =  new ArrayList<>(); 
+	ArrayList<String> pan =  new ArrayList<>();
+	ArrayList<String> Adhar =  new ArrayList<>();
+	ArrayList<String> cpid =  new ArrayList<>();
 	if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
 	{
+		
 		fieldValues = DataUtil.getFieldValue("MasterData", xls);
-		for(Contract contract: contractData) {
+		create = new datacreation();
+		String ReportingEntityId  ;
+		ReportingEntityId = create.createReportingEntityId(bankSymbol);
+		for (int i=0; i<numberData; i++) {
 		 	create = new datacreation();
-		 	Counterparty cp  =  new Counterparty();  
+		 	Counterparty cp  =  new Counterparty();
 		    if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")) {
 		    	if(fieldValues.get("pan").equalsIgnoreCase("Mandatory")) {
-		    		cp.setPan(create.pangenerate2());
+		    		String PanNo = duplicatecheck.createUniquePanNew(pan,create);
+		    		cp.setPan(PanNo);
+		    		pan.add(PanNo);
 		    	}else
 		    		cp.setPan("");
 		    	if(fieldValues.get("cin").equalsIgnoreCase("Mandatory")) {
@@ -118,13 +316,17 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    	}else
 		    		cp.setCin("");
 		    	if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-		    		cp.setReportingEntityId(contract.getReportingEntityId());
+		    		cp.setReportingEntityId(ReportingEntityId);
 		    	}else
 		    		cp.setReportingEntityId("");
 		    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
-		    		cp.setCounterypartyId(contract.getCounterypartyId());
+		    		/*String CounterpartyId = duplicatecheck.createUniquecpid(cpid,create);
+		    		cp.setCounterypartyId(CounterpartyId);
+		    		cpid.add(CounterpartyId);*/
+		    		cp.setCounterypartyId(create.createCouterpartyIdentifier(bankSymbol+"C"));
 		    	}else
 		    		cp.setCounterypartyId("");
+		    	
 		    	if(fieldValues.get("Name").equalsIgnoreCase("Mandatory")) {
 		    		cp.setName(create.createName());
 		    	}else
@@ -133,6 +335,7 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    		   cp.setDate(create.date());
 		    	}else
 		    		cp.setDate("");
+		    	
 		    	if(fieldValues.get("caste").equalsIgnoreCase("Mandatory")) {
 		    	 	cp.setCasteGen(create.createCaste());  
 		    	}else
@@ -224,11 +427,11 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 		    	}else
 		    		cp.setCin("");
 		    	if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-		    		cp.setReportingEntityId(contract.getReportingEntityId());
+		    		cp.setReportingEntityId(ReportingEntityId);
 		    	}else
 		    		cp.setReportingEntityId("");
 		    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
-		    		cp.setCounterypartyId(contract.getCounterypartyId());
+		    		cp.setCounterypartyId(create.createCouterpartyIdentifier(bankSymbol+"C"));
 		    	}else
 		    		cp.setCounterypartyId("");
 		    	if(fieldValues.get("Name").equalsIgnoreCase("Optional")) {
@@ -318,22 +521,40 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 			    		cp.setEmailAddress("");	
 		    }
 		    con.add(cp);   
-		    cp=null;
-		    create=null;
+		   
 		}	
 	}else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
-
-		for(Contract contract: contractData) {
-		 	create = new datacreation();
-		 	Counterparty cp  =  new Counterparty();  
-		    	cp.setReportingEntityId(contract.getReportingEntityId());
-			 	cp.setCounterypartyId(contract.getCounterypartyId());
+		
+		/*HashSet<String> uniquecp = new HashSet<String>();
+		String id = null;
+		for (int i=0; i<numberData; i++) {
+		    //id = (contract.getReportingEntityId());
+			uniquecp.add(contract.getCounterypartyId());}
+			for(String u:uniquecp) {*/
+		create = new datacreation();
+		
+		String ReportingEntityId  ;
+			ReportingEntityId = create.createReportingEntityId(bankSymbol);
+		for (int i=0; i<numberData; i++) {
+			create = new datacreation();
+		 	Counterparty cp  =  new Counterparty();
+				cp.setReportingEntityId(ReportingEntityId);
+			 	//cp.setCounterypartyId(create.createCouterpartyIdentifier(bankSymbol+"C"));
+				String counterid = duplicatecheck.createUniquecpid(cpid, create);
+		    	cp.setCounterypartyId(counterid);
+		    	cpid.add(counterid);
 			 	cp.setName(create.createName());
 			    cp.setDate(create.date());
 			 	cp.setCasteGen(create.createCaste());
 			    cp.setCommGen(create.createCommunity());
-			    cp.setPan(create.pangenerate2());
-			 	cp.setAdharNo(create.adharValidate());
+			    //cp.setPan(create.pangenerate2());
+			    String PanNo = duplicatecheck.createUniquePanNew(pan,create);
+	    		cp.setPan(PanNo);
+	    		pan.add(PanNo);
+			 	//cp.setAdharNo(create.adharValidate());
+			 	String adharNo = duplicatecheck.createUniqueAdharNew(Adhar,create);
+	    		cp.setAdharNo(adharNo);
+	    		Adhar.add(adharNo);
 			 	cp.setDin(create.createDIN());
 			 	cp.setCin(create.companyIdentificationNumber());
 			 	cp.setLei(create.legalEntityIdentifier());
@@ -356,36 +577,42 @@ public ArrayList<Counterparty> createCounterPartyData(ArrayList<Contract> contra
 			    cp.setEmailAddress(create.emailAddress());			
 		    
 		    con.add(cp);
-		    cp=null;
-		    create=null;
-		}
+		    
+		    
+		}}
+	return con;
 	}
-		Collections.shuffle(con);
-		return con;
-}
-public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<Contract> contractData)
-{
+		//Collections.shuffle(con);
+		
+
+
+public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<Instrument> InstrumentData)
+{   String reportingEntityid = null;
 	ArrayList<protectionInstrument> con =  new ArrayList<>();
+	ArrayList<String> protectionid =  new ArrayList<>();
+	protectionInstrument pi = null ;
+	ReadWrite rw =  new ReadWrite();
+	ArrayList<Integer> allIndexes = null;
 	if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
 	{
 		fieldValues = DataUtil.getFieldValue("MasterData", xls);
-		for(Contract contract: contractData) 
+		for(Instrument instrument: InstrumentData) 
 		{
 		 	create = new datacreation();
-		 	protectionInstrument pi = new protectionInstrument();
+		 	 pi = new protectionInstrument();
 		    
 		    if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
 			{
 				if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-					  pi.setReportingEntityId(contract.getReportingEntityId());
+					  pi.setReportingEntityId(instrument.getReportingEntityId());
 		    	}else
 		    		 pi.setReportingEntityId("");
 		    	if(fieldValues.get("ContractId").equalsIgnoreCase("Mandatory")) {
-		    		  pi.setContractId(contract.getContractId());
+		    		  pi.setContractId(instrument.getContractId());
 		    	}else
 		    		  pi.setContractId("");
 		    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Mandatory")) {
-		    		 pi.setInstrumentId(contract.getInstrumentId());
+		    		 pi.setInstrumentId(instrument.getInstrumentId());
 		    	}else
 		    		pi.setInstrumentId("");
 		      	if(fieldValues.get("Protection Allocated Value").equalsIgnoreCase("Mandatory")) {
@@ -393,7 +620,7 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 		    	}else
 		    		 pi.setProtectionAllocatedValue("");
 		    	
-		      	if(fieldValues.get("Protection External Id").equalsIgnoreCase("Mandatory")) {
+		      	if(fieldValues.get("protectionId").equalsIgnoreCase("Mandatory")) {
 		    	    pi.setProtectionId(create.createProtectionId());
 		    	}else
 		    		pi.setProtectionId("");
@@ -404,15 +631,15 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 			}
 			 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
 				 if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-					  pi.setReportingEntityId(contract.getReportingEntityId());
+					  pi.setReportingEntityId(instrument.getReportingEntityId());
 		    	}else
 		    		 pi.setReportingEntityId("");
 		    	if(fieldValues.get("ContractId").equalsIgnoreCase("Optional")) {
-		    		  pi.setContractId(contract.getContractId());
+		    		  pi.setContractId(instrument.getContractId());
 		    	}else
 		    		  pi.setContractId("");
 		    	if(fieldValues.get("InstrumentId").equalsIgnoreCase("Optional")) {
-		    		 pi.setInstrumentId(contract.getInstrumentId());
+		    		 pi.setInstrumentId(instrument.getInstrumentId());
 		    	}else
 		    		pi.setInstrumentId("");
 		      	if(fieldValues.get("Protection Allocated Value").equalsIgnoreCase("Optional")) {
@@ -435,41 +662,106 @@ public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<
 			create=null;	
 	  }
 }else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
-	for(Contract contract: contractData) 
-	{
-	 	create = new datacreation();
-	 	protectionInstrument pi = new protectionInstrument();
-	 	 	pi.setReportingEntityId(contract.getReportingEntityId());
-		    pi.setInstrumentId(contract.getInstrumentId());
-		    pi.setContractId(contract.getContractId());
-		    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
-		    pi.setProtectionId(create.createProtectionId());
-		    pi.setChargeType(create.createChargeType());
-		con.add(pi);	
-		pi = null;
+	 int count=0;
+	 String instrumentid = null;
+	 String contractid = null;
+	 
+
+	 if(configurationData.get("MultipleDataGenerationFor_protectioninstrument").equalsIgnoreCase("Yes")) {
+		
+		
+		 for(Instrument instrument: InstrumentData) {
+		 instrumentid = instrument.getInstrumentId();
+		 reportingEntityid =instrument.getReportingEntityId();
+		 contractid =instrument.getContractId();
+		
+			count++;
+			 create = new datacreation();
+			 pi = new protectionInstrument();
+			 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_contractid,instrumentid_repeated_inprotectioninstrument") ,configurationData.get("NoOfData"));
+			if(allIndexes.contains(count)) {
+				
+				
+				int z = ut.completeinteger(configurationData.get("No_individual_contractid,instrumentid_repeated_inprotectioninstrument"));
+				//using faker create randomenumber from 1to z
+				int m =  faker.number().numberBetween(1,z );
+				for(int k = 1;k<=m;k++) {  
+					  pi = new protectionInstrument();
+ 
+						    pi.setReportingEntityId(reportingEntityid);
+						    pi.setInstrumentId(instrumentid);
+						    pi.setContractId(contractid);
+						    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
+						    //pi.setProtectionId(create.createProtectionId());
+						    String protection = duplicatecheck.createUniqueProtectNew(protectionid,create);
+						    pi.setProtectionId(protection);
+				    		protectionid.add(protection);
+						    pi.setChargeType(create.createChargeType());
+					con.add(pi);		
+					}}
+			else 
+			{
+				 pi = new protectionInstrument();
+				pi.setReportingEntityId(reportingEntityid);
+			    pi.setInstrumentId(instrumentid);
+			    pi.setContractId(contractid);
+			    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
+			    //pi.setProtectionId(create.createProtectionId());
+			    String protection = duplicatecheck.createUniqueProtectNew(protectionid,create);
+			    pi.setProtectionId(protection);
+	    		protectionid.add(protection);
+			    pi.setChargeType(create.createChargeType());
+		con.add(pi);
+		} 
+			
+			pi=null;
+			create=null;
+	 }}	
+else {
+	for(Instrument instrument: InstrumentData) {
+		
+		create = new datacreation();
+		pi = new protectionInstrument();
+	    pi.setReportingEntityId(reportingEntityid);
+	    pi.setInstrumentId(instrument.getInstrumentId());
+	    pi.setContractId(instrument.getContractId());
+	    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
+	   // pi.setProtectionId(create.createProtectionId());
+	    String protection = duplicatecheck.createUniqueProtectNew(protectionid,create);
+	    pi.setProtectionId(protection);
+		protectionid.add(protection);
+	    pi.setChargeType(create.createChargeType());
+		con.add(pi);
+		
+		pi=null;
 		create=null;
-    }	
-}
-	Collections.shuffle(con);
-	return con;
-}
-public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contractData) {
+	 }}}
+	 
+	return con;}
+	//Collections.shuffle(con);
+
+public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Counterparty> counterpartyData) {
 	
 	ArrayList<relatedParty> con =  new ArrayList<>();
+	ReadWrite rw =  new ReadWrite();
+	ArrayList<Integer> allIndexes = null;
+	ArrayList<String> Relno =  new ArrayList<>();
+
+	 relatedParty rel ;
 	if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
 	{
 		fieldValues = DataUtil.getFieldValue("MasterData", xls);
-		for(Contract contract: contractData) {
+		 for(Counterparty counterparty: counterpartyData) {
 		    create = new datacreation();
-		    relatedParty rel = new relatedParty();
+		     rel = new relatedParty();
 			if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
 			{
 				if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-					  rel.setReportingEntityId(contract.getReportingEntityId());
+					  rel.setReportingEntityId(counterparty.getReportingEntityId());
 		    	}else
 		    		rel.setReportingEntityId("");
 		    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
-		    		rel.setCounterpartyId(contract.getCounterypartyId());
+		    		rel.setCounterpartyId(counterparty.getCounterypartyId());
 		    	}else
 		    		rel.setCounterpartyId("");
 		    	if(fieldValues.get("relatedCounterpartyID").equalsIgnoreCase("Mandatory")) {
@@ -480,11 +772,11 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			}
 			 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
 				 if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-					  rel.setReportingEntityId(contract.getReportingEntityId());
+					  rel.setReportingEntityId(counterparty.getReportingEntityId());
 		    	}else
 		    		rel.setReportingEntityId("");
 		    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
-		    		rel.setCounterpartyId(contract.getCounterypartyId());
+		    		rel.setCounterpartyId(counterparty.getCounterypartyId());
 		    	}else
 		    		rel.setCounterpartyId("");
 		    	if(fieldValues.get("relatedCounterpartyID").equalsIgnoreCase("Optional")) {
@@ -496,39 +788,94 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 			 rel = null;
 			 create=null;
 }
-	}else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
-		for(Contract contract: contractData) {
-		    create = new datacreation();
-		    relatedParty rel = new relatedParty();
-			 rel.setReportingEntityId(contract.getReportingEntityId());
-			 rel.setCounterpartyId(contract.getCounterypartyId());
-			 rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
-		con.add(rel); 
-	    rel = null;
-		create=null;
-}
-	}
-	Collections.shuffle(con);
-	return con;
 	}
 
-   public ArrayList<Protection> createProtectionData(ArrayList<Contract> contractData)
+	else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
+		 String reportingEntityid = null;
+		if(configurationData.get("MultipleDataGenerationFor_RelatedParty").equalsIgnoreCase("Yes")) {
+			 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_RelatedPartyFile") ,configurationData.get("NoOfData"));
+			 int count=0;
+			 String counterPartyId;
+		
+			 for(Counterparty counterparty: counterpartyData) {
+			
+				count++;
+			  reportingEntityid = counterparty.getReportingEntityId();
+			  counterPartyId =counterparty.getCounterypartyId() ;
+			 if(allIndexes.contains(count)) {
+				 
+					int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_inRelatedPartyFile"));
+						//using faker create randomenumber from 1to z
+						int m =  faker.number().numberBetween(1,z );
+						for(int k = 1;k<=m;k++) {
+							create = new datacreation();
+							rel = new relatedParty();
+							 rel.setReportingEntityId(reportingEntityid);
+							 rel.setCounterpartyId(counterPartyId);
+							 //rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
+							 String RelNo = duplicatecheck.createUniqueRelNew(Relno,create);
+					    		rel.setRelatedCounterpartyID(RelNo);
+					    		Relno.add(RelNo);
+						
+							 rel.setRelation(create.createRelation());
+						con.add(rel);
+						
+							
+						}	
+					}
+					else 
+					{
+						create = new datacreation();
+						rel = new relatedParty();
+						 rel.setReportingEntityId(reportingEntityid);
+						 rel.setCounterpartyId(counterPartyId);
+						 //rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
+						 String RelNo = duplicatecheck.createUniqueRelNew(Relno,create);
+				    		rel.setRelatedCounterpartyID(RelNo);
+				    		Relno.add(RelNo);
+						 rel.setRelation(create.createRelation());
+					con.add(rel);
+					}
+					rel=null;
+					create=null;
+			 }}
+			 else {
+				 for (Counterparty counterparty:counterpartyData ) {		
+					create = new datacreation();
+					rel = new relatedParty();
+					rel.setReportingEntityId(reportingEntityid);
+					 rel.setCounterpartyId(counterparty.getCounterypartyId());
+					 //rel.setRelatedCounterpartyID(create.createRelatedCounterepartyId());
+					 String RelNo = duplicatecheck.createUniqueRelNew(Relno,create);
+			    		rel.setRelatedCounterpartyID(RelNo);
+			    		Relno.add(RelNo);
+					 rel.setRelation(create.createRelation());
+				con.add(rel);
+					
+					rel=null;
+					create=null;
+				 }}}
+		return con;
+			 }
+		    
+
+   public ArrayList<Protection> createProtectionData(ArrayList<protectionInstrument> createProtectionInstrumentData)
       {
          ArrayList<Protection> con = new ArrayList<>();
          if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
      	{
      		fieldValues = DataUtil.getFieldValue("MasterData", xls);
-            for(Contract contract: contractData){
+            for(protectionInstrument protect:createProtectionInstrumentData ){
   		      create = new datacreation();
   		      Protection p = new Protection();
   		      if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
   				{
   					if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-  						  p.setReportingEntityId(contract.getReportingEntityId());
+  						  p.setReportingEntityId(protect.getReportingEntityId());
   			    	}else
   			    		 p.setReportingEntityId("");
   			    	if(fieldValues.get("protectionId").equalsIgnoreCase("Mandatory")) {
-  			    		 p.setProtectionId(create.createprotectionId());
+  			    		 p.setProtectionId(protect.getProtectionId());
   			    	}else
   			    		p.setProtectionId("");
   			    	if(fieldValues.get("protectionProviderId").equalsIgnoreCase("Mandatory")) {
@@ -580,11 +927,11 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
   				}
   				 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
   					 if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-  						  p.setReportingEntityId(contract.getReportingEntityId());
+  						  p.setReportingEntityId(protect.getReportingEntityId());
   			    	}else
   			    		 p.setReportingEntityId("");
   			    	if(fieldValues.get("protectionId").equalsIgnoreCase("Optional")) {
-  			    		 p.setProtectionId(create.createprotectionId());
+  			    		 p.setProtectionId(protect.getProtectionId());
   			    	}else
   			    		p.setProtectionId("");
   			    	if(fieldValues.get("protectionProviderId").equalsIgnoreCase("Optional")) {
@@ -638,11 +985,11 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
   				 create=null;
       }
      	}else  if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
-     		for(Contract contract: contractData){
+     		for(protectionInstrument protect:createProtectionInstrumentData ){
     		      create = new datacreation();
     		      Protection p = new Protection();
-    					  p.setReportingEntityId(contract.getReportingEntityId());
-    				      p.setProtectionId(create.createprotectionId());
+    					  p.setReportingEntityId(protect.getReportingEntityId());
+    				      p.setProtectionId(protect.getProtectionId());
     				      p.setProtectionProviderId(create.createprotectionProviderId());
     				      p.setTypeOfProtection(create.createtypeOfProtection());
     				      p.setCurrencyType(create.createcurrencyType());
@@ -662,24 +1009,29 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
          Collections.shuffle(con);
          return con;
      }
-   public ArrayList<counterpartyRating> createcounterpartyRatingData(ArrayList<Contract> contractData) {
+   public ArrayList<counterpartyRating> createcounterpartyRatingData(ArrayList<Counterparty> counterpartyData) {
 		
 		ArrayList<counterpartyRating> con =  new ArrayList<>();
+		counterpartyRating cpr;
+		ReadWrite rw =  new ReadWrite();
+		ArrayList<Integer> allIndexes = null;
+		ArrayList<String> Rateid =  new ArrayList<>();
+		String reportingEntityid = null;
 		if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
      	{
      		fieldValues = DataUtil.getFieldValue("MasterData", xls);
-     		for(Contract contract: contractData) {
+     		 for(Counterparty counterparty: counterpartyData) {
 			 	create = new datacreation();
-			 	counterpartyRating cpr  =  new counterpartyRating();
+			 	cpr  =  new counterpartyRating();
 			 	
 				if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
 				{
 					if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-						cpr.setReportingEntityId(contract.getReportingEntityId());
+						cpr.setReportingEntityId(counterparty.getReportingEntityId());
 			    	}else
 			    		cpr.setReportingEntityId("");
 			    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
-			    	 	cpr.setCounterpartyId(contract.getCounterypartyId());
+			    	 	cpr.setCounterpartyId(counterparty.getCounterypartyId());
 			    	}else
 			    		cpr.setCounterpartyId("");
 			    	if(fieldValues.get("ratingID").equalsIgnoreCase("Mandatory")) {
@@ -706,11 +1058,11 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				}
 				 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
 					 if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-							cpr.setReportingEntityId(contract.getReportingEntityId());
+							cpr.setReportingEntityId(counterparty.getReportingEntityId());
 				    	}else
 				    		cpr.setReportingEntityId("");
 				    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
-				    	 	cpr.setCounterpartyId(contract.getCounterypartyId());
+				    	 	cpr.setCounterpartyId(counterparty.getCounterypartyId());
 				    	}else
 				    		cpr.setCounterpartyId("");
 				    	if(fieldValues.get("ratingId").equalsIgnoreCase("Optional")) {
@@ -740,12 +1092,72 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				}
      		
      	}else if (configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")){
-     		for(Contract contract: contractData) {
-			 	create = new datacreation();
-			 	counterpartyRating cpr  =  new counterpartyRating();
-			 	cpr.setReportingEntityId(contract.getReportingEntityId());
-			 	cpr.setCounterpartyId(contract.getCounterypartyId());
-			 	cpr.setRatingID(create.createRatingId());
+     		if(configurationData.get("MultipleDataGenerationFor_counterpartyRating").equalsIgnoreCase("Yes")) {
+     		int count = 0;
+     		
+     		String CounterpartyId;
+     	
+     		 for(Counterparty counterparty: counterpartyData) {
+     			  reportingEntityid = counterparty.getReportingEntityId();
+     			 CounterpartyId = counterparty.getCounterypartyId();
+     			 //pass counterparty
+     			 
+     			
+					count++;
+     				 create = new datacreation();
+     				 cpr  =  new counterpartyRating();
+     				 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_counterpartyRatingFile") ,configurationData.get("NoOfData"));
+     				if(allIndexes.contains(count)) {
+     					
+     			int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_incounterpartyRatingFile"));
+     					//using faker create randomenumber from 1to z
+     					int m =  faker.number().numberBetween(1,z );
+     					for(int k = 1;k<=m;k++) {
+     							cpr  =  new counterpartyRating();
+     							cpr.setReportingEntityId(reportingEntityid);
+     						 	cpr.setCounterpartyId( CounterpartyId);
+     						 	//cpr.setRatingID(create.createRatingId());
+     						 	String ratingID = duplicatecheck.createUniqueRatingIdNew(Rateid,create);
+     				    		cpr.setRatingID(ratingID);
+     				    		Rateid.add(ratingID);
+     						 	cpr.setCreditRating(create.creditRating());
+     						 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
+     					        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
+     					        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
+     					     con.add(cpr);
+     					   
+     				 }}
+     			else {
+     				
+     					create = new datacreation();
+     					cpr  =  new counterpartyRating();
+						 	cpr.setReportingEntityId(reportingEntityid);
+ 						 	cpr.setCounterpartyId( CounterpartyId);
+ 						 	//cpr.setRatingID(create.createRatingId());
+ 						 	String ratingID = duplicatecheck.createUniqueRatingIdNew(Rateid,create);
+ 				    		cpr.setRatingID(ratingID);
+ 				    		Rateid.add(ratingID);
+						 	cpr.setCreditRating(create.creditRating());
+						 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
+					        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
+					        cpr.setCreditRatingExpiryDate(create.creditRatingExpiryDate());
+					     con.add(cpr);}	
+     				  cpr=null;
+     					create=null;
+     				 }}
+     				
+     						
+     		else {	
+     			 for(Counterparty counterparty: counterpartyData)
+     			 {
+     		     create = new datacreation();
+			 	 cpr  =  new counterpartyRating();
+			 	cpr.setReportingEntityId(reportingEntityid);
+			 	cpr.setCounterpartyId(counterparty.getCounterypartyId());
+			 	//cpr.setRatingID(create.createRatingId());
+			 	String ratingID = duplicatecheck.createUniqueRatingIdNew(Rateid,create);
+		    		cpr.setRatingID(ratingID);
+		    		Rateid.add(ratingID);
 			 	cpr.setCreditRating(create.creditRating());
 			 	cpr.setAssessmentAgencyAuthority(create.assessmentAgencyAuthority());
 		        cpr.setCreditRatingAsOn(create.creditRatingAsOn());
@@ -754,28 +1166,29 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		   	 cpr=null;
 		   	 create=null;
      		}
-     	}
-		Collections.shuffle(con);	
+     	}}
+		//Collections.shuffle(con);	
 		return con;
 	}
-   public ArrayList<counterpartyRisk> createCounterpartyRiskData(ArrayList<Contract> contractData) {
+
+public ArrayList<counterpartyRisk> createCounterpartyRiskData(ArrayList<Counterparty> counterpartyData) {
 		
 		ArrayList<counterpartyRisk> con =  new ArrayList<>();
 		if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
      	{
      		fieldValues = DataUtil.getFieldValue("MasterData", xls);
-     		for(Contract contract: contractData) {
+     		 for(Counterparty counterparty: counterpartyData)  {
 			 	create = new datacreation();
 			 	counterpartyRisk cr  =  new counterpartyRisk();
 			 	
 			 	if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
 				{
 					if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Mandatory")) {
-						cr.setReportingEntityId(contract.getReportingEntityId());
+						cr.setReportingEntityId(counterparty.getReportingEntityId());
 			    	}else
 			    		cr.setReportingEntityId("");
 			    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Mandatory")) {
-			    	 	cr.setCounterpartyId(contract.getCounterypartyId());
+			    	 	cr.setCounterpartyId(counterparty.getCounterypartyId());
 			    	}else
 			    		cr.setCounterpartyId("");
 			    	if(fieldValues.get("statusOfInsolvencyProceedings").equalsIgnoreCase("Mandatory")) {
@@ -822,11 +1235,11 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				}
 				 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
 					 if(fieldValues.get("ReportingEntityId").equalsIgnoreCase("Optional")) {
-							cr.setReportingEntityId(contract.getReportingEntityId());
+							cr.setReportingEntityId(counterparty.getReportingEntityId());
 				    	}else
 				    		cr.setReportingEntityId("");
 				    	if(fieldValues.get("CounterpartyId").equalsIgnoreCase("Optional")) {
-				    	 	cr.setCounterpartyId(contract.getCounterypartyId());
+				    	 	cr.setCounterpartyId(counterparty.getCounterypartyId());
 				    	}else
 				    		cr.setCounterpartyId("");
 				    	if(fieldValues.get("statusOfInsolvencyProceedings").equalsIgnoreCase("Optional")) {
@@ -875,11 +1288,12 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 				 create=null;	
      		}
      	}else  if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
-     		for(Contract contract: contractData) {
+     		for(Counterparty counterparty: counterpartyData) {
 			 	create = new datacreation();
 			 	counterpartyRisk cr  =  new counterpartyRisk();
-			 	cr.setCounterpartyId(contract.getCounterypartyId());
-			 	cr.setReportingEntityId(contract.getReportingEntityId());
+			 	
+			 	cr.setReportingEntityId(counterparty.getReportingEntityId());
+			 	cr.setCounterpartyId(counterparty.getCounterypartyId());
 			 	cr.setStatusOfInsolvencyProceedings(create.createStatusOfInsolvencyProceedings());
 			 	cr.setDateOfInitiationOfInsolvencyProceedings(create.dateOfInitiationOfInsolvencyProceedings());
 			 	cr.setWilfulDefaulter(create.createwilfulDefaulter());
@@ -1306,5 +1720,67 @@ public ArrayList<relatedParty> createRelatedPartyData(ArrayList<Contract> contra
 		Collections.shuffle(con);
 		return con;
    }
+  /* private int isMultiple(int dr, ArrayList<Integer> multipledataIndex,int Records,String totalMultipleRecords) {
+		if(multipledataIndex.contains(dr)) {
+			double f=Double.parseDouble(totalMultipleRecords);
+			int MultipleRecords=(int)f; 
+			dr = faker.number().numberBetween(1,MultipleRecords );
+			 isMultiple(dr,multipledataIndex,Records, totalMultipleRecords);
+		}
+		
+		else {
+			return  dr;
+			}
+
+		return dr;
+		}
+   private ArrayList<Integer> multiplenumber(String totalMultipleRecords, String totalRecords) {
+		
+		double f=Double.parseDouble(totalMultipleRecords);
+		int MultipleRecords=(int)f;
+		double f1=Double.parseDouble(totalRecords);
+		int Records=(int)f1;
+		ArrayList<Integer> multipledataIndex = new ArrayList<>();
+		if(multipledataIndex.size()== 0) {
+			multipledataIndex = new ArrayList<>();
+		}
+		for(int i = 0;i<MultipleRecords;i++) {
+			int dr = faker.number().numberBetween(1, MultipleRecords);
+			int data = isMultiple(dr,multipledataIndex,Records, totalRecords);
+			multipledataIndex.add(data);
+		
+	}
+		return multipledataIndex;
+}
+   private int isIndex(int dr, ArrayList<Integer> IndexNumber,int Records) {
+		if(IndexNumber.contains(dr)) {
+			 dr = faker.number().numberBetween(1, Records);
+			 isIndex(dr,IndexNumber,Records);
+		}
+		
+		else {
+			return  dr;
+			}
+
+		return dr;
+		}
+   private ArrayList<Integer> indexnumber(String totalindexRecords, String totalRecords) {
+		
+		double f=Double.parseDouble(totalindexRecords);
+		int indexRecords=(int)f;
+		double f1=Double.parseDouble(totalRecords);
+		int Records=(int)f1;
+		ArrayList<Integer> dataIndex = new ArrayList<>();
+		if(dataIndex.size()== 0) {
+			dataIndex = new ArrayList<>();
+		}
+		for(int i = 0;i<indexRecords;i++) {
+			int dr = faker.number().numberBetween(1, Records);
+			int data = isIndex(dr,dataIndex,Records);
+			dataIndex.add(data);
+		
+	}
+		return dataIndex;
+}*/
 }
    

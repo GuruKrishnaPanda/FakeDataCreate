@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -23,10 +24,13 @@ import org.apache.commons.io.FileUtils;
 
 
 public class Utils {
+	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
+	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
 	private static final int BUFFER_SIZE = 4096;
 	 
 	public static String generateFolderwithName(String reportingMemberID) {
 		String folderName = null;
+		
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");  
 			String strDateFormat = "hhmmss";
@@ -92,6 +96,13 @@ public class Utils {
 				}	  
 	 	      } 	  
 	      }      
+	}
+	 
+public int completeinteger(String string) {
+		// TODO Auto-generated method stub
+	  double f=Double.parseDouble(string);
+		int integer=(int)f;
+		return integer;	
 	}
 	private static void moveFileOrDirectory(String contents) throws IOException {
 		 File srcDir = new File(Constants.NewfileLocation+"\\"+contents);

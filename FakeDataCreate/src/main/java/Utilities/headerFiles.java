@@ -150,7 +150,7 @@ public class headerFiles {
 		
 		String[] counterpartyRatingHeader = {
 					"reportingEntityId",
-					"counterpartyRatingId",
+					"counterpartyId",
 					"ratingId",
 					"creditRating",
 					"assessmentAgencyOrAuthority",
@@ -267,7 +267,8 @@ public class headerFiles {
 		String[] relatedPartyHeader = {
 				"reportingEntityId",
 				"counterpartyId",
-				"relatedCounterpartyId"
+				"relatedCounterpartyId",
+				"relation"
 				};
 
 		

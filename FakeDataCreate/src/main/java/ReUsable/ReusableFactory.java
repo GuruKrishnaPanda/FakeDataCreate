@@ -39,16 +39,18 @@ public class ReusableFactory {
 	String fileName;
 	public void createData(int numberData) {
 		
-		ArrayList<Contract> contractData = eds.createContractData(numberData);
-		ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(contractData);
-		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(contractData);
-		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(contractData);
-		ArrayList<Protection> ProtectionData = eds.createProtectionData(contractData);
-		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(contractData);
-		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(contractData);
+		//ArrayList<Contract> contractData = eds.createContractData(null);
+		ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(numberData);
+		ArrayList<Contract> contractData = eds.createContractData(counterPartyData);
 		ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
+		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(InstrumentData );
+		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(counterPartyData);
+		ArrayList<Protection> ProtectionData = eds.createProtectionData(protectionInstrumentData);
+		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(counterPartyData);
+		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(counterPartyData);
+		//ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
 	    	try {
-			 folderName= Utils.generateFolderwithName(contractData.get(1).getReportingEntityId());
+			 folderName= Utils.generateFolderwithName( counterPartyData.get(0).getReportingEntityId());
 			 fileName = folderName;
 			 if(data.get("All_Files").equalsIgnoreCase("No")) {
 			if(data.get("Name_Of_File").equalsIgnoreCase("Valid")) {

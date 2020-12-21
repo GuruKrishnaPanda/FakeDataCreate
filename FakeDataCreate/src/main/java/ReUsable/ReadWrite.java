@@ -109,7 +109,23 @@ public class ReadWrite {
 	     		else {
 		     		writer.writeNext(rowData);	
 		     	}}}
-	     	writer.close();}}
+		 else {
+			  writer.writeNext(headerFiles.contractHeader()); 
+		     	 for(Contract con : contractData) {
+			
+		     		 
+		     	String[] rowData =  { 
+		     				con.getReportingEntityId(), 
+		     				con.getContractId(),
+		     				con.getInstrumentId(),
+		     				con.getCounterypartyId()
+		     			
+		     				};
+		     	
+		     	writer.writeNext(rowData);	
+		 }
+	     	writer.close();
+	     	}}}
 		 
 		 catch (IOException e) {
 
@@ -117,7 +133,7 @@ public class ReadWrite {
 
 		 } }
 	
-private ArrayList<Integer> uniqunumber(String totalDuplicateRecords, String totalRecords) {
+public ArrayList<Integer> uniqunumber(String totalDuplicateRecords, String totalRecords) {
 		
 		double f=Double.parseDouble(totalDuplicateRecords);
 		int DuplicateRecords=(int)f;
@@ -305,14 +321,50 @@ public void writeCounterPartyData(ArrayList<Counterparty> counterpartyData, Stri
 		     		writer.writeNext(rowData);
 		     		
 		     	}}}
-	     	writer.close();}}
-		 
-		 catch (IOException e) {
+			 
+			 else {
+				    writer.writeNext(headerFiles.counterPartyHeader()); 
+			     	 for(Counterparty con : counterpartyData) {
+				
+			     		 
+			     	String[] rowData =  { 
+			     			con.getReportingEntityId(),
+			   				con.getCounterypartyId(),
+			   				con.getName(),
+			   				con.getDate(),
+			   				con.getCasteGen(),
+			   				con.getCommGen(),
+			   				con.getPan(),
+			   				con.getAdharNo(),
+			   				con.getDin(),
+			   				con.getCin(),
+			   				con.getLei(),
+			   				con.getTan(),
+			   				con.getGstin(),
+			   				con.getUdyogAadhaar(),
+			   				con.getTypeOrg(),
+			   				con.getBurrrower(),
+			   				con.getNicCode(),
+			   				con.getOccupationCode(),
+			   				con.getAddressLine1(),
+			   				con.getAddressLine2(),
+			   				con.getAddressLine3(),
+			   				con.getPinCode(),
+			   				con.getStateCode(),
+			   				con.getDistrictCode(),
+			   				con.getCountryCode(),
+			   				con.getTelePhoneNumber(),
+			   				con.getMobNo(),
+			   				con.getEmailAddress()}; 
+			     	writer.writeNext(rowData);	
+			 }
+		     	writer.close();}}}
+			 
+			 catch (IOException e) {
 
-		 e.printStackTrace();
+			 e.printStackTrace();
 
-		 } }
-
+			 } }
 public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> protectionInstrumentData, String fileName) {
     try { 
     	outputfile = createFileObject(fileName);
@@ -387,15 +439,27 @@ public  void writeProtectionInstrumentData(ArrayList<protectionInstrument> prote
 		     		writer.writeNext(rowData);
 		     		
 		     	}}}
-	     	writer.close();
-	     	
-	     }}
-		 
-		 catch (IOException e) {
+			 writer.writeNext(headerFiles.ProtectionInstrument());  
+	     	 for(protectionInstrument con : protectionInstrumentData) {
+		
+	     		 
+	     	String[] rowData =  { 
+	     			con.getReportingEntityId(), 
+    				con.getContractId(),
+    				con.getInstrumentId(),
+    				con.getProtectionId(),
+    				con.getProtectionAllocatedValue(),
+    				con.getChargeType()
+    				}; 
+	     	writer.writeNext(rowData);	
+	 }
+     	writer.close();}}
+	 
+	 catch (IOException e) {
 
-		 e.printStackTrace();
+	 e.printStackTrace();}
 
-		 } }
+	 } 
 public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, String fileName) {
     try { 
     	     outputfile = createFileObject(fileName);
@@ -420,6 +484,9 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, Str
 			 if(header.equalsIgnoreCase("relatedCounterpartyId")) {
 			 rowdata.add(con.getRelatedCounterpartyID());
 			 }
+			 if(header.equalsIgnoreCase("relation")) {
+				 rowdata.add(con.getRelation());
+			 }
 			 }
 			 String[] writingRowData = rowdata.toArray(new String[rowdata.size()]);
 			 writer.writeNext(writingRowData);
@@ -442,7 +509,8 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, Str
         	String[] rowData =  { 
         				con.getReportingEntityId(), 
         				con.getCounterpartyId(),
-        				con.getRelatedCounterpartyID()
+        				con.getRelatedCounterpartyID(),
+        				con.getRelation()
         				};
         	boolean flag= false;
 	     	if(allIndexes.contains(count)) {
@@ -455,15 +523,26 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, Str
 		     		writer.writeNext(rowData);
 		     		
 		     	}}}
-	     	writer.close();
-	     	
-	     }}
-		 
-		 catch (IOException e) {
+					 else {
+						    writer.writeNext(headerFiles.RelatedParty()); 
+					     	 for(relatedParty con :relatedPartyData) {
+						
+					     		 
+					     	String[] rowData =  { 
+					     			con.getReportingEntityId(), 
+			        				con.getCounterpartyId(),
+			        				con.getRelatedCounterpartyID(),
+			        				con.getRelation()
+			        				};
+					     	writer.writeNext(rowData);	
+					 }
+				     	writer.close();}}}
+					 
+					 catch (IOException e) {
 
-		 e.printStackTrace();
+					 e.printStackTrace();
 
-		 } }
+					 } }
 
 public  void writeProtectionData(ArrayList<Protection> ProtectionData, String fileName) {
  	 try {
@@ -564,15 +643,34 @@ boolean flag= false;
  		writer.writeNext(rowData);
  		
  	}}}
-	writer.close();
-	
-}}
+		 else {
+			 writer.writeNext(headerFiles.Protection()); 
+		     	 for(Protection con : ProtectionData) {
+			
+		     		 
+		     	String[] rowData =  { 
+		     			con.getReportingEntityId(),
+		     			con.getProtectionId(),
+		     			con.getProtectionProviderId(),
+		     			con.getTypeOfProtection(),
+		     			con.getCurrencyType(),
+		     			con.getProtectionValue(),
+		     			con.getTypeOfProtectionValue(),
+		     			con.getProtectionValuationApproach(),
+		     			con.getDateOfProtectionValue(),
+		     			con.getOriginalProtectionValue(),
+		     			con.getDateOfOriginalProtectionValue(),
+		     			con.getProtectionRegistryId(),
+		     			con.getProtectionExternalId()};
+		     	writer.writeNext(rowData);	
+		 }
+	     	writer.close();}}}
+		 
+		 catch (IOException e) {
 
-catch (IOException e) {
+		 e.printStackTrace();
 
-e.printStackTrace();
-
-} }
+		 } }
 
 
 public  void writeInstrumentData(ArrayList<Instrument> instrumentData, String fileName) {
@@ -801,15 +899,64 @@ public  void writeInstrumentData(ArrayList<Instrument> instrumentData, String fi
 			 		writer.writeNext(rowData);
 			 		
 			 	}}}
-				writer.close();
-				
-			}}
+					 else {
+						 writer.writeNext(headerFiles.Instrument()); 
+					     	 for(Instrument con : instrumentData) {
+						
+					     		 
+					     	String[] rowData =  { 
 
-			catch (IOException e) {
+						    		con.getReportingEntityId(),
+						    		con.getInstrumentId(),
+						    		con.getBranchCode(),
+						    		con.getContractId(),
+						    		con.getDistrictOfUtilisation(),
+						    		con.getInstrumentType(),
+						    		con.getPrioritySector(),
+						    		con.getWeakerSection(),
+						    		con.getClassificationOfActivity(),
+						    		con.getSanctionDate(),
+						    		con.getDisbursementDate(),
+						    		con.getMaturityDate(),
+						    		con.getCurrencyCode(),
+						    		con.getOrgsanAmmnt(),
+						    		con.getSyndcateContactId(),
+						    		con.getRecourse(),
+						    		con.getInterestRateType(),
+						    		con.getAmortisationType(),
+						    		con.getPaymentFrequency(),
+						    		con.getInterRate(),
+						    		con.getWeightedAverageInterestRate(),
+						    		con.getInstallAmnt(),
+						    		con.getBalanceOutstanding(),
+						    		con.getUnvailedAmmount(),
+						    		con.getOffBalMinAmnt(),
+						    		con.getCrediteqibaloff(),
+						    		con.getAccuInterst(),
+						    		con.getAmntOver(),
+						    		con.getNumPastDue(),
+						    		con.getSmaCatogry(),
+						    		con.getSmaCurrentCatg(),
+						    		con.getNpaCatgCode(),
+						    		con.getNpaSinDate(),
+						    		con.getCummRecovSinNpa(),
+						    		con.getAccProviosions(),
+						    		con.getAccWriteOffs(),
+						    		con.getSettAmmount(),
+						    		con.getRestStatus(),
+						    		con.getRestDate(),
+						    		con.getAccountStatus(),
+						    		con.getStatusDate(),
+						    		con.getSuitFielDate() };
+					     	writer.writeNext(rowData);	
+					 }
+				     	writer.close();}}}
+					 
+					 catch (IOException e) {
 
-			e.printStackTrace();
+					 e.printStackTrace();
 
-			} }
+					 } }
 
 public  void writecounterpartyRatingData(ArrayList<counterpartyRating> counterpartyRatingData, String fileName) {
     try { 
@@ -887,15 +1034,29 @@ public  void writecounterpartyRatingData(ArrayList<counterpartyRating> counterpa
          		writer.writeNext(rowData);
          		
          	}}}
-        	writer.close();
-        	
-        }}
+				 else {
+					  writer.writeNext(headerFiles.CounterpartyRating()); 
+				     	 for(counterpartyRating con : counterpartyRatingData) {
+					
+				     		 
+				     	String[] rowData =  { 
+				     			con.getReportingEntityId(), 
+		        				con.getCounterpartyId(),
+		        				con.getRatingID(),
+		        				con.getCreditRating(),
+		        				con.getAssessmentAgencyAuthority(),
+		        				con.getCreditRatingAsOn(),
+		        				con.getCreditRatingExpiryDate()
+		        				}; 
+				     	writer.writeNext(rowData);	
+				 }
+			     	writer.close();}}}
+				 
+				 catch (IOException e) {
 
-        catch (IOException e) {
+				 e.printStackTrace();
 
-        e.printStackTrace();
-
-        } }
+				 } }
 
 public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> counterpartyRiskData, String fileName) {
     try { 
@@ -991,15 +1152,34 @@ public  void writecounterpartyRiskData(ArrayList<counterpartyRisk> counterpartyR
     	         		writer.writeNext(rowData);
     	         		
     	         	}}}
-    	        	writer.close();
-    	        	
-    	        }}
+    		 else {
+    			 writer.writeNext(headerFiles.CounterpartyRisk()); 
+			     	 for(counterpartyRisk con : counterpartyRiskData) {
+				
+			     		 
+			     	String[] rowData =  { 
+			     			con.getReportingEntityId(),
+	    	        		con.getCounterpartyId(),
+	    	        		con.getStatusOfInsolvencyProceedings(),
+	    	        		con.getDateOfInitiationOfInsolvencyProceedings(),
+	    	        		con.getWilfulDefaulter(),
+	    	        		con.getDateOfWilfulDefaulterClassification(),
+	    	        		con.getNonCooperativeBorrower(),
+	    	        		con.getDateOfNonCooperativeBorrowerClassification(),
+	    	        		con.getFradulentActivity(),
+	    	        		con.getDateOfFradulentActivityClassification(),
+	    	        		con.getInternalRating(),
+	    	        		con.getDateOfInternalRating()  }; 
+			     	writer.writeNext(rowData);	
+			 }
+		     	writer.close();}}}
+			 
+			 catch (IOException e) {
 
-    	        catch (IOException e) {
+			 e.printStackTrace();
 
-    	        e.printStackTrace();
-
-    	        } }
+			 } }
+    		 
 private FileWriter createFileObject(String fileName) throws IOException{
 	file = new File(fileName); 
 	outputfile = new FileWriter(file);
@@ -1057,15 +1237,14 @@ public void writeControlFileData(HashMap<String, Integer> cf, String fileLocatio
 	 for(String key:keys){
 		 if(key.contains("Contract File")) {
 			String rowContract[]= {"Transaction Records in ContractFile",""+cf.get("Contract File")};
-			writer.writeNext(rowContract);
-			
+			writer.writeNext(rowContract);	
 	    }
 	       if(key.contains("CounterParty File")) {
 	    	   String rowContract[]= {"Transaction Records in CounterpartyFile",""+cf.get("CounterParty File")};
 	    	   writer.writeNext(rowContract);
 	    } 
 	       if(key.contains("CounterpartyRating File")) {
-	    	   String rowContract[]= {"Transaction Records in CounterpartyFile",""+cf.get("CounterParty File")};
+	    	   String rowContract[]= {"Transaction Records in CounterpartyRatingFile",""+cf.get("CounterpartyRating File")};
 	    	   writer.writeNext(rowContract);
 	    }  
 	       if(key.contains("CounterpartyRisk File")) {
@@ -1076,12 +1255,12 @@ public void writeControlFileData(HashMap<String, Integer> cf, String fileLocatio
 	    	   String rowContract[]= {"Transaction Records in Instrument File",""+cf.get("Instrument File")};
 	    	   writer.writeNext(rowContract);
 	    }
-	       if(key.contains("Protection File")) {
-	    	   String rowContract[]= {"Transaction Records in Protection File",""+cf.get("Protection File")};
+	       if(key.contains("ProtectionFile")) {
+	    	   String rowContract[]= {"Transaction Records in Protection File",""+cf.get("ProtectionFile")};
 	    	   writer.writeNext(rowContract);
 	    }  
-	       if(key.contains("ProtectionInstrument File")) {
-	    	   String rowContract[]= {"Transaction Records in IProtection nstrument File",""+cf.get("ProtectionInstrument File")};
+	       if(key.contains("Protectioninstrument File")) {
+	    	   String rowContract[]= {"Transaction Records in Protection Instrument File",""+cf.get("Protectioninstrument File")};
 	    	   writer.writeNext(rowContract);
 	       }
 	       if(key.contains("RelatedParty File")) {

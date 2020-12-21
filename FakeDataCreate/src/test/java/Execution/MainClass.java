@@ -39,7 +39,8 @@ public class MainClass {
 	    
 		ReusableFactory ref = new ReusableFactory();
 		ref.createData(v);
-		System.out.println(v);
+		//5.25
 	}}
+
 	
 

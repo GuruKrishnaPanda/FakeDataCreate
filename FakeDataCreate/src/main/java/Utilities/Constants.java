@@ -6,7 +6,7 @@ public class Constants {
 	public static boolean RequiredSpecialChar = true;
 	public static String haveDigit = "Y";
 	public static String havechar = "Y";
-	public static int totalData =  10;
+	public static int totalData =  40;
 	public static String fileType =  ".csv";
 	public static String NewfileLocation =  System.getProperty("user.dir")+"\\ActualFileCreated\\";
 	public static String ArchivefileLocation =  System.getProperty("user.dir")+"\\ArchiveFiles\\";
@@ -17,7 +17,7 @@ public class Constants {
 	public static String counterpartyRisk =  "CounterpartyRisk";
 	public static String instrument =  "Instrument";
 	public static String protection =  "Protection";
-	public static String protectionInstrument =  "ProtectionInstrument";
+	public static String protectionInstrument =  "Protectioninstrument";
 	public static String relatedParty =  "RelatedParty";
 	public static String controlFile =  "ControlFile";
 	public static String ReportingMemberID = "TCSQA1001";
@@ -102,4 +102,5 @@ public class Constants {
 	public static String[] sma ={"0","1","2"};
 	public static String[] npac = {"Sub-standard", "Doubtful", "Loss"};
 	public static String[] currency = {"INR", "USD", "EUR"};
+	public static String[] relation = {"Key Personnel","Director","Partner","Trustee","Holding Company","Subsidiary Company","Associated Company"};
 }
