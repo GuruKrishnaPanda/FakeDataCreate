@@ -30,13 +30,13 @@ public class MainClass {
 	}*/
 		
 		//Don't remove this
-		
+		datacreation d = new datacreation();
 		GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\configuration.xlsx");
 		Hashtable<String, String> data = DataUtil.getData("Configuration", xlsx);
 		String totalData = xlsx.getCellData("Configuration",1, 2);
 		double f=Double.parseDouble(totalData);
 		int v=(int)f;
-	    
+	 
 		ReusableFactory ref = new ReusableFactory();
 		ref.createData(v);
 		//5.25

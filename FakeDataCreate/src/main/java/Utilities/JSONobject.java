@@ -10,7 +10,7 @@ import javax.security.auth.login.Configuration;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import ReUsable.settingEntityDataSet;
+//import ReUsable.settingEntityDataSet;
 import pojoClases.Contract;
 import pojoClases.Counterparty;
 import pojoClases.Instrument;
@@ -166,18 +166,20 @@ public class JSONobject {
 
 		//int numberData = 100;
 		JSONobject rw=  new JSONobject();
-		settingEntityDataSet eds =  new settingEntityDataSet();
-		ArrayList<Contract> contractData = eds.createContractData(numberData);
-		ArrayList<Counterparty> counterpartyData = eds.createCounterPartyData(contractData);
-		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(contractData);
-		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(contractData);
-		ArrayList<Protection> ProtectionData = eds.createProtectionData(contractData);
-		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(contractData);
-		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(contractData);
+		//settingEntityDataSet eds =  new settingEntityDataSet();
+		
+		/*ArrayList<Counterparty> counterpartyData = eds.createCounterPartyData(numberData);
+		ArrayList<Contract> contractData = eds.createContractData(counterpartyData);
 		ArrayList<Instrument> instrumentData= eds.createInstrumentData(contractData);
+		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(instrumentData);
+		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(counterpartyData);
+		ArrayList<Protection> ProtectionData = eds.createProtectionData(protectionInstrumentData);
+		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(counterpartyData);
+		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(counterpartyData);*/
+	
 		//rw.JsonFileCreation(ArrayList<Contract> ,ArrayList<Counterparty> ,ArrayList<counterpartyRating> ,ArrayList<counterpartyRisk> ,ArrayList<Protection> , ArrayList<protectionInstrument> ,ArrayList<relatedParty> ,ArrayList<Instrument>);
 		//JsonFileCreation(contractData, counterpartyData, counterpartyRatingData, counterpartyRiskData, ProtectionData, protectionInstrumentData, relatedPartyData, instrumentData);
-	      JsonFileCreation(contractData, counterpartyData, counterpartyRatingData, counterpartyRiskData, ProtectionData, protectionInstrumentData, relatedPartyData, instrumentData);
+	      //JsonFileCreation(contractData, counterpartyData, counterpartyRatingData, counterpartyRiskData, ProtectionData, protectionInstrumentData, relatedPartyData, instrumentData);
 	}
 
 }

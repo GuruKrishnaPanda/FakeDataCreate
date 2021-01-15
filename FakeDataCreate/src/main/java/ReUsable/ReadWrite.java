@@ -151,6 +151,7 @@ public ArrayList<Integer> uniqunumber(String totalDuplicateRecords, String total
 	}
 		return duplicatedataIndex;
 }
+
 private int isUniqueNo(int dr, ArrayList<Integer> duplicatedataIndex,int Records) {
 	if(duplicatedataIndex.contains(dr)) {
 		 dr = faker.number().numberBetween(1, Records);
@@ -163,6 +164,49 @@ private int isUniqueNo(int dr, ArrayList<Integer> duplicatedataIndex,int Records
 
 	return dr;
 	}
+public ArrayList<Integer> uniqunumberfrSkippedData(String totalSkippedRecords, String totalRecords, ArrayList<Integer> allIndexes) {
+	
+	double f=Double.parseDouble(totalSkippedRecords);
+	int SkippedRecords=(int)f;
+	double f1=Double.parseDouble(totalRecords);
+	int Records=(int)f1;
+	ArrayList<Integer> skipdataIndex = new ArrayList<>();
+	if(skipdataIndex.size()== 0) {
+		skipdataIndex = new ArrayList<>();
+	}
+	for(int i = 0;i<SkippedRecords;i++) {
+		int dr = faker.number().numberBetween(1, Records);
+		int data = UniqueNo(dr,skipdataIndex,Records,allIndexes);	
+		skipdataIndex.add(data);
+	
+}
+	return skipdataIndex;
+}
+private int UniqueNo(int dr, ArrayList<Integer> skipdataIndex,int Records,ArrayList<Integer> allIndexes) {
+if(allIndexes==null) {
+	if(skipdataIndex.contains(dr)) {
+		 dr = faker.number().numberBetween(1, Records);
+		 UniqueNo(dr,skipdataIndex,Records, allIndexes);
+	}
+}
+else {
+if(skipdataIndex.contains(dr)) {
+	 dr = faker.number().numberBetween(1, Records);
+	 UniqueNo(dr,skipdataIndex,Records, allIndexes);
+}
+else if (allIndexes.contains(dr)) {
+	 dr = faker.number().numberBetween(1, Records);
+	 UniqueNo(dr,skipdataIndex,Records, allIndexes);
+}}
+	return  dr;
+	}
+
+
+
+
+
+
+
 public void writeCounterPartyData(ArrayList<Counterparty> counterpartyData, String fileName) {
     try {
     	

@@ -13,6 +13,14 @@ import java.util.List;
 
 import com.github.javafaker.Faker;
 
+import EntityDataSet.ContractFile;
+import EntityDataSet.CounterPartyFile;
+import EntityDataSet.InstrumentFile;
+import EntityDataSet.ProtectionFile;
+import EntityDataSet.counterpartyRatingFile;
+import EntityDataSet.counterpartyRiskFile;
+import EntityDataSet.protectionInstrumentFile;
+import EntityDataSet.relatedPartyFile;
 import Utilities.Constants;
 import Utilities.DataUtil;
 import Utilities.GenericXLSXReader;
@@ -29,7 +37,18 @@ import pojoClases.counterpartyRisk;
 
 public class ReusableFactory {
 	
-	settingEntityDataSet eds =  new settingEntityDataSet();
+	//settingEntityDataSet eds =  new settingEntityDataSet();
+	CounterPartyFile cpf = new CounterPartyFile();
+	ContractFile cf = new ContractFile();
+	counterpartyRatingFile crf = new counterpartyRatingFile();
+	counterpartyRiskFile csf = new counterpartyRiskFile();
+	InstrumentFile iF = new InstrumentFile();
+	protectionInstrumentFile pif = new protectionInstrumentFile();
+	ProtectionFile pf = new ProtectionFile();
+	relatedPartyFile rpf = new relatedPartyFile();
+	
+	
+	
 	GenerateEntityFiles generateEntityFiles = new GenerateEntityFiles();
 	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
 	Hashtable<String, String> data = DataUtil.getData("Configuration", xlsx);
@@ -40,14 +59,14 @@ public class ReusableFactory {
 	public void createData(int numberData) {
 		
 		//ArrayList<Contract> contractData = eds.createContractData(null);
-		ArrayList<Counterparty> counterPartyData = eds.createCounterPartyData(numberData);
-		ArrayList<Contract> contractData = eds.createContractData(counterPartyData);
-		ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
-		ArrayList<protectionInstrument> protectionInstrumentData = eds.createProtectionInstrumentData(InstrumentData );
-		ArrayList<relatedParty> relatedPartyData = eds.createRelatedPartyData(counterPartyData);
-		ArrayList<Protection> ProtectionData = eds.createProtectionData(protectionInstrumentData);
-		ArrayList<counterpartyRisk> counterpartyRiskData = eds.createCounterpartyRiskData(counterPartyData);
-		ArrayList<counterpartyRating> counterpartyRatingData= eds.createcounterpartyRatingData(counterPartyData);
+		ArrayList<Counterparty> counterPartyData = cpf.createCounterPartyData(numberData);
+		ArrayList<Contract> contractData = cf.createContractData(counterPartyData);
+		ArrayList<Instrument> InstrumentData= iF.createInstrumentData(contractData);
+		ArrayList<protectionInstrument> protectionInstrumentData =  pif.createProtectionInstrumentData(InstrumentData );
+		ArrayList<relatedParty> relatedPartyData = rpf.createRelatedPartyData(counterPartyData);
+		ArrayList<Protection> ProtectionData = pf.createProtectionData(protectionInstrumentData);
+		ArrayList<counterpartyRisk> counterpartyRiskData = csf.createCounterpartyRiskData(counterPartyData);
+		ArrayList<counterpartyRating> counterpartyRatingData= crf.createcounterpartyRatingData(counterPartyData);
 		//ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
 	    	try {
 			 folderName= Utils.generateFolderwithName( counterPartyData.get(0).getReportingEntityId());

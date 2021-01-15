@@ -252,8 +252,8 @@ public class headerFiles {
 	
 		String[] protectionInstrumentHeader = {
 				"reportingEntityId",
-				"instrumentId",
 				"contractId",
+				"instrumentId",
 				"protectionAllocatedValue",
 				"protectionId",
 				"chargeType"
