@@ -254,8 +254,9 @@ public class headerFiles {
 				"reportingEntityId",
 				"contractId",
 				"instrumentId",
-				"protectionAllocatedValue",
 				"protectionId",
+				"protectionAllocatedValue",
+				
 				"chargeType"
 				};
 
@@ -268,7 +269,8 @@ public class headerFiles {
 				"reportingEntityId",
 				"counterpartyId",
 				"relatedCounterpartyId",
-				"relation"
+				"relation",
+				"relatedPartyId"
 				};
 
 		

@@ -23,10 +23,10 @@ public class Constants {
 	public static String ReportingMemberID = "TCSQA1001";
 	public static String allFile="AllFile";
 	//public static String[] Dbconnection ={"jdbc:mysql://localhost:3306/framework","root","password"};
-	public static String connection="\"jdbc:mysql://localhost:3306/framework\"";
-	public static String Uname ="\"root\"";
-	public static String pwd ="\"password\"";
-	public static String conn= connection+","+Uname+","+pwd;
+	public static String connection="jdbc:mysql://localhost:3306/framework";
+	public static String Uname ="root";
+	public static String pwd ="password";
+	public static String conn= connection+Uname+pwd;
 
 	
 	public static String[] array = { "plainaddress", 
@@ -106,6 +106,7 @@ public class Constants {
 	public static String[] paymentFrequency = {"Daily","Weekly","Monthly","Quarterly"," Half Yearly", "Annually","On Demand Bullet", "Zero coupon","Rolling","Other"};
 	public static String[] sma ={"0","1","2"};
 	public static String[] npac = {"Sub-standard", "Doubtful", "Loss"};
-	public static String[] currency = {"INR", "USD", "EUR"};
+	public static String[] currency = {"INR"};
+	public static String[] CountryCode ={"IND"}; 
 	public static String[] relation = {"Key Personnel","Director","Partner","Trustee","Holding Company","Subsidiary Company","Associated Company"};
 }

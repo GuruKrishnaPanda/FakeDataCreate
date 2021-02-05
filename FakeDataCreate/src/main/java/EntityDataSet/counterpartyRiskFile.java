@@ -1,7 +1,11 @@
 package EntityDataSet;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 
 import ReUsable.datacreation;
 import Utilities.DataUtil;
@@ -9,13 +13,31 @@ import pojoClases.Counterparty;
 import pojoClases.counterpartyRisk;
 
 public class counterpartyRiskFile extends BaseClass {
+public counterpartyRiskFile(Hashtable<String, String> data) {
+		super(data);
+		// TODO Auto-generated constructor stub
+	}
+
 public ArrayList<counterpartyRisk> createCounterpartyRiskData(ArrayList<Counterparty> counterpartyData) {
 		
 		ArrayList<counterpartyRisk> con =  new ArrayList<>();
+		Connection myconn = null;
+		 try {
+				//myconn = DriverManager.getConnection(cons.conn);
+			// myconn = DriverManager.getConnection("jdbc:mysql://localhost:3306/framework","root","password");
+			 myconn = DriverManager.getConnection(cons.connection,cons.Uname,cons.pwd);
+
+
 		if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
      	{
      		fieldValues = DataUtil.getFieldValue("MasterData", xls);
+     		int co = 0;
+			 skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"), null);
      		 for(Counterparty counterparty: counterpartyData)  {
+     			co++;
+				 if(skippedData.contains(co)) {
+					 continue;
+				 }
 			 	create = new datacreation();
 			 	counterpartyRisk cr  =  new counterpartyRisk();
 			 	
@@ -122,14 +144,20 @@ public ArrayList<counterpartyRisk> createCounterpartyRiskData(ArrayList<Counterp
 				    		cr.setDateOfInternalRating("");
 				 }
 				 con.add(cr);
+					dis.counterpartyRiskinsertion(myconn,cr);
 				 cr = null;
 				 create=null;	
      		}
      	}else  if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
+     		 int co = 0;
+			 skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"), null);
      		for(Counterparty counterparty: counterpartyData) {
+     			co++;
 			 	create = new datacreation();
 			 	counterpartyRisk cr  =  new counterpartyRisk();
-			 	
+			 	if(skippedData.contains(co)) {
+					 continue;
+				 }
 			 	cr.setReportingEntityId(counterparty.getReportingEntityId());
 			 	cr.setCounterpartyId(counterparty.getCounterypartyId());
 			 	cr.setStatusOfInsolvencyProceedings(create.createStatusOfInsolvencyProceedings());
@@ -143,11 +171,25 @@ public ArrayList<counterpartyRisk> createCounterpartyRiskData(ArrayList<Counterp
 			 	cr.setInternalRating(create.createinternalRating());
 			 	cr.setDateOfInternalRating(create.dateOfInternalRating());
 			 con.add(cr);
+				dis.counterpartyRiskinsertion(myconn,cr);
 			 cr = null;
 			 create=null;	
      		}
-     	}
-     	 Collections.shuffle(con);
+     		
+     	}}
+catch (SQLException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}
+			finally {
+				 try {
+					myconn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			 }
+     	 //Collections.shuffle(con);
      	 return con;
 	}
 }

@@ -1,27 +1,44 @@
 package EntityDataSet;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import ReUsable.ReadWrite;
 import ReUsable.datacreation;
+import Utilities.Constants;
 import Utilities.DataUtil;
 import pojoClases.Instrument;
 import pojoClases.protectionInstrument;
 
 public class protectionInstrumentFile extends BaseClass {
+	public protectionInstrumentFile(Hashtable<String, String> data) {
+		super(data);
+		// TODO Auto-generated constructor stub
+	}
+
 	public ArrayList<protectionInstrument> createProtectionInstrumentData(ArrayList<Instrument> InstrumentData)
 	{  
+		create = new datacreation();
+		create = null;
+		Connection myconn = null;
+		//Constants cons = new Constants();
 		int count=0; 
 		
 		//String reportingEntityid = null;
 		ArrayList<protectionInstrument> con =  new ArrayList<>();
-		ArrayList<String> protectionid =  new ArrayList<>();
 		protectionInstrument pi = null ;
 		String instrumentid = null;
 		 String contractid = null;
 		 String  reportingEntityid = null;
-		ReadWrite rw =  new ReadWrite();
+		 String protection;
+		//ReadWrite rw =  new ReadWrite();
 		ArrayList<Integer> allIndexes = null;
+		try {
+			//myconn = DriverManager.getConnection(cons.conn);
+		 myconn = DriverManager.getConnection("jdbc:mysql://localhost:3306/framework","root","password");
 		if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
 		{
 			if(configurationData.get("MultipleDataGenerationFor_protectioninstrument").equalsIgnoreCase("Yes")) {
@@ -39,6 +56,7 @@ public class protectionInstrumentFile extends BaseClass {
 			    if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
 				{
 			    	allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_RelatedPartyFile") ,configurationData.get("NoOfData"));
+			    	skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"),allIndexes);
 					if(allIndexes.contains(count)) {
 						
 						int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_inRelatedPartyFile"));
@@ -63,7 +81,9 @@ public class protectionInstrumentFile extends BaseClass {
 			    		 pi.setProtectionAllocatedValue("");
 			    	
 			      	if(fieldValues.get("protectionId").equalsIgnoreCase("Mandatory")) {
-			    	    pi.setProtectionId(create.createProtectionId());
+			    	   // pi.setProtectionId(create.createProtectionId());
+			      		protection=dis.createUniquePid(myconn,create);
+		                pi.setProtectionId(protection);
 			    	}else
 			    		pi.setProtectionId("");
 			      	if(fieldValues.get("chargeType").equalsIgnoreCase("Mandatory")) {
@@ -71,7 +91,11 @@ public class protectionInstrumentFile extends BaseClass {
 			    	}else
 			    		 pi.setChargeType("");
 			      	con.add(pi);
+			      	dis.protectioninstrumentDatainsertion(myconn, pi);
 				}}
+					else if (skippedData.contains(count)) {
+						 continue;
+					 }
 					else {
 						
 						 pi = new protectionInstrument();
@@ -93,7 +117,9 @@ public class protectionInstrumentFile extends BaseClass {
 				    		 pi.setProtectionAllocatedValue("");
 				    	
 				      	if(fieldValues.get("protectionId").equalsIgnoreCase("Mandatory")) {
-				    	    pi.setProtectionId(create.createProtectionId());
+				    	   // pi.setProtectionId(create.createProtectionId());
+				      		protection=dis.createUniquePid(myconn,create);
+			                pi.setProtectionId(protection);
 				    	}else
 				    		pi.setProtectionId("");
 				      	if(fieldValues.get("chargeType").equalsIgnoreCase("Mandatory")) {
@@ -101,9 +127,11 @@ public class protectionInstrumentFile extends BaseClass {
 				    	}else
 				    		 pi.setChargeType("");
 				      	con.add(pi);
+				     	dis.protectioninstrumentDatainsertion(myconn, pi);
 					}}
 				 if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional")) {
 					 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_counterpartyId_repeated_RelatedPartyFile") ,configurationData.get("NoOfData"));
+					 skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"),allIndexes);
 						if(allIndexes.contains(count)) {
 							
 							int z = ut.completeinteger(configurationData.get("No_individual_counterpartyId_repeated_inRelatedPartyFile"));
@@ -129,7 +157,9 @@ public class protectionInstrumentFile extends BaseClass {
 			    		 pi.setProtectionAllocatedValue("");
 			    	
 			      	if(fieldValues.get("Protection External Id").equalsIgnoreCase("Optional")) {
-			    	    pi.setProtectionId(create.createProtectionId());
+			      		protection=dis.createUniquePid(myconn,create);
+		                pi.setProtectionId(protection);
+			    	    //pi.setProtectionId(create.createProtectionId());
 			    	}else
 			    		pi.setProtectionId("");
 			      	if(fieldValues.get("chargeType").equalsIgnoreCase("Optional")) {
@@ -137,10 +167,12 @@ public class protectionInstrumentFile extends BaseClass {
 			    	}else
 			    		 pi.setChargeType("");
 			      	con.add(pi);
+			     	dis.protectioninstrumentDatainsertion(myconn, pi);
 				 }}
 				
-				//pi = null;
-				//create=null;	
+						else if (skippedData.contains(count)) {
+							 continue;
+						 }	
 		  
 				else {
 							 pi = new protectionInstrument();
@@ -163,18 +195,27 @@ public class protectionInstrumentFile extends BaseClass {
 					    		 pi.setProtectionAllocatedValue("");
 					    	
 					      	if(fieldValues.get("Protection External Id").equalsIgnoreCase("Optional")) {
-					    	    pi.setProtectionId(create.createProtectionId());
+					    	    //pi.setProtectionId(create.createProtectionId());
+					      		protection=dis.createUniquePid(myconn,create);
+				                pi.setProtectionId(protection);
 					    	}else
 					    		pi.setProtectionId("");
 					      	if(fieldValues.get("chargeType").equalsIgnoreCase("Optional")) {
 					      		 pi.setChargeType(create.createChargeType());
 					    	}else
 					    		 pi.setChargeType("");
-						con.add(pi);
-						}}}}
+						con.add(pi);}}
+			     	dis.protectioninstrumentDatainsertion(myconn, pi);
+						}}
 		else {
+			 int co = 0;
+			 skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"), null);
 			for(Instrument instrument: InstrumentData) 
 			{
+				 co++;
+				 if(skippedData.contains(co)) {
+					 continue;
+				 }
 				create = new datacreation();
 				 pi = new protectionInstrument();
 				   if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory"))
@@ -197,7 +238,9 @@ public class protectionInstrumentFile extends BaseClass {
 				    		 pi.setProtectionAllocatedValue("");
 				    	
 				      	if(fieldValues.get("protectionId").equalsIgnoreCase("Mandatory")) {
-				    	    pi.setProtectionId(create.createProtectionId());
+				    	   // pi.setProtectionId(create.createProtectionId());
+				      		protection=dis.createUniquePid(myconn,create);
+			                pi.setProtectionId(protection);
 				    	}else
 				    		pi.setProtectionId("");
 				      	if(fieldValues.get("chargeType").equalsIgnoreCase("Mandatory")) {
@@ -225,23 +268,22 @@ public class protectionInstrumentFile extends BaseClass {
 				    		 pi.setProtectionAllocatedValue("");
 				    	
 				      	if(fieldValues.get("Protection External Id").equalsIgnoreCase("Optional")) {
-				    	    pi.setProtectionId(create.createProtectionId());
+				    	   // pi.setProtectionId(create.createProtectionId());
+				      		protection=dis.createUniquePid(myconn,create);
+			                pi.setProtectionId(protection);
 				    	}else
 				    		pi.setProtectionId("");
 				      	if(fieldValues.get("chargeType").equalsIgnoreCase("Optional")) {
 				      		 pi.setChargeType(create.createChargeType());
 				    	}else
 				    		 pi.setChargeType(""); 
-					 
 					con.add(pi);
+			     	dis.protectioninstrumentDatainsertion(myconn, pi);
 					pi = null;
 					create=null;	
 					 }}}}
 		else if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Both")) {
 			 if(configurationData.get("MultipleDataGenerationFor_protectioninstrument").equalsIgnoreCase("Yes")) {
-			// int count=0;
-			 //String instrumentid = null;
-			// String contractid = null;
 			 for(Instrument instrument: InstrumentData) {
 				 instrumentid = instrument.getInstrumentId();
 				 reportingEntityid =instrument.getReportingEntityId();
@@ -251,6 +293,7 @@ public class protectionInstrumentFile extends BaseClass {
 					 create = new datacreation();
 					 pi = new protectionInstrument();
 					 allIndexes =rw.uniqunumber(configurationData.get("TotalNo_contractid,instrumentid_repeated_inprotectioninstrument") ,configurationData.get("NoOfData"));
+					 skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"),allIndexes);
 					if(allIndexes.contains(count)) {
 						
 						
@@ -265,12 +308,15 @@ public class protectionInstrumentFile extends BaseClass {
 								    pi.setContractId(contractid);
 								    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
 								    //pi.setProtectionId(create.createProtectionId());
-								    String protection = duplicatecheck.createUniqueProtectNew(protectionid,create);
-								    pi.setProtectionId(protection);
-						    		protectionid.add(protection);
+						      		protection=dis.createUniquePid(myconn,create);
+					                pi.setProtectionId(protection);
 								    pi.setChargeType(create.createChargeType());
-							con.add(pi);		
+							con.add(pi);	
+					     	dis.protectioninstrumentDatainsertion(myconn, pi);
 							}}
+					 else if (skippedData.contains(count)) {
+						 continue;
+					 }
 					else 
 					{
 						 pi = new protectionInstrument();
@@ -279,35 +325,54 @@ public class protectionInstrumentFile extends BaseClass {
 					    pi.setContractId(contractid);
 					    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
 					    //pi.setProtectionId(create.createProtectionId());
-					    String protection = duplicatecheck.createUniqueProtectNew(protectionid,create);
-					    pi.setProtectionId(protection);
-			    		protectionid.add(protection);
+			      		protection=dis.createUniquePid(myconn,create);
+		                pi.setProtectionId(protection);
 					    pi.setChargeType(create.createChargeType());
-				con.add(pi);
+				con.add(pi);     	
+				dis.protectioninstrumentDatainsertion(myconn, pi);
 				} 
 					
 					pi=null;
 					create=null;
 			 }}	
 		else {
+			 int co = 0;
+			 skippedData =rw.uniqunumberfrSkippedData(configurationData.get("indexes_of_skippedData"),configurationData.get("NoOfData"), null);
 			for(Instrument instrument: InstrumentData) {
-				
+				co++;
+				if(skippedData.contains(co)) {
+					 continue;
+				 }
 				create = new datacreation();
 				pi = new protectionInstrument();
 			    pi.setReportingEntityId(reportingEntityid);
 			    pi.setInstrumentId(instrument.getInstrumentId());
 			    pi.setContractId(instrument.getContractId());
 			    pi.setProtectionAllocatedValue(create.createprotectionAllocatedValue());
-			   // pi.setProtectionId(create.createProtectionId());
-			    String protection = duplicatecheck.createUniqueProtectNew(protectionid,create);
-			    pi.setProtectionId(protection);
-				protectionid.add(protection);
+	      		protection=dis.createUniquePid(myconn,create);
+                pi.setProtectionId(protection);
 			    pi.setChargeType(create.createChargeType());
 				con.add(pi);
-				
+		     	dis.protectioninstrumentDatainsertion(myconn, pi);
 				pi=null;
 				create=null;
-			 }}}
+			 }
+				} 
+			 }
 			 
-			return con;}}
-		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			 try {
+				myconn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 }
+	return con;
+	}
+
+}

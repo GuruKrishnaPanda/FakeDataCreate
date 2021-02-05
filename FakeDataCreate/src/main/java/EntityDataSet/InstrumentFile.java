@@ -1,18 +1,35 @@
 package EntityDataSet;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 
 import ReUsable.datacreation;
+import Utilities.Constants;
 import Utilities.DataUtil;
 import pojoClases.Contract;
 import pojoClases.Instrument;
 
 public class InstrumentFile extends BaseClass{
-	  public ArrayList<Instrument> createInstrumentData(ArrayList<Contract> contractData) {
+	  public InstrumentFile(Hashtable<String, String> data) {
+		super(data);
+		// TODO Auto-generated constructor stub
+	}
+
+	public ArrayList<Instrument> createInstrumentData(ArrayList<Contract> contractData) {
+		  create = new datacreation();
+			create = null;
+			Connection myconn = null;
+			int count=0;
 			
 			ArrayList<Instrument> con =  new ArrayList<>();
-			if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
+			Constants cons = new Constants();
+			 try {
+					//myconn = DriverManager.getConnection(cons.conn);
+				 myconn = DriverManager.getConnection("jdbc:mysql://localhost:3306/framework","root","password");			if(configurationData.get("GenerateDataFor").equalsIgnoreCase("Mandatory")||configurationData.get("GenerateDataFor").equalsIgnoreCase("Optional"))
 	     	{
 	     		fieldValues = DataUtil.getFieldValue("MasterData", xls);
 	     		for(Contract contract: contractData) {
@@ -358,6 +375,7 @@ public class InstrumentFile extends BaseClass{
 	    			    		in.setSuitFielDate("");
 	    			 }
 	    			 con.add(in);
+	    			 dis.InstrumentInsertion(myconn,in);	
 	 				 create=null;
 	 				 in = null;
 	     		}
@@ -409,11 +427,25 @@ public class InstrumentFile extends BaseClass{
 				 	in.setStatusDate(create.createStatusDate());
 				 	in.setSuitFielDate(create.createSuiteFieldDate());
 				con.add(in);
+				
+				dis.InstrumentInsertion(myconn,in);	
 				create=null;
 				in = null;
-	     		}
+	     		}		    
 	     	}
-			Collections.shuffle(con);
+			 } catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finally {
+					 try {
+						myconn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				 }
 			return con;
-	   }
-}
+			}
+
+	}

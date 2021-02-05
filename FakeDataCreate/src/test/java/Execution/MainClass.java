@@ -37,7 +37,7 @@ public class MainClass {
 		double f=Double.parseDouble(totalData);
 		int v=(int)f;
 	 
-		ReusableFactory ref = new ReusableFactory();
+		ReusableFactory ref = new ReusableFactory("",xlsx);
 		ref.createData(v);
 		//5.25
 	}}

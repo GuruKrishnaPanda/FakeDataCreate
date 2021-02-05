@@ -11,9 +11,9 @@ import pojoClases.Counterparty;
 
 public class DuplicateDataCheck {
 	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
-	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
+	Hashtable<String, String> configurationData; //= DataUtil.getData("Configuration", xls);
 	Hashtable<String, String> bankingInfo = DataUtil.getData("BankMapping", xls);
-	String bankSymbol = bankingInfo.get(configurationData.get("Bank_Type"));
+	String bankSymbol ;
 	
 	
 	/*public boolean panduplicateCheck(String panNo, ArrayList<Counterparty> con) {
@@ -40,10 +40,15 @@ public class DuplicateDataCheck {
 		
 	}*/
 
+	public DuplicateDataCheck(Hashtable<String, String> configurationData) {
+		this.configurationData = configurationData;
+		bankSymbol= bankingInfo.get(configurationData.get("Bank_Type"));
+	}
+
 	public String createUniquePanNew(ArrayList<String> pan, datacreation create) {
 		// TODO Auto-generated method stub
 		
-		String PanNo = create.pangenerate2();
+		String PanNo = create.panGeneration();
 		 
 		if(pan.contains(PanNo)) {
 			

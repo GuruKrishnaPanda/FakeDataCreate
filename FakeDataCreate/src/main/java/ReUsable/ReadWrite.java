@@ -46,7 +46,9 @@ public class ReadWrite {
 	 FileWriter outputfile;
 	 List hearderData;
 	
-
+	 public ReadWrite(Hashtable<String, String> data) {
+		 configurationData = data;
+	}
 	 public void writeCotractData(ArrayList<Contract> contractData, String fileName) {
 		 try {
 		 outputfile = createFileObject(fileName);
@@ -530,6 +532,8 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, Str
 			 }
 			 if(header.equalsIgnoreCase("relation")) {
 				 rowdata.add(con.getRelation());
+			 } if(header.equalsIgnoreCase("relatedPartyId")) {
+				 rowdata.add(con.getRelatedPartyId());
 			 }
 			 }
 			 String[] writingRowData = rowdata.toArray(new String[rowdata.size()]);
@@ -554,7 +558,8 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, Str
         				con.getReportingEntityId(), 
         				con.getCounterpartyId(),
         				con.getRelatedCounterpartyID(),
-        				con.getRelation()
+        				con.getRelation(),
+        				con.getRelatedPartyId()
         				};
         	boolean flag= false;
 	     	if(allIndexes.contains(count)) {
@@ -576,7 +581,8 @@ public  void writeRelatedPartyData(ArrayList<relatedParty> relatedPartyData, Str
 					     			con.getReportingEntityId(), 
 			        				con.getCounterpartyId(),
 			        				con.getRelatedCounterpartyID(),
-			        				con.getRelation()
+			        				con.getRelation(),
+			        				con.getRelatedPartyId()
 			        				};
 					     	writer.writeNext(rowData);	
 					 }

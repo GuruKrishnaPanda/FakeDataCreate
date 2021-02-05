@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Hashtable;
@@ -24,10 +23,14 @@ import org.apache.commons.io.FileUtils;
 
 
 public class Utils {
-	GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
-	Hashtable<String, String> configurationData = DataUtil.getData("Configuration", xls);
+	//GenericXLSXReader xls = new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
+	Hashtable<String, String> configurationData ;
 	private static final int BUFFER_SIZE = 4096;
 	 
+	public Utils(Hashtable<String, String> configurationData) {
+		this.configurationData = configurationData;
+	}
+
 	public static String generateFolderwithName(String reportingMemberID) {
 		String folderName = null;
 		
@@ -98,7 +101,7 @@ public class Utils {
 	      }      
 	}
 	 
-public int completeinteger(String string) {
+public static int completeinteger(String string) {
 		// TODO Auto-generated method stub
 	  double f=Double.parseDouble(string);
 		int integer=(int)f;

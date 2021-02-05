@@ -6,6 +6,14 @@ public class relatedParty {
 	private String counterpartyId;
 	private String relatedCounterpartyID;
 	private String relation;
+	private String relatedPartyId;
+	
+	public String getRelatedPartyId() {
+		return relatedPartyId;
+	}
+	public void setRelatedPartyId(String relatedPartyId) {
+		this.relatedPartyId = relatedPartyId;
+	}
 	public String getReportingEntityId() {
 		return reportingEntityId;
 	}

@@ -16,14 +16,12 @@ public class DataUtil {
 		int totalrows =1;
 		int totalCols=1;
 		while(!xls.getCellData(sheetName, 0, totalrows).equals("")) {
-			
-			
 			totalrows++;
 		}
-		while(!xls.getCellData(sheetName, totalCols, 1).equals("")) {
+		/*while(!xls.getCellData(sheetName, totalCols, 1).equals("")) {
 			
 			totalCols++;
-		}
+		}*/
 		
 		System.out.println(totalrows-1+"=-------------"+totalCols);
 		
@@ -31,12 +29,12 @@ public class DataUtil {
 		Hashtable<String,String> configTable=new Hashtable<String,String>();
 		
 		for(int rNum=1;rNum<totalrows;rNum++) {
-			for(int cNum=0;cNum+1<totalCols;cNum++) {
+			
 				String key = xls.getCellData(sheetName, 0, rNum);
 				String data = xls.getCellData(sheetName, 1, rNum);
 				System.out.print(key+"-"+data+" --- ");
 				configTable.put(key, data);
-			}
+			
 			
 		}
 		return configTable;
@@ -171,6 +169,46 @@ public class DataUtil {
 			}
 			return fieldValues;
 		}
-		
+		public static Hashtable<String, String> getData( String sheetName,GenericXLSXReader xls,String scenarioName){
+	
+			int totalrows =1;
+			int totalCols=1;
+			while(!xls.getCellData(sheetName, 0, totalrows).equals("")) {
+				totalrows++;
+			}
+			while(!xls.getCellData(sheetName, totalCols, 1).equals(scenarioName)) {
+				
+				totalCols++;
+			}
+			
+			System.out.println(totalrows-1+"=-------------"+totalCols);
+			
+			
+			Hashtable<String,String> configTable=new Hashtable<String,String>();
+			
+			for(int rNum=1;rNum<totalrows;rNum++) {
+				
+					String key = xls.getCellData(sheetName, 0, rNum);
+					String data = xls.getCellData(sheetName, totalCols, rNum);
+					System.out.print(key+"-"+data+" --- ");
+					configTable.put(key, data);	
+			}
+			return configTable;
+	
+		}
+		public static ArrayList<String> getPanNumbers(GenericXLSXReader xlsx) {
+
+			int totalrows =1;
+			
+			while(!xlsx.getCellData("PAN", 0, totalrows).equals("")) {
+				
+				totalrows++;
+			}
+			ArrayList<String> pan =  new ArrayList<String>();
+			for(int i=2;i<totalrows;i++){
+				pan.add(xlsx.getCellData("PAN", "PAN", i));
+			}
+			return pan;
+		}
 }
 

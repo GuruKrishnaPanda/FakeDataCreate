@@ -36,26 +36,50 @@ import pojoClases.counterpartyRisk;
 
 
 public class ReusableFactory {
+	String scenarioName;
+	GenericXLSXReader xlsx;
 	
+	/*public ReusableFactory(Hashtable<String, String> configurationData) {
+		data = configurationData;
+	}*/
+	public ReusableFactory(){
+		System.out.println("-----------");
+	}
+	
+	Hashtable<String, String> data ;//= DataUtil.getData("Configuration", xlsx,"validDataCreation");
 	//settingEntityDataSet eds =  new settingEntityDataSet();
-	CounterPartyFile cpf = new CounterPartyFile();
-	ContractFile cf = new ContractFile();
-	counterpartyRatingFile crf = new counterpartyRatingFile();
-	counterpartyRiskFile csf = new counterpartyRiskFile();
-	InstrumentFile iF = new InstrumentFile();
-	protectionInstrumentFile pif = new protectionInstrumentFile();
-	ProtectionFile pf = new ProtectionFile();
-	relatedPartyFile rpf = new relatedPartyFile();
+	CounterPartyFile cpf ;
+	ContractFile cf ;
+	counterpartyRatingFile crf ;
+	counterpartyRiskFile csf ;
+	InstrumentFile iF ;
+	protectionInstrumentFile pif ;
+	ProtectionFile pf ;
+	relatedPartyFile rpf ;
+	GenerateEntityFiles generateEntityFiles ;
 	
-	
-	
-	GenerateEntityFiles generateEntityFiles = new GenerateEntityFiles();
-	GenericXLSXReader xlsx =  new GenericXLSXReader(System.getProperty("user.dir")+"\\resources\\Configuration.xlsx");
-	Hashtable<String, String> data = DataUtil.getData("Configuration", xlsx);
-	Faker faker =  new Faker();
-	datacreation dc = new datacreation();
+	Faker faker ;
+	datacreation dc;
 	String folderName;
 	String fileName;
+	public ReusableFactory(String scenarioName, GenericXLSXReader xlsx) {
+		this.scenarioName = scenarioName;
+		this.xlsx = xlsx;
+		System.out.println("inside this");
+		data = DataUtil.getData("Configuration", xlsx,scenarioName);
+		 cpf = new CounterPartyFile(data);
+		 cf = new ContractFile(data);
+		 crf = new counterpartyRatingFile(data);
+		 csf = new counterpartyRiskFile(data);
+		 iF = new InstrumentFile(data);
+		 pif = new protectionInstrumentFile(data);
+		 pf = new ProtectionFile(data);
+		 rpf = new relatedPartyFile(data);
+		 generateEntityFiles = new GenerateEntityFiles(data);	
+		 faker =  new Faker();
+		 dc = new datacreation();
+	}
+	
 	public void createData(int numberData) {
 		
 		//ArrayList<Contract> contractData = eds.createContractData(null);
@@ -219,6 +243,172 @@ public class ReusableFactory {
 		
 		
 	}
+	//public void createData(Hashtable<String, String> configurationData) {
+	public void createData() {
+		
+		int numberData = Utils.completeinteger(data.get("NoOfData"));
+		
+		//ArrayList<Contract> contractData = eds.createContractData(null);
+		ArrayList<Counterparty> counterPartyData = cpf.createCounterPartyData(numberData);
+		ArrayList<Contract> contractData = cf.createContractData(counterPartyData);
+		ArrayList<Instrument> InstrumentData= iF.createInstrumentData(contractData);
+		ArrayList<protectionInstrument> protectionInstrumentData =  pif.createProtectionInstrumentData(InstrumentData );
+		ArrayList<relatedParty> relatedPartyData = rpf.createRelatedPartyData(counterPartyData);
+		ArrayList<Protection> ProtectionData = pf.createProtectionData(protectionInstrumentData);
+		ArrayList<counterpartyRisk> counterpartyRiskData = csf.createCounterpartyRiskData(counterPartyData);
+		ArrayList<counterpartyRating> counterpartyRatingData= crf.createcounterpartyRatingData(counterPartyData);
+		//ArrayList<Instrument> InstrumentData= eds.createInstrumentData(contractData);
+	    	try {
+			 folderName= Utils.generateFolderwithName( counterPartyData.get(0).getReportingEntityId());
+			 fileName = folderName;
+			 if(data.get("All_Files").equalsIgnoreCase("No")) {
+			if(data.get("Name_Of_File").equalsIgnoreCase("Valid")) {
+				if(data.get("Only_Generate_Mandetory_Files").equalsIgnoreCase("Yes")) {
+					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+					HashMap<String,Integer> cf = dc.controlFile1(folderName);
+					generateEntityFiles.generateControlfile(cf, folderName, fileName);
+					//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+					
+				}else {
+				generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+				generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+				generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+				generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+				generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+				generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+				generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+				generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+				HashMap<String,Integer> cf = dc.controlFile1(folderName);
+				generateEntityFiles.generateControlfile(cf, folderName, fileName);
+				//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+				}
+			}
+			if(data.get("Name_Of_File").equalsIgnoreCase("Invalid")) {
+				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Mandetory"))){
+					String selectedValue = faker.regexify("Contract|Instrument|CounterParty|ControlFile|All");
+					String negfileName = inValidFileName();
+					if(selectedValue.equalsIgnoreCase("Contract")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,negfileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+						HashMap<String,Integer> cf = dc.controlFile1(folderName);
+						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);				
+					}
+					if(selectedValue.equalsIgnoreCase("Instrument")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData,folderName, negfileName);
+						HashMap<String,Integer> cf = dc.controlFile1(folderName);
+						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
+					}
+
+					if(selectedValue.equalsIgnoreCase("CounterParty")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,negfileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData,folderName, fileName);
+						HashMap<String,Integer> cf = dc.controlFile1(folderName);
+						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
+					}
+					if(selectedValue.equalsIgnoreCase("ControlFile")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,fileName);
+						HashMap<String,Integer> cf = dc.controlFile1(folderName);
+						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
+					}
+					if(selectedValue.equalsIgnoreCase("All")) {
+						generateEntityFiles.generateContractfile(contractData,folderName,inValidFileName());
+						generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,inValidFileName());
+						generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+						generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,inValidFileName());
+						generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,fileName);
+						generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+						generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+						generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
+						HashMap<String,Integer> cf = dc.controlFile1(folderName);
+						generateEntityFiles.generateControlfile(cf, folderName, fileName);
+						//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+						
+					}					
+				}
+				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Optional"))){
+					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+					generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+					generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,inValidFileName());
+					generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+					generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
+					HashMap<String,Integer> cf = dc.controlFile1(folderName);
+					generateEntityFiles.generateControlfile(cf, folderName, fileName);
+					//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+					
+				}
+				if((data.get("InValidNameFilesInclude").equalsIgnoreCase("Both"))){
+					String negfileName = inValidFileName();
+					generateEntityFiles.generateContractfile(contractData,folderName,fileName);
+					generateEntityFiles.generateCounterpartyfile(counterPartyData,folderName,negfileName);
+					generateEntityFiles.generateCounterpartyRatingfile(counterpartyRatingData, folderName,fileName);
+					generateEntityFiles.generateProtectionInstrumentfile(protectionInstrumentData, folderName,fileName);
+					generateEntityFiles.generateRelatedPartyfile(relatedPartyData, folderName,inValidFileName());
+					generateEntityFiles.generateProtectionfile(ProtectionData, folderName,fileName);
+					generateEntityFiles.generateCounterpartyRiskfile(counterpartyRiskData,folderName,fileName);
+					generateEntityFiles.generateInstrumentfile(InstrumentData, folderName,inValidFileName());
+					HashMap<String,Integer> cf = dc.controlFile1(folderName);
+					generateEntityFiles.generateControlfile(cf, folderName, fileName);
+					//generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+					
+				}
+				
+			}
+			 }
+			 if(data.get("All_Files").equalsIgnoreCase("Yes")) 
+			 {
+					generateEntityFiles.generateAllfile(contractData, counterPartyData, counterpartyRatingData,protectionInstrumentData, ProtectionData, counterpartyRiskData, relatedPartyData, InstrumentData, folderName, fileName);
+			 }
+			//Utils.compressFolder(folderName);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}	
+		
+		
+}
+	
+	
+	
+	
+	
 	
 	public  String inValidFileName() {
 		
@@ -274,5 +464,6 @@ public class ReusableFactory {
 
 	
 	}
+
 	
 }

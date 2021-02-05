@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 //import java.util.Collections;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 import Utilities.Constants;
 import pojoClases.Contract;
@@ -13,7 +14,6 @@ import pojoClases.Instrument;
 import pojoClases.Protection;
 import pojoClases.counterpartyRating;
 import pojoClases.counterpartyRisk;
-
 import pojoClases.protectionInstrument;
 import pojoClases.relatedParty;
 
@@ -21,9 +21,14 @@ public class GenerateEntityFiles {
 	
 	File file;
 	
-	 ReadWrite rw=  new ReadWrite();
+	 ReadWrite rw;
 
 	
+	public GenerateEntityFiles(Hashtable<String, String> data) {
+		rw =  new ReadWrite(data);
+	}
+
+
 	public void generateContractfile(ArrayList<Contract> contractData,String folderName,String fileName) throws IOException {
 			
 			 String fileLocation = Constants.NewfileLocation+"\\"+folderName+"\\"+fileName+"-"+Constants.contract+Constants.fileType;	 

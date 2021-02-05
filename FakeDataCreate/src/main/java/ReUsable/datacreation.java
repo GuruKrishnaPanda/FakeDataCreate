@@ -307,6 +307,7 @@ public String createInstrumentId()
 
 public String countryCode()
 {
+	//Faker faker = new Faker(new Locale("en_IND"));
 	String value =  faker.country().countryCode3();
 	System.out.println(value);
 	return value;
@@ -314,6 +315,8 @@ public String countryCode()
 
  public String createName()
 {
+	// Faker faker("en-IND") =  Faker("en-IND");
+	 Faker faker = new Faker(new Locale("en_IND"));
 	String name = faker.name().name();
 	System.out.println(name);
 	return name;
@@ -327,6 +330,20 @@ public static void main(String[] args) {
 	//dt.pangenerate();
 	
 
+}
+public String relatedPartyId(String bankSymbol)
+{
+		int j= faker.number().numberBetween(5, 15);
+	
+		if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	{
+		return bankSymbol+Alpha(j);
+	}
+	else {
+	
+		String d= negAlpha(j);
+	return d;
+	}
 }
 
 public String legalEntityIdentifier()
@@ -1064,6 +1081,21 @@ public String dateOfFradulentActivityClassification() {
 			 return d;
 	 	 }	 	
 	 }
+	 public String createCountryCode()
+	 {
+	 	 if(Constants.typeOfData.equalsIgnoreCase("Y"))
+	 	 {
+	 		 int code = faker.random().nextInt(Constants.CountryCode.length);
+	 		 System.out.println(Constants.CountryCode[code]);
+	 		return Constants.CountryCode[code];
+	 	 }
+	 	 else
+	 	 {
+	 		 String code1 = faker.lorem().characters(2, 4, true, true).toUpperCase();
+	 		 System.out.println(code1);
+	 		 return code1;
+	 	 }
+	 }
 	 public String creditRating()
 	 {
 	 	 int j=faker.number().numberBetween(4, 15);
@@ -1538,7 +1570,7 @@ public String negNum1()
 	System.out.println(createdata(i,true,true,false));
 	return createdata(i,true,true,false);
 }
-   public String pangenerate2()
+   public String panGeneration()
    {  String panNo;
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
@@ -1829,13 +1861,14 @@ public String genDate() {
 	return strDate;
 
 }
-public String createGstin()
+public String createGstin(String PanNo)
 {  String gNo;
+
 	   if (Constants.typeOfData.equalsIgnoreCase("Y"))
 	   {
-		   gNo =faker.regexify("[0-9]{2}[A-Z]{3}[CPHFATBLJG]{1}[A-Z]{1}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}[Z]{1}[0-9]{1}");
-		   System.out.println(gNo);
-		   return gNo;
+		   gNo =faker.regexify("[0-9]{2}[A-Z]{3}");
+		  // System.out.println(gNo);
+		   return gNo + PanNo;
 		   
 	   }
 	   else 
